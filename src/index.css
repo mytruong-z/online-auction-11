@@ -1,13 +1,145 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
+}
+
+.nav .nav-item:hover {
+  background-color: #f9d28e;
+}
+.nav .nav-item:hover a {
+  color: #f37164 !important;
+}
+.nav .nav-item.active a{
+  color: #fff!important;
+}
+.btn.bg-gradient {
+  background-image: linear-gradient(90deg, #f39186 0%, #f9d28e 100%)!important;
+  border: 0!important;
+}
+.btn-default {
+  background-image: linear-gradient(90deg, #f39186 0%, #f9d28e 100%);
+  border: 0!important;
+  box-shadow: 2px 4px 2px 1px rgba(222, 55, 24, 0.2);
+}
+.bg-pink {
+  background-color: #f39186;
+}
+.text-pink {
+  color: #f39186!important;
+}
+
+.text-light-yellow {
+  color: #f9d28e;
+}
+.banner img{
+  height: 500px;
+}
+.social {
+  font-size: 21px !important
+}
+.rights {
+  font-size: calc(10px + (12 - 10) * ((100vw - 360px) / (1600 - 360))) !important
+}
+
+.search-sec{
+  padding: 2rem;
+}
+.search-slt{
+  display: block;
+  width: 100%;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #55595c;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  height: calc(3rem + 2px) !important;
+  border-radius:0;
+}
+.wrn-btn{
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: capitalize;
+  height: calc(3rem + 2px) !important;
+  border-radius:0;
+}
+
+.bold {
+  font-weight: bold;
+}
+.room-box {
+  margin: 0 auto;
+  width: 75%;
+}
+
+.room-box-img {
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+
+.room-box-img img {
+  max-height: 500px;
+  width: auto;
+}
+.nav .hidden {
+  display: none!important;
+}
+@media (min-width: 992px){
+  .search-sec{
+    position: relative;
+    background: rgba(245, 175, 138, 0.27);
+  }
+}
+
+@media (max-width: 992px){
+  .search-sec{
+    background: #1A4668;
+  }
+}
+
+@media all and (min-width: 480px) {
+  .Login {
+    padding: 60px 0;
+  }
+
+  .Login form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+
+
+  .Login button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #f35a4c;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+  }
+  .Login button:hover,.form button:active,.form button:focus {
+    background: #f35a4c;
+  }
 }
