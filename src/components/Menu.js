@@ -31,14 +31,14 @@ function Menu () {
                     </li>
 
                     <li>
-                    <div class="cate-dropdown ">
-                      <li class="nav-link text-left cateBtn">
+                    <div className="cate-dropdown ">
+                      <li className="nav-link text-left cateBtn">
                         Danh Mục
-                        <i class="fa fa-caret-down"></i>
+                        <i className="fa fa-caret-down"/>
                       </li>
-                      <div class="cate-content">
-                        <div class="row">
-                          <div class="col-4">
+                      <div className="cate-content">
+                        <div className="row">
+                          <div className="col-4">
                             <h5>Máy Tính</h5>
                             <ul>
                               {listDMPC.length !== 0 && listDMPC.map(pc => {
@@ -52,7 +52,7 @@ function Menu () {
                               })}
                             </ul>
                           </div>
-                          <div class="col-4">
+                          <div className="col-4">
                             <h5>Điện thoại</h5>
                             <ul>
                             {listDMDT.length !== 0 && listDMDT.map(dt => {
@@ -67,14 +67,14 @@ function Menu () {
                             </ul>
                           </div>
                           
-                          <div class="col-4">
+                          <div className="col-4">
                             <img
                               src={
                                 process.env.PUBLIC_URL + "/tech.png"
                               }
                               alt="pic"
                               width="300"
-                              class="img-fluid"
+                              className="img-fluid"
                             />
                           </div>
                         </div>

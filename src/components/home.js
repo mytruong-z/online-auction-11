@@ -37,9 +37,9 @@ function Home() {
   const mapSanPham = (sp, title) => {
     return (
       <div className="container w-75">
-        <div class="d-flex p-2">
+        <div className="d-flex p-2">
           <svg
-            class="bd-placeholder-img rounded mr-5"
+            className="bd-placeholder-img rounded mr-5"
             width="20"
             height="20"
             xmlns="http://www.w3.org/2000/svg"
