@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { API_URL } from '../config/index';
+import { API_URL } from '../../config/index';
 
 function Register () {
     const [name, setName] = useState('');

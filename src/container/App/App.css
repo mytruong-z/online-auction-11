@@ -1,22 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;1,200&display=swap');
+
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.7 !important;
+  color: gray !important;
+  font-weight: 300 !important;
+  font-size: 0.9rem !important;
+  font-family: 'Montserrat', sans-serif !important;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-  monospace;
+a{  text-decoration: none !important;
 }
-
 .nav .nav-item:hover {
   background-color: #f9d28e;
 }
 .nav .nav-item:hover a {
   color: #f37164 !important;
+  text-decoration: none;
 }
 .nav .nav-item.active a{
   color: #fff!important;
@@ -142,4 +141,55 @@ code {
   .Login button:hover,.form button:active,.form button:focus {
     background: #f35a4c;
   }
+}
+
+.container li a,.cateBtn{
+  font-weight: 700;
+}
+
+.cate-dropdown {
+  float: left;
+  overflow: hidden;
+}
+.cate-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 100%;
+  left: 0;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 2;
+  font-weight: 600;
+}
+
+.cate-content h5{
+  margin-top: 15px;
+  margin-left: 20px;
+  text-transform: uppercase;
+  color: #7c7c7c;
+}
+.cate-content ul li {
+  margin-bottom: 10px;
+  list-style-type: none;
+
+}
+.cate-content ul li a{
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.cateBtn:hover  {
+  cursor: pointer;
+}
+
+.cate-dropdown:hover .cate-content {
+  display: block;
+}
+.card .card-img-top{
+  width: 18rem;
+  height: 20rem;
+}
+.slick-slide img{
+  display: inline-block;
 }

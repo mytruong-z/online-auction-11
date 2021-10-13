@@ -1,8 +1,8 @@
 import React from 'react';
-import Login from './component/login';
-import Home from './component/home';
-import Register from './component/register';
-
+import Login from './container/Auth/login';
+import Home from './components/home';
+import Register from './container/Auth/register';
+import Categories from './container/Categories/Categories'
 
 const routes = [
     {
@@ -19,6 +19,16 @@ const routes = [
         path : '/',
         exact : false,
         main : ({location}) => <Home location={location} />
+    },
+    {
+        path: '/danh-sach-san-pham',
+        exact: false,
+        main: ({location}) => <Categories location={location} />
+    },
+    {
+        path: '/danh-muc/:id/:name',
+        exact: false,
+        main: ({location}) => <Categories location={location} />
     }
 ];
 

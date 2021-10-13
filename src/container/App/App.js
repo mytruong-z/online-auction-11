@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Menu from './component/Menu';
-import Footer from './component/footer';
-import routes from './routes';
+import Menu from '../../components/Menu';
+import Footer from '../../components/footer';
+import routes from '../../routes';
 
 class App extends Component {
     render() {
