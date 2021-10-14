@@ -3,7 +3,7 @@ import Login from './container/Auth/login';
 import Home from './components/home';
 import Register from './container/Auth/register';
 import ProductList from './container/Products/ProductList'
-
+import ProductDetails from './container/Products/ProductDetails'
 ///// User 
 
 import UserDetails from './container/Users/UserDetails'
@@ -16,7 +16,6 @@ import UserLoved from './container/Users/UserLoved'
 
 
 const routes = [
-    
     {
         path : '/register',
         exact : false,
@@ -56,6 +55,11 @@ const routes = [
         path: '/nguoi-dung/lich-su-dau-gia',
         exact: false,
         main: ({location}) => <UserHistory location={location} />
+    },
+    {
+        path: '/san-pham/:name',
+        exact: false,
+        main: ({location}) => <ProductDetails location={location} />
     },
     {
         path : '/',

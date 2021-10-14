@@ -1,0 +1,65 @@
+.block__promo {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.pr-top {
+    background-color: #f6f6f6;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 8px 10px;
+}
+.pr-content .pr-item:last-child {
+    border: none;
+}
+.pr-content{
+    font-size: 10px;
+}
+.pr-content .pr-item {
+    padding: 15px 10px 10px 10px;
+}
+.divb {
+    margin-bottom: 10px;
+}
+.divb .nb {
+    background-color: #4a90e2;
+    border-radius: 50%;
+    color: #fff;
+    display: inline-block;
+    font-size: 11px;
+    float: left;
+    height: 16px;
+    line-height: 16px;
+    margin-top: 2px;
+    text-align: center;
+    width: 16px;
+}
+.pr-txtb {
+    font-weight: bold;
+}
+
+.btn-buynow {
+    background-color: #fb6e2e;
+    border-radius: 4px;
+    color: #fff;
+    display: block;
+    font-size: 15px;
+    padding: 14px 10px;
+    text-align: center;
+}
+.btn-buynow:hover{
+    color:white
+}
+.btn-ins {
+    background-color: #2f80ed;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 13px;
+    line-height: 16px;
+    padding: 7px 0;
+    text-align: center;
+    display: grid;
+}
+.block-button .btn-ins {
+    width: 49%;
+}
