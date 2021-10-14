@@ -26,11 +26,11 @@ function Menu () {
                     <a href="/"><img src="/aution_logo.png" width="100" className="p-2"/></a>
                 </div>
                 <div className="d-flex">
-                    <li className="my-li align-items-center d-grid nav-item">
+                    <li className="my-li align-items-center d-grid nav-item px-2">
                         <Link to="/" className="text-pink">Trang Chủ</Link>
                     </li>
 
-                    <li>
+                    <li className="my-li align-items-center d-grid nav-item">
                     <div className="cate-dropdown ">
                       <li className="nav-link text-left cateBtn">
                         Danh Mục
