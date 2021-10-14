@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Carousel, Card } from "react-bootstrap";
-import NumberFormat from "react-number-format";
 import Slider from "react-slick";
 import { useHistory} from 'react-router-dom';
 import axios from "axios";
-import { API_URL, CLOUDINARY_URL } from "../config";
+import { API_URL } from "../config";
 import ProductItem from "./ProductItem";
 
 function Home() {

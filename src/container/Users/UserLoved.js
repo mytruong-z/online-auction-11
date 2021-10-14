@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { API_URL } from "../../config/index";
+import React from "react";
 import { Link } from "react-router-dom";
-import { List, Divider, Avatar } from "antd";
+import { List } from "antd";
 import "antd/dist/antd.css";
 import "./user.css";
 

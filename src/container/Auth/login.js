@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { API_URL } from '../../config/index';
 
 function Login () {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [mat_khau, setPassword] = useState('');
     const history = useHistory();
 
     useEffect(() => {
@@ -16,9 +16,9 @@ function Login () {
     }, []);
 
     async function login () {
-        console.warn(email, password);
-        let item = {email, password};
-        await fetch(`${API_URL}/api/login`, {
+        console.warn(email, mat_khau);
+        let item = {email, password: mat_khau};
+        await fetch(`${API_URL}/dang-nhap`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ function Login () {
                 history.push('/');
             }
         }).catch(function (error) {
-            alert('Sai email hoặc password');
+            alert('Sai email hoặc mật khẩu');
         });
 
     }
@@ -49,6 +49,7 @@ function Login () {
     return (
         <div className="Login">
             <Form className="mt-5">
+                <h3>Đăng Nhập</h3>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
                     <Form.Control type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Nhập email"/>
@@ -60,12 +61,12 @@ function Login () {
                                   placeholder="Nhập mật khẩu"/>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Nhớ mật khẩu"/>
-                </Form.Group>
-                <Button onClick={login} variant="primary">
+                <Button className="m-b-10" onClick={login} variant="primary">
                     Đăng nhập
                 </Button>
+                <Link to="/forgotPassword" className="text-pink">
+                    Quên mật khẩu?
+                </Link>
             </Form>
         </div>
     );

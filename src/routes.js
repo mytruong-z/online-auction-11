@@ -9,6 +9,7 @@ import ProductDetails from './container/Products/ProductDetails'
 import UserDetails from './container/Users/UserDetails'
 import UserHistory from './container/Users/UserHistory'
 import UserLoved from './container/Users/UserLoved'
+import ForgotPassword from './container/Auth/forgotPassword';
 
 ///// Seller
 
@@ -25,6 +26,11 @@ const routes = [
         path : '/login',
         exact : false,
         main : ({location}) => <Login location={location} />
+    },
+    {
+        path : '/forgotPassword',
+        exact : false,
+        main : ({location}) => <ForgotPassword location={location} />
     },
     {
         path: '/danh-sach-san-pham',
