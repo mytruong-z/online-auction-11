@@ -24,22 +24,22 @@ function Menu () {
         <div className="bg-light shadow">
             <Nav defaultActiveKey="/home" as="ul" className="container justify-content-between">
                 <div className="logo">
-                    <a href="/"><img src="/NTVN-logo.png" width="70" className="p-2"/></a>
+                    <a href="/"><img src="/aution_logo.png" width="100" className="p-2"/></a>
                 </div>
                 <div className="d-flex">
-                    <li className="my-li align-items-center d-grid nav-item">
+                    <li className="my-li align-items-center d-grid nav-item px-2">
                         <Link to="/" className="text-pink">Trang Chủ</Link>
                     </li>
 
-                    <li>
-                    <div class="cate-dropdown ">
-                      <li class="nav-link text-left cateBtn">
+                    <li className="my-li align-items-center d-grid nav-item">
+                    <div className="cate-dropdown ">
+                      <li className="nav-link text-left cateBtn">
                         Danh Mục
-                        <i class="fa fa-caret-down"></i>
+                        <i className="fa fa-caret-down"/>
                       </li>
-                      <div class="cate-content">
-                        <div class="row">
-                          <div class="col-4">
+                      <div className="cate-content">
+                        <div className="row">
+                          <div className="col-4">
                             <h5>Máy Tính</h5>
                             <ul>
                               {listDMPC.length !== 0 && listDMPC.map(pc => {
@@ -53,7 +53,7 @@ function Menu () {
                               })}
                             </ul>
                           </div>
-                          <div class="col-4">
+                          <div className="col-4">
                             <h5>Điện thoại</h5>
                             <ul>
                             {listDMDT.length !== 0 && listDMDT.map(dt => {
@@ -68,14 +68,14 @@ function Menu () {
                             </ul>
                           </div>
                           
-                          <div class="col-4">
+                          <div className="col-4">
                             <img
                               src={
                                 process.env.PUBLIC_URL + "/tech.png"
                               }
                               alt="pic"
                               width="300"
-                              class="img-fluid"
+                              className="img-fluid"
                             />
                           </div>
                         </div>
