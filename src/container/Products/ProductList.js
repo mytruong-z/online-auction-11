@@ -5,7 +5,7 @@ import axios from "axios";
 import { API_URL } from "../../config";
 
 const ProductList = (props) => {
-  let { id, searchName } = useParams();
+  let { id, searchName, searchFor } = useParams();
   const [title, setTitle] = useState("");
   const [lstProduct, setLstProduct] = useState([]);
   const [page, setPage] = useState(1);
@@ -42,8 +42,61 @@ const ProductList = (props) => {
         });
       }
     }
-    else if(searchName != null) {
+    else if(searchName != null && searchFor != null)  {
+      if(searchFor === 1){
+        setTitle("Tìm Kiếm Với Tên Sản Phẩm :" + searchName)
 
+
+        if (sortPrice === false && sortDate === false) {
+          axios
+          .get(`${API_URL}/san-pham/tim-kiem?name=${searchName}&per_page=6&current_page=${page}`)
+          .then((res) => {
+            setLstProduct(res.data.products)
+            setTotalPage(res.data.last_page)
+          });
+        } else if (sortPrice === true && sortDate === false) {
+          axios
+          .get(`${API_URL}/san-pham/tim-kiem?name=${searchName}&per_page=6&current_page=${page}&orderPrice=1`)
+          .then((res) => {
+            setLstProduct(res.data.products)
+            setTotalPage(res.data.last_page)
+          });
+        } else {
+          axios
+          .get(`${API_URL}/san-pham/tim-kiem?name=${searchName}&per_page=6&current_page=${page}&orderTime=1`)
+          .then((res) => {
+            setLstProduct(res.data.products)
+            setTotalPage(res.data.last_page)
+          });
+        }
+
+      } else{
+        setTitle("Tìm Kiếm Với Tên Danh Mục :" + searchName)
+
+        if (sortPrice === false && sortDate === false) {
+          axios
+          .get(`${API_URL}/san-pham/tim-kiem?cate=${searchName}&per_page=6&current_page=${page}`)
+          .then((res) => {
+            setLstProduct(res.data.products)
+            setTotalPage(res.data.last_page)
+          });
+        } else if (sortPrice === true && sortDate === false) {
+          axios
+          .get(`${API_URL}/san-pham/tim-kiem?cate=${searchName}&per_page=6&current_page=${page}&orderPrice=1`)
+          .then((res) => {
+            setLstProduct(res.data.products)
+            setTotalPage(res.data.last_page)
+          });
+        } else {
+          axios
+          .get(`${API_URL}/san-pham/tim-kiem?cate=${searchName}&per_page=6&current_page=${page}&orderTime=1`)
+          .then((res) => {
+            setLstProduct(res.data.products)
+            setTotalPage(res.data.last_page)
+          });
+        }
+
+      }
     }else{
       setTitle("Xem Toàn Bộ Sản Phẩm")
       if (sortPrice === false && sortDate === false) {
@@ -117,8 +170,6 @@ const ProductList = (props) => {
       setSortDate(false)
     }
   }
-
-
 
   return (
     <>

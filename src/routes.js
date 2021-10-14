@@ -27,7 +27,7 @@ const routes = [
         main: ({location}) => <ProductList location={location} />
     },  
     {
-        path: '/tim-kiem/:searchName',
+        path: '/tim-kiem/:searchFor/:searchName',
         exact: true,
         main: ({location}) => <ProductList location={location} />
     },
