@@ -16,20 +16,21 @@ const routes = [
         main : ({location}) => <Register location={location} />
     },
     {
-        path : '/',
-        exact : false,
-        main : ({location}) => <Home location={location} />
-    },
-    {
         path: '/danh-sach-san-pham',
         exact: false,
         main: ({location}) => <Categories location={location} />
     },
     {
         path: '/danh-muc/:id/:name',
-        exact: false,
+        exact: true,
         main: ({location}) => <Categories location={location} />
+    },  
+    {
+        path : '/',
+        exact : false,
+        main : ({location}) => <Home location={location} />
     }
+
 ];
 
 export default routes;

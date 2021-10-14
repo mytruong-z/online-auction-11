@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, Route, Switch} from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 import axios from 'axios'
+import {pathSplitting} from '../utils/pathSplit'
 import {API_URL} from '../config'
 //@LoanNgo, You can rely on this variable to check the login status: localStorage;
 
@@ -45,7 +46,7 @@ function Menu () {
                                   return (
                                       <>
                                             <li>
-                                                <Link to={`/danh-muc/${pc.id_danh_muc}`}>{pc.ten}</Link>
+                                            <Link to={`/danh-muc/${pc.id_danh_muc}/${pathSplitting(pc.ten)}`}>{pc.ten}</Link>
                                             </li>
                                       </>
                                   )
@@ -59,7 +60,7 @@ function Menu () {
                                   return (
                                       <>
                                             <li>
-                                                <Link to={`/danh-muc/${dt.id_danh_muc}`}>{dt.ten}</Link>
+                                                <Link to={`/danh-muc/${dt.id_danh_muc}/${pathSplitting(dt.ten)}`}>{dt.ten}</Link>
                                             </li>
                                       </>
                                   )
