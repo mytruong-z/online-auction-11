@@ -4,6 +4,17 @@ import Home from './components/home';
 import Register from './container/Auth/register';
 import ProductList from './container/Products/ProductList'
 
+///// User 
+
+import UserDetails from './container/Users/UserDetails'
+import UserHistory from './container/Users/UserHistory'
+import UserLoved from './container/Users/UserLoved'
+
+///// Seller
+
+
+
+
 const routes = [
     
     {
@@ -30,6 +41,21 @@ const routes = [
         path: '/tim-kiem/:searchFor/:searchName',
         exact: true,
         main: ({location}) => <ProductList location={location} />
+    },
+    {
+        path: '/nguoi-dung/thong-tin',
+        exact: false,
+        main: ({location}) => <UserDetails location={location} />
+    },
+    {
+        path: '/nguoi-dung/yeu-thich',
+        exact: false,
+        main: ({location}) => <UserLoved location={location} />
+    },
+    {
+        path: '/nguoi-dung/lich-su-dau-gia',
+        exact: false,
+        main: ({location}) => <UserHistory location={location} />
     },
     {
         path : '/',
