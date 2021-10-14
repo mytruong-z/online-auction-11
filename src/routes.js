@@ -2,29 +2,35 @@ import React from 'react';
 import Login from './container/Auth/login';
 import Home from './components/home';
 import Register from './container/Auth/register';
-import Categories from './container/Categories/Categories'
+import ProductList from './container/Products/ProductList'
 
 const routes = [
-    {
-        path : '/login',
-        exact : false,
-        main : ({location}) => <Login location={location} />
-    },
+    
     {
         path : '/register',
         exact : false,
         main : ({location}) => <Register location={location} />
     },
     {
+        path : '/login',
+        exact : false,
+        main : ({location}) => <Login location={location} />
+    },
+    {
         path: '/danh-sach-san-pham',
         exact: false,
-        main: ({location}) => <Categories location={location} />
+        main: ({location}) => <ProductList location={location} />
     },
     {
         path: '/danh-muc/:id/:name',
         exact: true,
-        main: ({location}) => <Categories location={location} />
+        main: ({location}) => <ProductList location={location} />
     },  
+    {
+        path: '/tim-kiem/:searchName',
+        exact: true,
+        main: ({location}) => <ProductList location={location} />
+    },
     {
         path : '/',
         exact : false,

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Route, Switch} from 'react-router-dom';
+import { Link, Route, Switch, useHistory} from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 import axios from 'axios'
 import {pathSplitting} from '../utils/pathSplit'
 import {API_URL} from '../config'
 //@LoanNgo, You can rely on this variable to check the login status: localStorage;
 
-function Menu () {
+const Menu = () => {
     
     const [listDMPC, setListDMPC] = useState([]);
     const [listDMDT, setListDMDT] = useState([]);
-
+    const history = useHistory();
    
     useEffect(() => {
         axios.get(`${API_URL}/danh-muc/danh-sach-danh-muc-theo-cap?cap=0`)
@@ -24,7 +24,7 @@ function Menu () {
         <div className="bg-light shadow">
             <Nav defaultActiveKey="/home" as="ul" className="container justify-content-between">
                 <div className="logo">
-                    <a href="/"><img src="/aution_logo.png" width="100" className="p-2"/></a>
+                    <a href="/"><img src="/aution_logo.png" width="100" className="p-2" alt="logo"/></a>
                 </div>
                 <div className="d-flex">
                     <li className="my-li align-items-center d-grid nav-item px-2">
@@ -33,7 +33,7 @@ function Menu () {
 
                     <li className="my-li align-items-center d-grid nav-item">
                     <div className="cate-dropdown ">
-                      <li className="nav-link text-left cateBtn">
+                      <li className="nav-link text-left cateBtn" onClick={e => history.push("/danh-sach-san-pham")}>
                         Danh Mục
                         <i className="fa fa-caret-down"/>
                       </li>

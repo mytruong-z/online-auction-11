@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../config";
 
-const Categories = (props) => {
-  let { id } = useParams();
+const ProductList = (props) => {
+  let { id, searchName } = useParams();
   const [title, setTitle] = useState("");
   const [lstProduct, setLstProduct] = useState([]);
   const [page, setPage] = useState(1);
@@ -14,32 +14,64 @@ const Categories = (props) => {
   const [totalPage, setTotalPage] = useState(0);
 
   useEffect(() => {
-    axios
-      .get(`${API_URL}/danh-muc/tim-danh-muc?danh_muc=${id}`)
-      .then((res) => setTitle(res.data.ten));
-    if (sortPrice === false && sortDate === false) {
+
+    if(id != null){
       axios
-      .get(`${API_URL}/danh-muc/danh-sach-san-pham?per_page=8&current_page=${page}&cate=${id}`)
-      .then((res) => {
-        setLstProduct(res.data.products)
-        setTotalPage(res.data.last_page)
-      });
-    } else if (sortPrice === true && sortDate === false) {
-      axios
-      .get(`${API_URL}/danh-muc/danh-sach-san-pham?per_page=8&current_page=${page}&cate=${id}&orderPrice=1`)
-      .then((res) => {
-        setLstProduct(res.data.products)
-        setTotalPage(res.data.last_page)
-      });
-    } else {
-      axios
-      .get(`${API_URL}/danh-muc/danh-sach-san-pham?per_page=8&current_page=${page}&cate=${id}&orderTime=1`)
-      .then((res) => {
-        setLstProduct(res.data.products)
-        setTotalPage(res.data.last_page)
-      });
+        .get(`${API_URL}/danh-muc/tim-danh-muc?danh_muc=${id}`)
+        .then((res) => setTitle(res.data.ten));
+      if (sortPrice === false && sortDate === false) {
+        axios
+        .get(`${API_URL}/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}&cate=${id}`)
+        .then((res) => {
+          setLstProduct(res.data.products)
+          setTotalPage(res.data.last_page)
+        });
+      } else if (sortPrice === true && sortDate === false) {
+        axios
+        .get(`${API_URL}/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}&cate=${id}&orderPrice=1`)
+        .then((res) => {
+          setLstProduct(res.data.products)
+          setTotalPage(res.data.last_page)
+        });
+      } else {
+        axios
+        .get(`${API_URL}/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}&cate=${id}&orderTime=1`)
+        .then((res) => {
+          setLstProduct(res.data.products)
+          setTotalPage(res.data.last_page)
+        });
+      }
     }
-  }, [id, page, sortPrice, sortDate]);
+    else if(searchName != null) {
+
+    }else{
+      setTitle("Xem Toàn Bộ Sản Phẩm")
+      if (sortPrice === false && sortDate === false) {
+        axios
+          .get(`${API_URL}/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}`)
+          .then((res) => {
+            setLstProduct(res.data.products)
+            setTotalPage(res.data.last_page)
+          });
+      }
+      else if (sortPrice === true && sortDate === false) {
+        axios
+        .get(`${API_URL}/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}&orderPrice=1`)
+        .then((res) => {
+          setLstProduct(res.data.products)
+          setTotalPage(res.data.last_page)
+        });
+      } else {
+        axios
+        .get(`${API_URL}/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}&orderTime=1`)
+        .then((res) => {
+          setLstProduct(res.data.products)
+          setTotalPage(res.data.last_page)
+        });
+      }
+    }
+
+  }, [id, page, sortPrice, sortDate, searchName]);
 
   const mapPage = totalPage => {
     var indents = [];
@@ -48,7 +80,7 @@ const Categories = (props) => {
           let active = '';
           if(i === page) active = 'active'
           indents.push(<li className={`page-item ${active}`}>
-          <Link class="page-link">
+          <Link class="page-link" onClick={e => {e.preventDefault(); setPage(i) }}>
             {i}
           </Link>
         </li>);
@@ -60,6 +92,8 @@ const Categories = (props) => {
     e.preventDefault();
     let curr = page + 1;
     setPage(curr);
+
+    
   }
 
   const handlePreviousPage = e => {
@@ -69,7 +103,9 @@ const Categories = (props) => {
   }
 
   const handleSelectChange = e => {
+
     let value = e.target.value;
+    value = parseInt(value)
     if(value === 1) {
       setSortPrice(false)
       setSortDate(true)
@@ -151,4 +187,4 @@ const Categories = (props) => {
     </>
   );
 };
-export default Categories;
+export default ProductList;

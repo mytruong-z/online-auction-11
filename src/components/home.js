@@ -73,7 +73,7 @@ function Home() {
     return (
         <>
             <div className="text-center">
-              <img src="/images/aution_banner.png"/>
+              <img src="/images/aution_banner.png" alt="banner"/>
             </div>
             <section className="search-sec">
                 <div className="container">
