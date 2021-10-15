@@ -22,15 +22,15 @@ function Home() {
   };
   useEffect(() => {
     axios
-      .get(`${API_URL}/san-pham/5-san-pham-gia-cao-nhat`)
+      .get(`${API_URL}/api/san-pham/5-san-pham-gia-cao-nhat`)
       .then((res) => setSPCaoDenThap(res.data));
 
     axios
-      .get(`${API_URL}/san-pham/5-san-pham-gan-ket-thuc`)
+      .get(`${API_URL}/api/san-pham/5-san-pham-gan-ket-thuc`)
       .then((res) => setSPSapKetThuc(res.data));
 
     axios
-      .get(`${API_URL}/san-pham/5-san-pham-nhieu-luot-ra-gia`)
+      .get(`${API_URL}/api/san-pham/5-san-pham-nhieu-luot-ra-gia`)
       .then((res) => setSPNhieuRaGia(res.data));
   }, []);
 

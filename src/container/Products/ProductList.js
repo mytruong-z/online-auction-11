@@ -17,25 +17,25 @@ const ProductList = (props) => {
 
     if(id != null){
       axios
-        .get(`${API_URL}/danh-muc/tim-danh-muc?danh_muc=${id}`)
+        .get(`${API_URL}/api/danh-muc/tim-danh-muc?danh_muc=${id}`)
         .then((res) => setTitle(res.data.ten));
       if (sortPrice === false && sortDate === false) {
         axios
-        .get(`${API_URL}/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}&cate=${id}`)
+        .get(`${API_URL}/api/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}&cate=${id}`)
         .then((res) => {
           setLstProduct(res.data.products)
           setTotalPage(res.data.last_page)
         });
       } else if (sortPrice === true && sortDate === false) {
         axios
-        .get(`${API_URL}/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}&cate=${id}&orderPrice=1`)
+        .get(`${API_URL}/api/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}&cate=${id}&orderPrice=1`)
         .then((res) => {
           setLstProduct(res.data.products)
           setTotalPage(res.data.last_page)
         });
       } else {
         axios
-        .get(`${API_URL}/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}&cate=${id}&orderTime=1`)
+        .get(`${API_URL}/api/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}&cate=${id}&orderTime=1`)
         .then((res) => {
           setLstProduct(res.data.products)
           setTotalPage(res.data.last_page)
@@ -49,21 +49,21 @@ const ProductList = (props) => {
 
         if (sortPrice === false && sortDate === false) {
           axios
-          .get(`${API_URL}/san-pham/tim-kiem?name=${searchName}&per_page=6&current_page=${page}`)
+          .get(`${API_URL}/api/san-pham/tim-kiem?name=${searchName}&per_page=6&current_page=${page}`)
           .then((res) => {
             setLstProduct(res.data.products)
             setTotalPage(res.data.last_page)
           });
         } else if (sortPrice === true && sortDate === false) {
           axios
-          .get(`${API_URL}/san-pham/tim-kiem?name=${searchName}&per_page=6&current_page=${page}&orderPrice=1`)
+          .get(`${API_URL}/api/san-pham/tim-kiem?name=${searchName}&per_page=6&current_page=${page}&orderPrice=1`)
           .then((res) => {
             setLstProduct(res.data.products)
             setTotalPage(res.data.last_page)
           });
         } else {
           axios
-          .get(`${API_URL}/san-pham/tim-kiem?name=${searchName}&per_page=6&current_page=${page}&orderTime=1`)
+          .get(`${API_URL}/api/san-pham/tim-kiem?name=${searchName}&per_page=6&current_page=${page}&orderTime=1`)
           .then((res) => {
             setLstProduct(res.data.products)
             setTotalPage(res.data.last_page)
@@ -75,21 +75,21 @@ const ProductList = (props) => {
 
         if (sortPrice === false && sortDate === false) {
           axios
-          .get(`${API_URL}/san-pham/tim-kiem?cate=${searchName}&per_page=6&current_page=${page}`)
+          .get(`${API_URL}/api/san-pham/tim-kiem?cate=${searchName}&per_page=6&current_page=${page}`)
           .then((res) => {
             setLstProduct(res.data.products)
             setTotalPage(res.data.last_page)
           });
         } else if (sortPrice === true && sortDate === false) {
           axios
-          .get(`${API_URL}/san-pham/tim-kiem?cate=${searchName}&per_page=6&current_page=${page}&orderPrice=1`)
+          .get(`${API_URL}/api/san-pham/tim-kiem?cate=${searchName}&per_page=6&current_page=${page}&orderPrice=1`)
           .then((res) => {
             setLstProduct(res.data.products)
             setTotalPage(res.data.last_page)
           });
         } else {
           axios
-          .get(`${API_URL}/san-pham/tim-kiem?cate=${searchName}&per_page=6&current_page=${page}&orderTime=1`)
+          .get(`${API_URL}/api/san-pham/tim-kiem?cate=${searchName}&per_page=6&current_page=${page}&orderTime=1`)
           .then((res) => {
             setLstProduct(res.data.products)
             setTotalPage(res.data.last_page)
@@ -101,7 +101,7 @@ const ProductList = (props) => {
       setTitle("Xem Toàn Bộ Sản Phẩm")
       if (sortPrice === false && sortDate === false) {
         axios
-          .get(`${API_URL}/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}`)
+          .get(`${API_URL}/api/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}`)
           .then((res) => {
             setLstProduct(res.data.products)
             setTotalPage(res.data.last_page)
@@ -109,14 +109,14 @@ const ProductList = (props) => {
       }
       else if (sortPrice === true && sortDate === false) {
         axios
-        .get(`${API_URL}/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}&orderPrice=1`)
+        .get(`${API_URL}/api/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}&orderPrice=1`)
         .then((res) => {
           setLstProduct(res.data.products)
           setTotalPage(res.data.last_page)
         });
       } else {
         axios
-        .get(`${API_URL}/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}&orderTime=1`)
+        .get(`${API_URL}/api/danh-muc/danh-sach-san-pham?per_page=6&current_page=${page}&orderTime=1`)
         .then((res) => {
           setLstProduct(res.data.products)
           setTotalPage(res.data.last_page)

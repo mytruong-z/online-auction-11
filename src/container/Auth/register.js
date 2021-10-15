@@ -9,7 +9,7 @@ function Register () {
     const [dia_chi, setDiaChi] = useState('');
     const [email, setEmail] = useState('');
     const [mat_khau, setMatKhau] = useState('');
-    const [isShowCode, setShowCode] = useState(true);
+    const [isShowCode, setShowCode] = useState(false);
     const [otp, setCode] = useState('');
 
     const recaptchaRef = React.createRef();

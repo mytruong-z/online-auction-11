@@ -1,6 +1,8 @@
+import { useState } from "react";
 import ImageSlider from "./ImageSlider";
 import "./product.css";
 const ProductDetails = (props) => {
+  const [loveStyle, setLoveStyle] = useState(`gray`)
   const imgs = [
     {
       name: "iphone-12-pro-max100dd7f1-973a-4640-9c8d-d66e93ee3c8e.png"
@@ -9,11 +11,17 @@ const ProductDetails = (props) => {
       name: "iphone-12-pro-max100dd7f1-973a-4640-9c8d-d66e93ee3c8e.png"
     }
   ];
+  const handleLove = e => {
+    e.preventDefault();
+    if(loveStyle === `gray`) setLoveStyle(`red`)
+    else setLoveStyle(`gray`)
+  }
+
   return (
     <div class="container">
     <div class="section-title m-4">
         <span class="caption d-block small">Thông Tin Sản Phẩm</span>
-        <h1>Điện Thoại IPhone 12 Promax</h1>
+        <h1>Điện Thoại IPhone 12 Promax <i class="fa fa-heart" style={{ color: `${loveStyle}` }} onClick={e => handleLove(e)} aria-hidden="true"></i></h1>
         <span class="caption d-block small">Danh Mục: <a href="#">Điện Thoại IPhone</a> </span>
       </div>
       <div className="rom-box">

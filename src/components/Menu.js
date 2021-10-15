@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Route, Switch, useHistory } from 'react-router-dom';
+import { Link, Route, Switch, useHistory, useLocation  } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 import axios from 'axios';
 import { pathSplitting } from '../utils/pathSplit';
 import { API_URL } from '../config';
 //@LoanNgo, You can rely on this variable to check the login status: localStorage;
 
-const Menu = () => {
+const Menu = (props) => {
     const [listDMPC, setListDMPC] = useState([]);
     const [listDMDT, setListDMDT] = useState([]);
+    const [userLogin, setUserLogin] = useState(null);
     const history = useHistory();
-
+    const location = useLocation();
     useEffect(() => {
         axios
-            .get(`${API_URL}/danh-muc/danh-sach-danh-muc-theo-cap?cap=0`)
+            .get(`${API_URL}/api/danh-muc/danh-sach-danh-muc-theo-cap?cap=0`)
             .then((res) => setListDMDT(res.data));
 
         axios
-            .get(`${API_URL}/danh-muc/danh-sach-danh-muc-theo-cap?cap=1`)
+            .get(`${API_URL}/api/danh-muc/danh-sach-danh-muc-theo-cap?cap=1`)
             .then((res) => setListDMPC(res.data));
-    }, []);
+
+        if(userLogin == null){
+            if(localStorage.getItem("user") != null ) {
+                
+                setUserLogin(JSON.parse(localStorage.getItem("user")))
+            }
+        }
+    }, [userLogin, localStorage.user]);
     return (
         <div className="bg-light shadow">
             <Nav
@@ -38,25 +46,14 @@ const Menu = () => {
                     </a>
                 </div>
                 <div className="d-flex">
+
                     <li className="my-li align-items-center d-grid nav-item px-2">
                         <Link to="/" className="text-pink">
                             Trang Chủ
                         </Link>
                     </li>
-
-                    <li className="my-li align-items-center d-grid nav-item px-2">
-                        <Link to="/register" className="text-pink">
-                            Đăng Ký
-                        </Link>
-                    </li>
-
-                    <li className="my-li align-items-center d-grid nav-item px-2">
-                        <Link to="/login" className="text-pink">
-                            Đăng Nhập
-                        </Link>
-                    </li>
-
-                    <li className="my-li align-items-center d-grid nav-item">
+                    
+                     <li className="my-li align-items-center d-grid nav-item">
                         <div className="cate-dropdown ">
                             <li
                                 className="nav-link text-left cateBtn"
@@ -122,6 +119,12 @@ const Menu = () => {
                             </div>
                         </div>
                     </li>
+                    
+                   
+                    { (userLogin )?
+                    <><li className="my-li align-items-center d-grid nav-item px-2">
+                        <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    </li>
                     <li>
                         <div class="dropdown show">
                             <div
@@ -130,14 +133,12 @@ const Menu = () => {
                                 id="dropdownMenuLink"
                                 data-toggle="dropdown"
                                 aria-haspopup="true"
-                                aria-expanded="false"
-                            >
+                                aria-expanded="false">
                                 <img
                                     src="/user.png"
                                     alt="accountIMG"
                                     class="rounded-circle"
-                                    width="40"
-                                />
+                                    width="40" />
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <Link class="dropdown-item" to="/nguoi-dung/thong-tin">
@@ -150,21 +151,41 @@ const Menu = () => {
                                     <i class="fa fa-paper-plane" aria-hidden="true"></i> Lịch Sử
                                     đấu giá
                                 </Link>
-                                {/* <Link class="dropdown-item">
-                  <i class="fa fa-lock" aria-hidden="true"></i> Thay Đổi Mật
-                  Khẩu
-                </Link>
-                <Link class="dropdown-item">
-                  <i class="fa fa-exclamation-triangle"></i> Phản Hồi Lỗi
-                </Link> */}
+                                
+                                { userLogin.user.id_quyen_han === 2 ? <><Link class="dropdown-item" to="/nguoi-ban/danh-sach-chap-thuan">
+                                    <i class="fa fa-list" aria-hidden="true"></i> Danh Sách Chấp Thuận
+                                </Link>
+                                <Link class="dropdown-item" to="/nguoi-ban/don-hang">
+                                    <i class="fa fa-paragraph" aria-hidden="true"></i> Quản Lí Đơn Hàng
+                                </Link>
+                                </> : '' }
+                                <Link class="dropdown-item" to="/nguoi-dung/doi-mat-khau">
+                                    <i class="fa fa-unlock" aria-hidden="true"></i> Đổi Mật Khẩu
+                                </Link>
                                 <div class="dropdown-divider"></div>
-                                <Link class="dropdown-item text-danger">
+                                <Link class="dropdown-item text-danger" onClick={e => {
+                                    e.preventDefault();
+                                    setUserLogin(null)
+                                    localStorage.removeItem("user");
+                                    history.push('/')
+                                }}>
                                     <i class="fa fa-sign-out" aria-hidden="true"></i>
                                     Đăng Xuất
                                 </Link>
                             </div>
                         </div>
-                    </li>
+                    </li></> : <> <li className="my-li align-items-center d-grid nav-item px-2">
+                        <Link to="/login" className="text-pink">
+                            Đăng Nhập
+                        </Link>
+                    </li>  <li className="my-li align-items-center d-grid nav-item px-2">
+                        <Link to="/register" className="text-pink">
+                            Đăng Ký
+                        </Link>
+                    </li> </> }
+                   
+
+                   
                 </div>
             </Nav>
         </div>

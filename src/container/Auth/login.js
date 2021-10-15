@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory  } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { API_URL } from '../../config/index';
@@ -16,8 +16,8 @@ function Login () {
     }, []);
 
     async function login () {
-        console.warn(email, mat_khau);
-        let item = {email, password: mat_khau};
+
+        let item = {email, mat_khau: mat_khau};
         await fetch(`${API_URL}/dang-nhap`, {
             method: 'POST',
             headers: {
@@ -37,8 +37,11 @@ function Login () {
             }
             else {
                 localStorage.setItem('user', JSON.stringify(result));
-                console.log(result);
-                history.push('/');
+                history.push({
+                    pathname: '/',
+                    search: '',
+                    state: { user: localStorage.user }
+                });
             }
         }).catch(function (error) {
             alert('Sai email hoặc mật khẩu');

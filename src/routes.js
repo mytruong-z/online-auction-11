@@ -10,10 +10,14 @@ import AdminLogin from './container/Auth/adminLogin'
 import UserDetails from './container/Users/UserDetails'
 import UserHistory from './container/Users/UserHistory'
 import UserLoved from './container/Users/UserLoved'
+import UserChangePassword from './container/Users/UserChangePassword'
 import ForgotPassword from './container/Auth/forgotPassword';
+import UserUpdateInfo from './container/Users/UserUpdateInfo'
 
 ///// Seller
+import UserAcceptList from './container/Seller/UserAcceptList'
 
+import Order from './container/Seller/Order'
 
 
 
@@ -68,6 +72,26 @@ const routes = [
         path: '/nguoi-dung/lich-su-dau-gia',
         exact: false,
         main: ({location}) => <UserHistory location={location} />
+    },
+    {
+        path: '/nguoi-dung/doi-mat-khau',
+        exact: false,
+        main: ({location}) => <UserChangePassword location={location} />
+    },
+    {
+        path: '/nguoi-dung/cap-nhat-thong-tin',
+        exact: false,
+        main: ({location}) => <UserUpdateInfo location={location} />
+    },
+    {
+        path: '/nguoi-ban/danh-sach-chap-thuan',
+        exact: false,
+        main: ({location}) => <UserAcceptList location={location} />
+    },
+    {
+        path: '/nguoi-ban/don-hang',
+        exact: false,
+        main: ({location}) => <Order location={location} />
     },
     {
         path: '/san-pham/:name',

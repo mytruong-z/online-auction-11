@@ -1,6 +1,7 @@
 import { CLOUDINARY_URL } from "../config";
 import { Card } from "react-bootstrap";
 import NumberFormat from "react-number-format";
+import {Link} from 'react-router-dom'
 
 const ProductItem = (props) => {
   const { i, item, img } = props;
@@ -45,12 +46,12 @@ const ProductItem = (props) => {
               ""
             )}
           </Card.Text>
-          <a
-            href={`/san-pham/${item.path}`}
+          <Link
+            to={`/san-pham/${item.path}`}
             className="cs-btn-detail btn btn-default text-white"
           >
             Chi tiết
-          </a>
+          </Link>
         </Card.Body>
       </Card>
     </div>
