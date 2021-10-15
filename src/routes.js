@@ -4,7 +4,8 @@ import Home from './components/home';
 import Register from './container/Auth/register';
 import ProductList from './container/Products/ProductList'
 import ProductDetails from './container/Products/ProductDetails'
-///// User 
+import AdminLogin from './container/Auth/adminLogin'
+///// User
 
 import UserDetails from './container/Users/UserDetails'
 import UserHistory from './container/Users/UserHistory'
@@ -17,6 +18,12 @@ import ForgotPassword from './container/Auth/forgotPassword';
 
 
 const routes = [
+    //Admin
+    {
+        path : '/admin/login',
+        exact : false,
+        main : ({location}) => <AdminLogin location={location} />
+    },
     {
         path : '/register',
         exact : false,
@@ -71,7 +78,9 @@ const routes = [
         path : '/',
         exact : false,
         main : ({location}) => <Home location={location} />
-    }
+    },
+
+
 
 ];
 

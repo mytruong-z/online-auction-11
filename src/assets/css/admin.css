@@ -1,0 +1,87 @@
+:root {
+    --yellow-color: #f9d28e;
+    --pink-color: #f39186;
+    --dark-pink-color: #f37164;
+}
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+#login-page {
+    height: 100vh;
+    background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0.4), rgba(245, 246, 252, 0.5)), url('https://www.aveliving.com/AVE/media/Property_Images/Florham%20Park/hero/flor-apt-living-(2)-hero.jpg?ext=.jpg');
+}
+#login-page .admin-login-form {
+    padding-top: 150px;
+}
+#login-page .user_card {
+    height: 400px;
+    width: 350px;
+    margin-top: auto;
+    margin-bottom: auto;
+    background: var(--yellow-color);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+
+}
+#login-page .brand_logo_container {
+    position: absolute;
+    height: 170px;
+    width: 170px;
+    top: -75px;
+    border-radius: 50%;
+    background: #fff;
+    padding: 10px;
+    text-align: center;
+}
+#login-page .brand_logo {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+#login-page .form_container {
+    margin-top: 30px;
+}
+#login-page .login_btn {
+    width: 100%;
+    color: white !important;
+}
+#login-page .login_btn:focus {
+    box-shadow: none !important;
+    outline: 0 !important;
+    border:1px solid var(--dark-pink-color) !important;
+}
+#login-page .login_container {
+    padding: 0 2rem;
+}
+#login-page .input-group-text {
+    background: var(--dark-pink-color) !important;
+    color: white !important;
+    height: 100%;
+    border: 0 !important;
+    border-radius: 0.25rem 0 0 0.25rem !important;
+}
+#login-page .input_user,
+#login-page .input_pass:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+#login-page .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: var(--dark-pink-color) !important;
+}
+#login-page .form-control {
+    border-color: #fff;
+}
+.w-150px {
+    width: 150px;
+}
