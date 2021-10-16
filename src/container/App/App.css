@@ -94,6 +94,12 @@ a{  text-decoration: none !important;
 .nav .hidden {
   display: none!important;
 }
+
+.Login .form-label {
+    display: block;
+    text-align: left;
+}
+
 @media (min-width: 992px){
   .search-sec{
     position: relative;
