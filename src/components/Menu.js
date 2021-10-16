@@ -12,6 +12,7 @@ const Menu = (props) => {
     const [userLogin, setUserLogin] = useState(null);
     const history = useHistory();
     const location = useLocation();
+
     useEffect(() => {
         axios
             .get(`${API_URL}/api/danh-muc/danh-sach-danh-muc-theo-cap?cap=0`)
@@ -21,9 +22,12 @@ const Menu = (props) => {
             .get(`${API_URL}/api/danh-muc/danh-sach-danh-muc-theo-cap?cap=1`)
             .then((res) => setListDMPC(res.data));
 
+        if(location.state !== undefined){
+            if(location.state.logout !== undefined) setUserLogin(null)
+        }
+
         if(userLogin == null){
-            if(localStorage.getItem("user") != null ) {
-                
+            if(localStorage.getItem("user") != null ) {              
                 setUserLogin(JSON.parse(localStorage.getItem("user")))
             }
         }

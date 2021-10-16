@@ -1,13 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { List } from "antd";
+import { Badge, Button } from 'react-bootstrap'
 import "antd/dist/antd.css";
 import "./user.css";
 
 const UserLoved = (props) => {
-  /*
-        
-    */
+  
   const data = [
     {
       id_sp: 24,
@@ -41,7 +40,12 @@ const UserLoved = (props) => {
               }
               title={<Link >{item.ten_sp}</Link>}
               description={`${item.gia_dat} USD`}
+             
             />
+
+            <Button variant="danger" pill>
+                  &times;
+            </Button>
           </List.Item>
         )}
       />

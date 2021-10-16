@@ -19,7 +19,7 @@ export default function ImageSlick(props) {
                     return (
                     <div class="row">
                         <div key={index} className="room-box-img">
-                            <Image src={`${CLOUDINARY_URL}/product/${item.name}`} class="img-responsive"/>
+                            <Image src={`${CLOUDINARY_URL}/product/${item.ten}`} className="img-responsive img-fluid"/>
                         </div>
                     </div>
                         
