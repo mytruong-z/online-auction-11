@@ -195,6 +195,15 @@ a{  text-decoration: none !important;
   display: inline-block;
 }
 
+
+/*product Details*/
+.cs-icon-heart {
+  font-size: 30px;
+  padding-left: 6px;
+  cursor: pointer;
+}
+
+
 /*pagination*/
 
 /*User Details*/

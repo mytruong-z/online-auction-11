@@ -92,7 +92,7 @@ function Home() {
                   </div>
                   <div className="col-lg-3 col-12 p-0">
                     <select className="form-control search-slt" id="province" onChange={e => setSearchFor(e.target.value)} >
-                      <option value="1" selected>Tên Sản Phâm</option>
+                      <option value="1" selected>Tên Sản Phẩm</option>
                       <option value="2">Theo Tên Danh Mục</option>
                     </select>
                   </div>

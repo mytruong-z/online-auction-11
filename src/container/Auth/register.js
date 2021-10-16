@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { API_URL, CAPTCHA_SITE_KEY } from '../../config/index';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -11,6 +12,7 @@ function Register () {
     const [mat_khau, setMatKhau] = useState('');
     const [isShowCode, setShowCode] = useState(false);
     const [otp, setCode] = useState('');
+    const history = useHistory();
 
     const recaptchaRef = React.createRef();
 
@@ -59,7 +61,7 @@ function Register () {
                 return response;
             }).then(async function (response) {
                 alert('Đăng kí thành công');
-                //history.push('/login');
+                history.push('/login');
             }).catch(function (error) {
                 alert('Sai mã OTP');
             });

@@ -15,12 +15,12 @@ class Footer extends Component {
                                 <div className="col-lg-4 col-12">
                                     <h6 className="mb-3 mb-lg-4 bold-text text-muted"><b>MENU</b></h6>
                                     <ul className="list-unstyled">
-                                        <li className="pb-1"><a href="/" className="text-decoration-none text-white">Trang
+                                        <li key={0} className="pb-1"><a href="/" className="text-decoration-none text-white">Trang
                                             Chủ</a></li>
-                                        <li className="pb-1"><a href="/login"
+                                        <li key={1} className="pb-1"><a href="/login"
                                                                 className="text-decoration-none text-white">Đăng
                                             Nhập</a></li>
-                                        <li className="pb-1"><a href="/register"
+                                        <li key={2} className="pb-1"><a href="/register"
                                                                 className="text-decoration-none text-white">Đăng ký</a>
                                         </li>
                                     </ul>

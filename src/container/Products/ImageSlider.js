@@ -17,8 +17,8 @@ export default function ImageSlick(props) {
             {
                 images.map((item, index) => {
                     return (
-                    <div class="row">
-                        <div key={index} className="room-box-img">
+                    <div key={index} className="row">
+                        <div className="room-box-img">
                             <Image src={`${CLOUDINARY_URL}/product/${item.ten}`} className="img-responsive img-fluid"/>
                         </div>
                     </div>

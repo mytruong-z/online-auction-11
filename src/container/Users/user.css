@@ -141,3 +141,7 @@ h6 {
     width: 1000px;
     margin: 0 auto;
 }
+
+.dropdown-menu.show {
+    left: -5rem !important;
+}
