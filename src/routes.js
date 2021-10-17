@@ -17,7 +17,6 @@ import UserUpdateInfo from './container/Users/UserUpdateInfo'
 import UserAcceptList from './container/Seller/UserAcceptList'
 
 //Admin
-import AdminLogin from './container/Auth/adminLogin'
 import Users from './components/Admin/Users'
 import Products from './components/Admin/Products'
 import Categories from './components/Admin/Categories'
