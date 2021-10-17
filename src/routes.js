@@ -81,8 +81,8 @@ const routes = [
         main: ({location}) => <ProductList location={location} />
     },
     {
-        path: '/nguoi-dung/thong-tin',
-        exact: false,
+        path: '/nguoi-dung/thong-tin/:idNguoiDung',
+        exact: true,
         main: ({location}) => <UserDetails location={location} />
     },
     {

@@ -29,7 +29,11 @@ const UserHistory = props => {
                 renderItem={item => 
                     <List.Item>
                         <List.Item.Meta
-                            avatar={<Avatar src={item.anh}/>}
+                            avatar={<img
+                                style={{ width: "5rem" }}
+                                src={`https://res.cloudinary.com/onlineauction/image/upload/iphone-12-pro-max100dd7f1-973a-4640-9c8d-d66e93ee3c8e.png`}
+                                alt=""
+                              />}
                             title={<Link to="">{item.ten_sp}</Link>}
                             description={`${item.gia_dat} USD`}
                         />

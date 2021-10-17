@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom'
 
 const ProductItem = (props) => {
   const { i, item, img } = props;
-
   return (
       <>
     <div key={i} className="col-lg-4 col-12 d-grid pb-5">
@@ -14,7 +13,7 @@ const ProductItem = (props) => {
         <Card.Body>
           <Card.Title>{item.ten_sp}</Card.Title>
           <Card.Text>
-            Giá:{" "}
+            Giá:
             <span className="fw-bold">
               <NumberFormat
                 value={item.gia_hien_tai}
@@ -24,11 +23,11 @@ const ProductItem = (props) => {
               (USD)
             </span>{" "}
             <br />
-            Người Bán:{" "}
+            Người Bán: <Link to={`/nguoi-dung/thong-tin/${item.nguoi_ban.id}`}>
             <span className="fw-bold">
               {item.nguoi_ban.ho_ten} (+{item.nguoi_ban.diem_duong} | -
               {item.nguoi_ban.diem_am} )
-            </span>{" "}
+            </span> </Link>
             <br />
             {item.isMoi ? (
               <>

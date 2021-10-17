@@ -32,10 +32,11 @@ const Menu = (props) => {
                 setUserLogin(JSON.parse(localStorage.getItem('user')));
             }
         }
-        if (userLogin && userLogin.user.id_quyen_han == 3) {
+        if (userLogin && userLogin.user.id_quyen_han === 3) {
             setAdminPage(true);
         }
-    }, [userLogin, localStorage.user]);
+    }, [userLogin, location.state]);
+    console.log(userLogin)
     return (
         <div className="bg-light shadow">
             <Nav
@@ -151,7 +152,7 @@ const Menu = (props) => {
                                                 width="40"/>
                                         </div>
                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <Link className="dropdown-item" to="/nguoi-dung/thong-tin">
+                                            <Link className="dropdown-item" to={`/nguoi-dung/thong-tin/${userLogin.user.id_nguoi_dung}`}>
                                                 <i className="fa fa-user"></i> T.T Bản Thân
                                             </Link>
                                             <Link className="dropdown-item" to="/nguoi-dung/yeu-thich">
@@ -160,6 +161,16 @@ const Menu = (props) => {
                                             <Link className="dropdown-item" to="/nguoi-dung/lich-su-dau-gia">
                                                 <i className="fa fa-paper-plane" aria-hidden="true"></i> Lịch Sử
                                                 đấu giá
+                                            </Link>
+
+                                            <Link className="dropdown-item" to="/nguoi-dung/lich-su-dau-gia">
+                                                 <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                                Đánh Giá Về Tôi
+                                            </Link>
+
+                                            <Link className="dropdown-item" to="/nguoi-dung/lich-su-dau-gia">
+                                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                                Nhận Xét Của Tôi
                                             </Link>
 
                                             {userLogin.user.id_quyen_han === 2 ? <><Link class="dropdown-item"
@@ -201,17 +212,17 @@ const Menu = (props) => {
                             </>}
                     </> :
                         <>
-                            <li key={0} className={`my-li align-items-center d-grid nav-item px-2 ${window.location.pathname == '/admin/users' ? 'active bg-pink' : ''}`}>
+                            <li key={0} className={`my-li align-items-center d-grid nav-item px-2 ${window.location.pathname === '/admin/users' ? 'active bg-pink' : ''}`}>
                                 <Link to="/admin/users" className="text-pink">
                                     QL Người Dùng
                                 </Link>
                             </li>
-                            <li key={1} className={`my-li align-items-center d-grid nav-item px-2 ${window.location.pathname == '/admin/products' ? 'active bg-pink' : ''}`}>
+                            <li key={1} className={`my-li align-items-center d-grid nav-item px-2 ${window.location.pathname === '/admin/products' ? 'active bg-pink' : ''}`}>
                                 <Link to="/admin/products" className="text-pink">
                                     QL Sản Phẩm
                                 </Link>
                             </li>
-                            <li key={2} className={`my-li align-items-center d-grid nav-item px-2 ${window.location.pathname == '/admin/categories' ? 'active bg-pink' : ''}`}>
+                            <li key={2} className={`my-li align-items-center d-grid nav-item px-2 ${window.location.pathname === '/admin/categories' ? 'active bg-pink' : ''}`}>
                                 <Link to="/admin/categories" className="text-pink">
                                     QL Danh Mục
                                 </Link>
