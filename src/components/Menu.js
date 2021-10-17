@@ -216,7 +216,7 @@ const Menu = (props) => {
                                     QL Danh Mục
                                 </Link>
                             </li>
-                            <li key={3} className={`my-li align-items-center d-grid nav-item px-2 ${window.location.pathname == '/admin/categories' ? 'active bg-pink' : ''}`}>
+                            <li key={3} className="my-li align-items-center d-grid nav-item px-2">
                                 <Link className="text-pink" onClick={e => {
                                     e.preventDefault();
                                     setUserLogin(null);

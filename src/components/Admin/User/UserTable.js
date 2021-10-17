@@ -152,12 +152,12 @@ function UserTable({userData}) {
                 accessor: 'email',
             },
             {
-                Header: 'Số điện thoại',
-                accessor: 'phone',
+                Header: 'Điểm',
+                accessor: 'point',
             },
             {
-                Header: 'Trạng thái',
-                accessor: 'status',
+                Header: 'Hiệu lực',
+                accessor: 'expired',
             },
             {
                 Header: 'Thao tác',

@@ -18,6 +18,7 @@ import UserAcceptList from './container/Seller/UserAcceptList'
 
 //Admin
 import Users from './components/Admin/Users'
+import User from './components/Admin/User/UserDetail'
 import Products from './components/Admin/Products'
 import Categories from './components/Admin/Categories'
 
@@ -31,6 +32,11 @@ const routes = [
         path : '/admin/users',
         exact : false,
         main : ({location}) => <Users location={location} />
+    },
+    {
+        path : '/admin/user',
+        exact : false,
+        main : ({ match, location }) => <User match={match} location={location} />
     },
     {
         path : '/admin/products',
