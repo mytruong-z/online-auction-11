@@ -207,24 +207,24 @@ const ProductDetails = (props) => {
         </div>
       )}
 
-      <div className="container w-75">
-        <div className="d-flex p-2">
-          <svg
-            className="bd-placeholder-img rounded mr-5"
-            width="20"
-            height="20"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-            role="img"
-          >
-            <rect width="100%" height="100%" fill="#007aff"></rect>
-          </svg>
-          <h5 style={{ textTransform: "uppercase" }}>
-            5 Sản Phẩm Cùng Danh Mục
-          </h5>
+        <div className="container d-flex">
+            <svg
+                className="bd-placeholder-img rounded mr-5"
+                width="20"
+                height="20"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+                role="img"
+            >
+                <rect width="100%" height="100%" fill="#007aff"></rect>
+            </svg>
+            <h5 style={{ textTransform: "uppercase" }}>
+                &nbsp;5 Sản Phẩm Cùng Danh Mục
+            </h5>
         </div>
 
+      <div className="container w-75">
         <div className="row room-items">
           <Slider {...settingSlide}>
             {namSPCungLoai.map((item, i) => {
@@ -234,7 +234,7 @@ const ProductDetails = (props) => {
                   img = item.anh;
                 }
               }
-              return <ProductItem i={i} item={item} img={img} />;
+              return <ProductItem key={i} i={i} item={item} img={img} />;
             })}
           </Slider>
         </div>

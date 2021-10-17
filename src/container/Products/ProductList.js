@@ -196,7 +196,7 @@ const ProductList = (props) => {
           >
             <rect width="100%" height="100%" fill="#007aff"></rect>
           </svg>
-          <h5 style={{ textTransform: "uppercase" }}>{title}</h5>
+          <h5 style={{ textTransform: "uppercase" }}>&nbsp;{title}</h5>
         </div>
 
         <div className="row room-items">

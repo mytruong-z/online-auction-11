@@ -11,7 +11,7 @@ function Home() {
   const [SPNhieuRaGia, setSPNhieuRaGia] = useState([]);
   const [SPSapKetThuc, setSPSapKetThuc] = useState([]);
   const [searchName, setSearchName] = useState("");
-  const [searchFor, setSearchFor] = useState(1)
+  const [searchFor, setSearchFor] = useState(1);
   const settingSlide = {
     arrows: true,
     dots: false,
@@ -49,7 +49,7 @@ function Home() {
           >
             <rect width="100%" height="100%" fill="#007aff"></rect>
           </svg>
-          <h5 style={{ textTransform: "uppercase" }}>{title}</h5>
+          <h5 style={{ textTransform: "uppercase" }}>&nbsp;{title}</h5>
         </div>
 
         <div className="row room-items">
