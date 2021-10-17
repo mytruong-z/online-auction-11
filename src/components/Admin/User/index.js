@@ -5,6 +5,7 @@ import User from "../User/UserDetail";
 const Users = (props) => {
     const {match} = props;
     const url = match.url;
+    console.log('ne:' + props);
 
     return (
         <div className="container">

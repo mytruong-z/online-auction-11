@@ -145,15 +145,11 @@ function CategoryTable({userData}) {
             },
             {
                 Header: 'Tên danh mục',
-                accessor: 'ten_danh_muc',
+                accessor: 'name',
             },
             {
-                Header: 'Số lượng sản phẩm',
-                accessor: 'so_luong_san_pham',
-            },
-            {
-                Header: 'Trạng thái',
-                accessor: 'status',
+                Header: 'Cấp danh mục',
+                accessor: 'level',
             },
             {
                 Header: 'Thao tác',

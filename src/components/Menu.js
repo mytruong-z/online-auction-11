@@ -185,7 +185,7 @@ const Menu = (props) => {
                                                 <i class="fa fa-unlock" aria-hidden="true"></i> Đổi Mật Khẩu
                                             </Link>
                                             <div className="dropdown-divider"></div>
-                                            <Link className="dropdown-item text-danger" onClick={e => {
+                                            <Link to="/" className="dropdown-item text-danger" onClick={e => {
                                                 e.preventDefault();
                                                 setUserLogin(null);
                                                 localStorage.removeItem('user');
@@ -228,7 +228,7 @@ const Menu = (props) => {
                                 </Link>
                             </li>
                             <li key={3} className="my-li align-items-center d-grid nav-item px-2">
-                                <Link className="text-pink" onClick={e => {
+                                <Link to="/" className="text-pink" onClick={e => {
                                     e.preventDefault();
                                     setUserLogin(null);
                                     localStorage.removeItem('user');

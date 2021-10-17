@@ -36,7 +36,10 @@ function Users () {
                                 "email": val.email,
                                 "point": point ? point : <Badge bg="secondary">Không khả dụng</Badge>,
                                 "expired": createDate ? createDate : <Badge bg="secondary">Không khả dụng</Badge>,
-                                "actions": <a href={`/admin/user/${val.id_nguoi_dung}`} className="btn btn-sm btn-dark">Chi tiết</a>
+                                "actions": <div>
+                                    <a href={`/admin/user/${val.id_nguoi_dung}`} className="btn btn-sm btn-dark">Chi tiết</a>
+                                    <button onClick={() => deleteUser(val.id_nguoi_dung)} className="btn btn-sm btn-danger mx-1">Delete</button>
+                                </div>
                             }
                         });
                         setData(listUsers);
@@ -55,6 +58,10 @@ function Users () {
             setLoading(false);
         }
     }, [data]);
+
+    const deleteUser = (userId) => {
+        console.log('delete:' + userId);
+    }
 
     return (
         <>

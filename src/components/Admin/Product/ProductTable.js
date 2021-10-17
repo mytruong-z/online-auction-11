@@ -145,27 +145,31 @@ function ProductTable({userData}) {
             },
             {
                 Header: 'Hình ảnh',
-                accessor: 'name',
+                accessor: 'image',
             },
             {
                 Header: 'Tên sản phẩm',
-                accessor: 'email',
+                accessor: 'name',
             },
             {
                 Header: 'Giá hiện tại',
-                accessor: 'gia_hien_tai',
+                accessor: 'price',
             },
             {
                 Header: 'Danh mục',
-                accessor: 'danh_muc',
+                accessor: 'category',
             },
             {
                 Header: 'Người bán',
-                accessor: 'nguoi_ban',
+                accessor: 'saler',
             },
             {
-                Header: 'Trạng thái',
-                accessor: 'status',
+                Header: 'Thời gian mở bán',
+                accessor: 'start_date',
+            },
+            {
+                Header: 'Thời gian kết thúc',
+                accessor: 'end_date',
             },
             {
                 Header: 'Thao tác',
