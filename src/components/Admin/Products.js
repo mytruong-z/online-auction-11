@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Badge } from 'react-bootstrap';
 import Header from './partials/header';
-import UserTable from './User/UserTable';
+import ProductTable from "./Product/ProductTable";
 
 function Users () {
     const [data, setData] = useState([]);
@@ -21,11 +21,11 @@ function Users () {
 
     return (
         <>
-            <Header title={'Quản lý người dùng'} hideSearch={true}/>
+            <Header title={'Quản lý sản phẩm'} hideSearch={true}/>
             <div className="container py-4 px-0">
-                <UserTable userData={data}/>
+                <ProductTable userData={data}/>
                 {loading ?
-                    <UserTable userData={data}/>
+                    <ProductTable userData={data}/>
                     :
                     <div>Loading...</div>
                 }

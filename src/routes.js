@@ -4,7 +4,6 @@ import Home from './components/home';
 import Register from './container/Auth/register';
 import ProductList from './container/Products/ProductList'
 import ProductDetails from './container/Products/ProductDetails'
-import AdminLogin from './container/Auth/adminLogin'
 ///// User
 
 import UserDetails from './container/Users/UserDetails'
@@ -17,6 +16,12 @@ import UserUpdateInfo from './container/Users/UserUpdateInfo'
 ///// Seller
 import UserAcceptList from './container/Seller/UserAcceptList'
 
+//Admin
+import AdminLogin from './container/Auth/adminLogin'
+import Users from './components/Admin/Users'
+import Products from './components/Admin/Products'
+import Categories from './components/Admin/Categories'
+
 import Order from './container/Seller/Order'
 
 
@@ -28,6 +33,23 @@ const routes = [
         exact : false,
         main : ({location}) => <AdminLogin location={location} />
     },
+    {
+        path : '/admin/users',
+        exact : false,
+        main : ({location}) => <Users location={location} />
+    },
+    {
+        path : '/admin/products',
+        exact : false,
+        main : ({location}) => <Products location={location} />
+    },
+    {
+        path : '/admin/categories',
+        exact : false,
+        main : ({location}) => <Categories location={location} />
+    },
+
+    //Client
     {
         path : '/register',
         exact : false,

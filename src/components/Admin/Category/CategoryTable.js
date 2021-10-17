@@ -136,9 +136,30 @@ function Table({columns, data}) {
     )
 }
 
-function BillTable({userData, column}) {
+function CategoryTable({userData}) {
     const columns = React.useMemo(
-        () => column,
+        () => [
+            {
+                Header: 'ID',
+                accessor: 'Id',
+            },
+            {
+                Header: 'Tên danh mục',
+                accessor: 'ten_danh_muc',
+            },
+            {
+                Header: 'Số lượng sản phẩm',
+                accessor: 'so_luong_san_pham',
+            },
+            {
+                Header: 'Trạng thái',
+                accessor: 'status',
+            },
+            {
+                Header: 'Thao tác',
+                accessor: 'actions',
+            },
+        ],
         []
     )
     const data = React.useMemo(() => userData,[]);
@@ -150,4 +171,4 @@ function BillTable({userData, column}) {
     )
 }
 
-export default BillTable
+export default CategoryTable

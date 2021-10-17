@@ -3,7 +3,7 @@ import React from "react";
 
 function Header({title, hideSearch = false}) {
     return (
-        <div id="admin-banner">
+        <div id="admin-banner" className="px-5">
             <div className="admin-banner p-2 pl-2 mt-4 mb-2 rounded-3 bold text-white bg-dark text-uppercase">
                 {title}
             </div>

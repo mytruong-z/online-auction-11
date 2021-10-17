@@ -10,8 +10,8 @@ html {
     height: 100%;
 }
 #login-page {
-    height: 100vh;
     background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0.4), rgba(245, 246, 252, 0.5)), url('https://www.aveliving.com/AVE/media/Property_Images/Florham%20Park/hero/flor-apt-living-(2)-hero.jpg?ext=.jpg');
+    margin-bottom: -3rem;
 }
 #login-page .admin-login-form {
     padding-top: 150px;
@@ -42,9 +42,10 @@ html {
     background: #fff;
     padding: 10px;
     text-align: center;
+    align-items: center;
+    display: flex;
 }
 #login-page .brand_logo {
-    height: 150px;
     width: 150px;
     border-radius: 50%;
     border: 2px solid white;

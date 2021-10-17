@@ -35,8 +35,8 @@ function Login(props) {
 
     return (
         <div id="login-page">
-            <div className="admin-login-form">
-                <div className="d-flex justify-content-center h-100">
+            <div className="admin-login-form pb-5">
+                <div className="d-flex justify-content-center h-100 pb-5">
                     <div className="user_card">
                         <div className="d-flex justify-content-center">
                             <div className="brand_logo_container">
