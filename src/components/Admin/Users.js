@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import { Badge } from 'react-bootstrap';
 import Header from './partials/header';
 import UserTable from './User/UserTable';
@@ -6,6 +7,7 @@ import UserTable from './User/UserTable';
 function Users () {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const history = useHistory();
 
     useEffect(async () => {
 

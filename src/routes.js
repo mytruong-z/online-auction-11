@@ -29,11 +29,6 @@ import Order from './container/Seller/Order'
 const routes = [
     //Admin
     {
-        path : '/admin/login',
-        exact : false,
-        main : ({location}) => <AdminLogin location={location} />
-    },
-    {
         path : '/admin/users',
         exact : false,
         main : ({location}) => <Users location={location} />

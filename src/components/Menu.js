@@ -32,6 +32,9 @@ const Menu = (props) => {
                 setUserLogin(JSON.parse(localStorage.getItem('user')));
             }
         }
+        if (userLogin && userLogin.user.id_quyen_han == 3) {
+            setAdminPage(true);
+        }
     }, [userLogin, localStorage.user]);
     return (
         <div className="bg-light shadow">
@@ -147,37 +150,38 @@ const Menu = (props) => {
                                                 class="rounded-circle"
                                                 width="40"/>
                                         </div>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <Link class="dropdown-item" to="/nguoi-dung/thong-tin">
-                                                <i class="fa fa-user"></i> T.T Bản Thân
+                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <Link className="dropdown-item" to="/nguoi-dung/thong-tin">
+                                                <i className="fa fa-user"></i> T.T Bản Thân
                                             </Link>
-                                            <Link class="dropdown-item" to="/nguoi-dung/yeu-thich">
-                                                <i class="fa fa-heart"></i> Danh Mục Yêu Thích
+                                            <Link className="dropdown-item" to="/nguoi-dung/yeu-thich">
+                                                <i className="fa fa-heart"></i> Danh Mục Yêu Thích
                                             </Link>
-                                            <Link class="dropdown-item" to="/nguoi-dung/lich-su-dau-gia">
-                                                <i class="fa fa-paper-plane" aria-hidden="true"></i> Lịch Sử
+                                            <Link className="dropdown-item" to="/nguoi-dung/lich-su-dau-gia">
+                                                <i className="fa fa-paper-plane" aria-hidden="true"></i> Lịch Sử
                                                 đấu giá
                                             </Link>
 
                                             {userLogin.user.id_quyen_han === 2 ? <><Link class="dropdown-item"
                                                                                          to="/nguoi-ban/danh-sach-chap-thuan">
-                                                <i class="fa fa-list" aria-hidden="true"></i> Danh Sách Chấp Thuận
+                                                <i className="fa fa-list" aria-hidden="true"></i> Danh Sách Chấp Thuận
                                             </Link>
-                                                <Link class="dropdown-item" to="/nguoi-ban/don-hang">
+                                                <Link className="dropdown-item" to="/nguoi-ban/don-hang">
                                                     <i class="fa fa-paragraph" aria-hidden="true"></i> Quản Lí Đơn Hàng
                                                 </Link>
                                             </> : ''}
-                                            <Link class="dropdown-item" to="/nguoi-dung/doi-mat-khau">
+                                            <Link className="dropdown-item" to="/nguoi-dung/doi-mat-khau">
                                                 <i class="fa fa-unlock" aria-hidden="true"></i> Đổi Mật Khẩu
                                             </Link>
-                                            <div class="dropdown-divider"></div>
-                                            <Link class="dropdown-item text-danger" onClick={e => {
+                                            <div className="dropdown-divider"></div>
+                                            <Link className="dropdown-item text-danger" onClick={e => {
                                                 e.preventDefault();
                                                 setUserLogin(null);
                                                 localStorage.removeItem('user');
                                                 history.push('/');
                                             }}>
-                                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                                <i className="fa fa-sign-out" aria-hidden="true">
+                                                </i>
                                                 Đăng Xuất
                                             </Link>
                                         </div>
@@ -212,14 +216,15 @@ const Menu = (props) => {
                                     QL Danh Mục
                                 </Link>
                             </li>
-                            <li key={2} className={`my-li align-items-center d-grid nav-item px-2 ${window.location.pathname == '/admin/categories' ? 'active bg-pink' : ''}`}>
-                                <Link class="text-pink" onClick={e => {
+                            <li key={3} className={`my-li align-items-center d-grid nav-item px-2 ${window.location.pathname == '/admin/categories' ? 'active bg-pink' : ''}`}>
+                                <Link className="text-pink" onClick={e => {
                                     e.preventDefault();
                                     setUserLogin(null);
                                     localStorage.removeItem('user');
                                     history.push('/');
                                 }}>
-                                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                    <i className="fa fa-sign-out" aria-hidden="true">
+                                    </i>
                                     Đăng Xuất
                                 </Link>
                             </li>
