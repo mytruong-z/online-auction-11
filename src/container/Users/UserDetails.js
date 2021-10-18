@@ -28,15 +28,14 @@ const UserDetails = (props) => {
   const [user, setUser] = useState(null);
   const [fullName, setFullName] = useState(null);
   const [birthDay, setBirthDay] = useState(null);
-  let [diemDuong, setDiemDuong] = useState(0)
-  let [diemAm, setDiemAm] = useState(0)
-
+  let [diemDuong, setDiemDuong] = useState(0);
+  let [diemAm, setDiemAm] = useState(0);
 
   const [token, setToken] = useState(null);
   const [isUserLogin, setIsUserLogin] = useState(false);
 
-  const [isRateUpper, setIsRateUpper] = useState(`gray`);
-  const [isRateDowner, setIsRateDowner] = useState(`gray`);
+  const [isDuong, setIsDuong] = useState(true);
+  const [nhanXet, setNhanXet] = useState("");
 
   useEffect(() => {
     let userLocal = null;
@@ -53,36 +52,36 @@ const UserDetails = (props) => {
         setUser(res.data);
         setFullName(res.data.ho_ten);
         setBirthDay(res.data.ngay_sinh);
-        setDiemAm(res.data.diem_danhgia_am)
-        setDiemDuong(res.data.diem_danhgia_duong)
+        setDiemAm(res.data.diem_danhgia_am);
+        setDiemDuong(res.data.diem_danhgia_duong);
       })
       .catch((err) => alert("Người Dùng Không Tồn Tại"));
   }, [idNguoiDung]);
 
-  const handleRateUpper = (e) => {
-    e.preventDefault();
-    if (isRateUpper === `gray`) {
-      diemDuong += 1
-      setDiemDuong(diemDuong)
-      setIsRateUpper(`blue`);
-    } else {
-      diemDuong -= 1
-      setDiemDuong(diemDuong)
-      setIsRateUpper(`gray`);
-    }
-  };
+  // const handleRateUpper = (e) => {
+  //   e.preventDefault();
+  //   if (isRateUpper === `gray`) {
+  //     diemDuong += 1
+  //     setDiemDuong(diemDuong)
+  //     setIsRateUpper(`blue`);
+  //   } else {
+  //     diemDuong -= 1
+  //     setDiemDuong(diemDuong)
+  //     setIsRateUpper(`gray`);
+  //   }
+  // };
 
-  const handleRateDowner = (e) => {
-    if (isRateDowner === `gray`) {
-        diemAm += 1
-        setDiemAm(diemAm)
-      setIsRateDowner(`blue`);
-    } else {
-        diemAm -= 1
-        setDiemAm(diemAm)
-      setIsRateDowner(`gray`);
-    }
-  };
+  // const handleRateDowner = (e) => {
+  //   if (isRateDowner === `gray`) {
+  //       diemAm += 1
+  //       setDiemAm(diemAm)
+  //     setIsRateDowner(`blue`);
+  //   } else {
+  //       diemAm -= 1
+  //       setDiemAm(diemAm)
+  //     setIsRateDowner(`gray`);
+  //   }
+  // };
 
   const handleChangeInfo = (e) => {
     e.preventDefault();
@@ -101,6 +100,55 @@ const UserDetails = (props) => {
       .catch((err) => alert("Có Gì Đó Lỗi Xảy Ra"));
   };
 
+  const handleNhanXet = (e) => {
+    e.preventDefault();
+
+    const dataSend = {
+      nhan_xet: nhanXet
+    };
+
+    console.log(token);
+
+    if (isDuong) {
+      axios
+        .post(
+          `${API_URL}/api/tai-khoan/nang-diem-danh-gia?target=${idNguoiDung}`,
+          dataSend,
+          {
+            headers: {
+              "x-access-token": token
+            }
+          }
+        )
+        .then((res) => {
+          diemDuong += 1;
+          setDiemDuong(diemDuong);
+          alert("Nhận Xét Thành Công, Đã Nâng Điểm Người Dùng");
+        })
+        .catch((err) => alert("Có Lỗi Xảy Ra, Vui Lòng Thử Lại"));
+    } else {
+      axios
+        .post(
+          `${API_URL}/api/tai-khoan/ha-diem-danh-gia?target=${idNguoiDung}`,
+          dataSend,
+          {
+            headers: {
+              "x-access-token": token
+            }
+          }
+        )
+        .then((res) => {
+          diemAm -= 1;
+          setDiemAm(diemAm);
+          alert("Nhận Xét Thành Công, Đã Hạ Điểm Người Dùng");
+        })
+        .catch((err) => {
+          console.log(err.response.data)
+          alert("Có Lỗi Xảy Ra, Vui Lòng Thử Lại")
+        });
+    }
+  };
+
   return (
     <div className="container">
       <div className="section-title m-4">
@@ -114,32 +162,8 @@ const UserDetails = (props) => {
               <div className="card user-card-full">
                 <div className="row m-l-0 m-r-0">
                   <div className="col-sm-1 user-point">
-                    {isUserLogin === true ? (
-                      ""
-                    ) : (
-                      <p>
-                        <i
-                          style={{ color: `${isRateUpper}` }}
-                          onClick={(e) => handleRateUpper(e)}
-                          class="fa fa-arrow-up"
-                          aria-hidden="true"
-                        ></i>
-                      </p>
-                    )}
                     <p>+{diemDuong}</p>
                     <p>-{diemAm}</p>
-                    {isUserLogin === true ? (
-                      ""
-                    ) : (
-                      <p>
-                        <i
-                          class="fa fa-arrow-down"
-                          style={{ color: `${isRateDowner}` }}
-                          onClick={(e) => handleRateDowner(e)}
-                          aria-hidden="true"
-                        ></i>
-                      </p>
-                    )}
                   </div>
                   <div className="col-sm-4 bg-c-lite-green user-profile">
                     <div className="card-block text-center text-white">
@@ -193,28 +217,129 @@ const UserDetails = (props) => {
                           )}
                         </div>
                       </div>
-
+                      <h5 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">
+                        Chức Năng
+                      </h5>
                       {isUserLogin === false ? (
-                        ""
+                        <>
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            data-toggle="modal"
+                            data-target="#modalNhanXet"
+                          >
+                            Ghi Nhận Xét
+                          </button>
+
+                          <div
+                            class="modal fade"
+                            id="modalNhanXet"
+                            tabindex="-1"
+                            role="dialog"
+                            aria-labelledby="modelTitleId"
+                            aria-hidden="true"
+                          >
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Thêm Nhận Xét</h5>
+                                  <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close"
+                                  >
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="form-group">
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleInputPassword1"
+                                        class="form-label"
+                                      >
+                                        Nhận Xét
+                                      </label>
+                                      <textarea
+                                        class="form-control"
+                                        onChange={(e) =>
+                                          setNhanXet(e.target.value)
+                                        }
+                                      ></textarea>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="form-label">
+                                      Cho Điểm Người Dùng
+                                    </label>
+                                    <div>
+                                      <input
+                                        type="radio"
+                                        class="btn-check form-control"
+                                        name="options-outlined"
+                                        id="success-outlined"
+                                        autocomplete="off"
+                                        checked
+                                        onClick={(e) => setIsDuong(true)}
+                                      />
+                                      <label
+                                        class="btn btn-outline-success"
+                                        style={{ marginRight: 20 }}
+                                        for="success-outlined"
+                                      >
+                                        +1 Điểm
+                                      </label>
+
+                                      <input
+                                        type="radio"
+                                        class="btn-check"
+                                        name="options-outlined"
+                                        id="danger-outlined"
+                                        autocomplete="off"
+                                        onClick={(e) => setIsDuong(false)}
+                                      />
+                                      <label
+                                        class="btn btn-outline-danger mr-2"
+                                        for="danger-outlined"
+                                      >
+                                        -1 Điểm
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-dismiss="modal"
+                                  >
+                                    Đóng
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-primary"
+                                    data-dismiss="modal"
+                                    onClick={(e) => handleNhanXet(e)}
+                                  >
+                                    Nhận Xét
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </>
                       ) : (
                         <>
-                          <h5 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">
-                            Cập Nhật Thông Tin
-                          </h5>
-
                           <div className="d-inline ">
-                            <button
-                              type="button"
-                              className="btn btn-success "
-                              data-toggle="modal"
-                              data-target="#modelId"
-                            >
+                            <button type="button" className="btn btn-success" data-toggle="modal"
+                            data-target="#modalSuaThongTin">
                               Sửa Thông Tin Cá Nhân
                             </button>
 
                             <div
                               className="modal fade"
-                              id="modelId"
+                              id="modalSuaThongTin"
                               tabIndex="-1"
                               role="dialog"
                               aria-labelledby="modelTitleId"

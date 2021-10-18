@@ -7,11 +7,15 @@ import ProductDetails from './container/Products/ProductDetails'
 ///// User
 
 import UserDetails from './container/Users/UserDetails'
-import UserHistory from './container/Users/UserHistory'
+import UserAuctionHistory from './container/Users/UserAuctionHistory'
 import UserLoved from './container/Users/UserLoved'
 import UserChangePassword from './container/Users/UserChangePassword'
 import ForgotPassword from './container/Auth/forgotPassword';
 import UserUpdateInfo from './container/Users/UserUpdateInfo'
+
+import UserRate from './container/Users/UserRate'
+import RateToUser from './container/Users/RateToUser'
+
 
 ///// Seller
 import UserAcceptList from './container/Seller/UserAcceptList'
@@ -93,7 +97,17 @@ const routes = [
     {
         path: '/nguoi-dung/lich-su-dau-gia',
         exact: false,
-        main: ({location}) => <UserHistory location={location} />
+        main: ({location}) => <UserAuctionHistory location={location} />
+    },
+    {
+        path: '/nguoi-dung/nhan-xet-cua-toi',
+        exact: false,
+        main: ({location}) => <UserRate location={location} />
+    },
+    {
+        path: '/nguoi-dung/danh-gia-ve-toi',
+        exact: false,
+        main: ({location}) => <RateToUser location={location} />
     },
     {
         path: '/nguoi-dung/doi-mat-khau',

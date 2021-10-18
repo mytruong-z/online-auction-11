@@ -69,4 +69,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-thiết kế lại api 5 sp cùng loại
+thiết kế lại phần nhận xét => thêm id người dùng
+thiết kế lại phần lịch sử đấu giá => thêm path sp

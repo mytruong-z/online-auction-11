@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { List } from "antd";
-import {  Button } from 'react-bootstrap'
+import { Button } from "react-bootstrap";
 import "antd/dist/antd.css";
 import "./user.css";
-import { API_URL } from '../../config';
-import axios from 'axios';
+import { API_URL } from "../../config";
+import axios from "axios";
 import { CLOUDINARY_URL } from "../../config/index";
 
-const UserRate = (props) => {
-  
+const RateForUser = (props) => {
   const [token, setToken] = useState("");
-  const [lstDanhGia, setLstDanhGia] = useState([])
+  const [lstDanhGia, setLstDanhGia] = useState([]);
   useEffect(() => {
     let user = null;
     if (localStorage.user) {
@@ -19,15 +18,16 @@ const UserRate = (props) => {
       setToken(user.token);
     }
 
-    axios.get(`${API_URL}/api/tai-khoan/nhan-xet-cua-toi`,{
+    axios
+      .get(`${API_URL}/api/tai-khoan/danh-gia-ve-toi`, {
         headers: {
-            "x-access-token": user.token
-          }
-    }).then(res => {
-        setLstDanhGia(res.data)
-    })
-
-  },[])
+          "x-access-token": user.token
+        }
+      })
+      .then((res) => {
+        setLstDanhGia(res.data);
+      });
+  }, []);
 
   return (
     <div className="userLoved">
@@ -43,9 +43,9 @@ const UserRate = (props) => {
         dataSource={lstDanhGia}
         renderItem={(item) => (
           <List.Item>
-            <div style={{ marginTop: 10, marginRight: 8}}>
-                    <p>+{item.nguoi_bi_danh_gia.diem_duong}</p>
-                    <p>-{item.nguoi_bi_danh_gia.diem_am}</p>
+            <div style={{ marginTop: 10, marginRight: 8 }}>
+              <p>+{item.nguoi_danh_gia.diem_duong}</p>
+              <p>-{item.nguoi_danh_gia.diem_am}</p>
             </div>
             <List.Item.Meta
               avatar={
@@ -55,13 +55,12 @@ const UserRate = (props) => {
                   alt=""
                 />
               }
-              title={<Link to={`/`} >{item.nguoi_bi_danh_gia.ho_ten}</Link>}
+              title={<Link to={`/`}>{item.nguoi_danh_gia.ho_ten}</Link>}
               description={`${item.nhan_xet}`}
-             
             />
 
-            <span  pill style={{ fontWeight: 700, fontSize: 30 }}>
-                {item.diem}
+            <span pill style={{ fontWeight: 700, fontSize: 30 }}>
+              {item.diem}
             </span>
           </List.Item>
         )}
@@ -70,4 +69,4 @@ const UserRate = (props) => {
   );
 };
 
-export default UserRate;
+export default RateForUser;

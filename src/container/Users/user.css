@@ -145,3 +145,9 @@ h6 {
 .dropdown-menu.show {
     left: -5rem !important;
 }
+.loved-section{
+    text-align: center;
+}
+.loved-section .fa{
+    font-size: 18px;
+}

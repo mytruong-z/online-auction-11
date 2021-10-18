@@ -163,12 +163,12 @@ const Menu = (props) => {
                                                 đấu giá
                                             </Link>
 
-                                            <Link className="dropdown-item" to="/nguoi-dung/lich-su-dau-gia">
+                                            <Link className="dropdown-item" to="/nguoi-dung/danh-gia-ve-toi">
                                                  <i class="fa fa-bar-chart" aria-hidden="true"></i>
                                                 Đánh Giá Về Tôi
                                             </Link>
 
-                                            <Link className="dropdown-item" to="/nguoi-dung/lich-su-dau-gia">
+                                            <Link className="dropdown-item" to="/nguoi-dung/nhan-xet-cua-toi">
                                                 <i class="fa fa-asterisk" aria-hidden="true"></i>
                                                 Nhận Xét Của Tôi
                                             </Link>
