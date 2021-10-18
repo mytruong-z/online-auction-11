@@ -26,7 +26,8 @@ import User from './components/Admin/User/UserDetail'
 import Products from './components/Admin/Products'
 import Categories from './components/Admin/Categories'
 
-import Order from './container/Seller/Order'
+import Order from './container/Seller/Order';
+import ProductControl from './container/Seller/Products';
 
 
 
@@ -93,6 +94,11 @@ const routes = [
         path: '/nguoi-dung/yeu-thich',
         exact: false,
         main: ({location}) => <UserLoved location={location} />
+    },
+    {
+        path: '/nguoi-ban/san-pham',
+        exact: false,
+        main: ({location}) => <ProductControl location={location} />
     },
     {
         path: '/nguoi-dung/lich-su-dau-gia',

@@ -173,12 +173,15 @@ const Menu = (props) => {
                                                 Nhận Xét Của Tôi
                                             </Link>
 
-                                            {userLogin.user.id_quyen_han === 2 ? <><Link class="dropdown-item"
-                                                                                         to="/nguoi-ban/danh-sach-chap-thuan">
-                                                <i className="fa fa-list" aria-hidden="true"></i> Danh Sách Chấp Thuận
-                                            </Link>
+                                            {userLogin.user.id_quyen_han === 1 ? <>
+                                                <Link class="dropdown-item" to="/nguoi-ban/danh-sach-chap-thuan">
+                                                    <i className="fa fa-list" aria-hidden="true"></i> Danh Sách Chấp Thuận
+                                                </Link>
+                                                <Link className="dropdown-item" to="/nguoi-ban/san-pham">
+                                                    <i className="fa fa-paragraph" aria-hidden="true"></i> Quản Lí Sản Phẩm
+                                                </Link>
                                                 <Link className="dropdown-item" to="/nguoi-ban/don-hang">
-                                                    <i class="fa fa-paragraph" aria-hidden="true"></i> Quản Lí Đơn Hàng
+                                                    <i className="fa fa-paragraph" aria-hidden="true"></i> Quản Lí Đơn Hàng
                                                 </Link>
                                             </> : ''}
                                             <Link className="dropdown-item" to="/nguoi-dung/doi-mat-khau">

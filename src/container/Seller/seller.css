@@ -1,0 +1,40 @@
+.text-danger {
+    color: rgba(var(--bs-danger-rgb),var(--bs-text-opacity)) !important;
+}
+
+.MuiDataGrid-columnHeaderTitle {
+    font-weight: bold !important;
+}
+
+.modal.show .modal-dialog {
+    width: 700px !important;
+    max-width: 100% !important;
+}
+
+.room-image {
+    width: 100%;
+    height: 100%;
+}
+
+.images-container {
+    display: flex;
+    justify-content: left;
+    overflow-y: scroll;
+}
+
+.room-image-detail {
+    width: 200px;
+    height: 200px;
+    margin-right: 10px;
+}
+
+.image-container {
+    position: relative;
+}
+
+.delete_image_icon {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    background-color: grey;
+}
