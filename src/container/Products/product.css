@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+.fm-clock{
+    font-family: 'Orbitron', sans-serif;
+}
+.fm-nova-sq{
+    font-family: 'Nova Square', cursive;
+}
 .block__promo {
     border: 1px solid #e0e0e0;
     border-radius: 4px;
