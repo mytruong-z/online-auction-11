@@ -59,7 +59,7 @@ const UserHistory = (props) => {
                   alt=""
                 />
               }
-              title={<Link to="">{item.ten_sp}</Link>}
+              title={<Link to={`/san-pham/${item.path}`}>{item.ten_sp}</Link>}
               description={
                 <>
                   <span class="fw-bold">Giá Đặt: </span>{" "}

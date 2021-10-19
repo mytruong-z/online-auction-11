@@ -6,15 +6,15 @@ import ProductList from './container/Products/ProductList'
 import ProductDetails from './container/Products/ProductDetails'
 ///// User
 
-import UserDetails from './container/Users/UserDetails'
+import UserDetails from './container/Users/Account/UserDetails'
 import UserAuctionHistory from './container/Users/UserAuctionHistory'
-import UserLoved from './container/Users/UserLoved'
-import UserChangePassword from './container/Users/UserChangePassword'
+import UserLoved from './container/Users/Product/UserLoved'
+import UserChangePassword from './container/Users/Account/UserChangePassword'
 import ForgotPassword from './container/Auth/forgotPassword';
-import UserUpdateInfo from './container/Users/UserUpdateInfo'
+import UserUpdateInfo from './container/Users/Account/UserUpdateInfo'
 
-import UserRate from './container/Users/UserRate'
-import RateToUser from './container/Users/RateToUser'
+import UserRate from './container/Users/Rate/UserRate'
+import RateToUser from './container/Users/Rate/RateToUser'
 
 
 ///// Seller

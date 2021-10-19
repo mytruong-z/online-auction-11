@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { List } from "antd";
-import { Button } from "react-bootstrap";
 import "antd/dist/antd.css";
-import "./user.css";
-import { API_URL } from "../../config";
+import "../user.css";
+import { API_URL } from "../../../config";
 import axios from "axios";
-import { CLOUDINARY_URL } from "../../config/index";
 
 const RateForUser = (props) => {
   const [token, setToken] = useState("");
@@ -33,11 +31,11 @@ const RateForUser = (props) => {
     <div className="userLoved">
       <div class="section-title m-4">
         <span class="caption d-block small">Trang Người Dùng</span>
-        <h2>Nhận Xét Của Tôi</h2>
+        <h2>Đánh Giá Về Tôi</h2>
       </div>
       <List
         size="large"
-        header={<div>Xem Danh Sách Nhận Xét Của Tôi</div>}
+        header={<div>Xem Đánh Giá Về Tôi</div>}
         footer={<div>Hết</div>}
         bordered
         dataSource={lstDanhGia}
@@ -55,7 +53,7 @@ const RateForUser = (props) => {
                   alt=""
                 />
               }
-              title={<Link to={`/`}>{item.nguoi_danh_gia.ho_ten}</Link>}
+              title={<Link to={`/nguoi-dung/thong-tin/${item.nguoi_danh_gia.id}`}>{item.nguoi_danh_gia.ho_ten}</Link>}
               description={`${item.nhan_xet}`}
             />
 

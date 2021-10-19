@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { useHistory } from 'react-router';
-import { API_URL } from '../../config';
+import { API_URL } from '../../../config';
 import { Link } from 'react-router-dom';
 
 const UserChangePassword = (props) => {

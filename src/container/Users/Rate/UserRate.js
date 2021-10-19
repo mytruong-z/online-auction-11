@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { List } from "antd";
 import {  Button } from 'react-bootstrap'
 import "antd/dist/antd.css";
-import "./user.css";
-import { API_URL } from '../../config';
+import "../user.css";
+import { API_URL } from '../../../config';
 import axios from 'axios';
-import { CLOUDINARY_URL } from "../../config/index";
+import { CLOUDINARY_URL } from "../../../config/index";
 
 const UserRate = (props) => {
   
@@ -55,11 +55,9 @@ const UserRate = (props) => {
                   alt=""
                 />
               }
-              title={<Link to={`/`} >{item.nguoi_bi_danh_gia.ho_ten}</Link>}
+              title={<Link to={`/nguoi-dung/thong-tin/${item.nguoi_bi_danh_gia.id}`} >{item.nguoi_bi_danh_gia.ho_ten}</Link>}
               description={`${item.nhan_xet}`}
-             
             />
-
             <span  pill style={{ fontWeight: 700, fontSize: 30 }}>
                 {item.diem}
             </span>
