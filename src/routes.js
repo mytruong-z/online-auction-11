@@ -25,6 +25,7 @@ import Users from './components/Admin/Users'
 import User from './components/Admin/User/UserDetail'
 import Products from './components/Admin/Products'
 import Categories from './components/Admin/Categories'
+import Product from "./components/Admin/Product/ProductDetail"
 
 import Order from './container/Seller/Order';
 import ProductControl from './container/Seller/Products';
@@ -47,6 +48,11 @@ const routes = [
         path : '/admin/products',
         exact : false,
         main : ({location}) => <Products location={location} />
+    },
+    {
+        path : '/admin/product',
+        exact : false,
+        main : ({ match, location }) => <Product match={match} location={location} />
     },
     {
         path : '/admin/categories',
