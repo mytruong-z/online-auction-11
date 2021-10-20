@@ -34,6 +34,9 @@ const ProductDetails = (props) => {
   const [namSPCungLoai, setNamSanPhamCungLoai] = useState([]);
   let [miliEndDate, setMiliEndDate] = useState(0);
 
+  let [giaHienTai, setGiaHienTai] = useState(0)
+  let [giaDat, setGiaDat] = useState(0)
+
   const history = useHistory();
 
   const settingSlide = {
@@ -63,7 +66,8 @@ const ProductDetails = (props) => {
       setProduct(res.data);
       setMoTa(res.data.mo_ta);
       setIdSP(res.data.id_sp);
-    
+      setGiaHienTai(res.data.gia_hien_tai)
+
       var date1 = moment(res.data.end_date);
       var date2 = moment(Date.now());
       var diff = date1.diff(date2);
@@ -105,6 +109,7 @@ const ProductDetails = (props) => {
     alert("Đấu Giá Đã Kết Thúc, Sản phẩm sẽ bị khóa");
     history.push("/");
   };
+  
   const [lstLichSu, setLstLichSu] = useState([]);
   const handleXemLichSu = (e) => {
     axios.get(`${API_URL}/api/dau-gia/lich-su?san_pham=${idSP}`).then((res) => {
@@ -156,6 +161,21 @@ const ProductDetails = (props) => {
   const handleChangeMoTa = (e) => {
     e.preventDefault();
     mota = mota + " " + motaMoi;
+
+    const sendData = {
+      id_sp: idSP,
+      mo_ta_moi: mota
+    }
+
+    axios.patch(`${API_URL}/api/nguoi-ban/sua-san-pham`,sendData,{
+      headers: {
+        "x-access-token": token
+      }
+    }).then(res => {
+      alert('Cập Nhật Mô tả hoàn tất')
+    }).catch(err => {
+      alert('Có Lỗi Xảy Ra, Vui Lòng Thử Lại Sau')
+    })
     setMoTa(mota);
   };
 
@@ -205,6 +225,89 @@ const ProductDetails = (props) => {
       ]
     });
   };
+
+  const handleDauGia = e => {
+    e.preventDefault()
+    const sendData = {
+      id_sp: idSP,
+      gia_dat: giaDat
+    }
+    axios.post(`${API_URL}/api/dau-gia/tham-gia`,sendData,{
+      headers: {
+        "x-access-token": token
+      }
+    }).then(res => {
+      let isWin = res.data.isWin
+      let messeage = res.data.messeage
+      if(isWin){
+        let gia_ht = res.data.gia_hien_tai
+        setGiaHienTai(gia_ht)
+        alert("Chúc Mừng Bạn Đã Dành Vị Trí Quán Quân")
+      }else{
+        if(messeage === "lose. need higher price"){
+          alert('Để Đấu Giá Được Sản Phẩm Này, Bạn Cần Một Mức Giá Cao Hơn')
+        }
+
+        if(messeage === "you need waiting for auction"){
+          alert("Để Lượt Đấu Giá Này Có Hiệu Lực Bạn Cần Có Sự Chấp Thuận Của Người Bán")
+        }
+      }
+    }).catch(err => {
+      switch (err.response.data.message) {
+        case "your product is expired":
+          alert("Sản Phẩm Bạn Đang Đấu Giá Đã Hết Hạn")
+          history.push("/")
+          break
+        case "your evaluate point too low":
+          alert('Điểm Đánh Giá Của Bạn Quá Thấp, Bạn Không Đủ Điểm Để Tham Gia Vào Cuộc Đấu Giá')
+          break
+
+        case "you are banned":
+          alert("Bạn Đã Bị Cấm Đấu Giá SP Này")
+          break
+
+        case "seller not auction this product":
+          alert("Người Bán Không Có Quyền Đấu Giá Sản Phẩm Này")
+          break
+
+        default:
+          alert('Có Lỗi Xảy Ra, Chúng Tôi Đang Cố Gắng Sửa')
+          break
+      }
+    })
+
+  }
+
+  const handleTuChoiRaGia = (e) => {
+    e.preventDefault();
+
+    axios.get(`${API_URL}/api/dau-gia/tu-choi-ra-gia?san_pham=${idSP}`, {
+      headers: {
+        "x-access-token": token
+      }
+    }).then(res => {
+      console.log(res.data.messeage)
+      let mess = res.data.messeage
+      if(mess === 'auction is empty') alert('Chưa Có Lượt Đấu Giá Nào Cho Sản Phẩm Này, Không Thể Từ Chối')
+      else if(mess === "top not found") alert('Không Tìm Thấy Người Cao Nhất')
+      else if(mess === "product not found") alert('Không Tìm Thấy Sản Phẩm')
+      else alert('Từ Chối Thành Công, Đã Khóa Người Đứng đầu')
+    }).catch(err => {
+      console.log(err.response.data)
+      switch (err.response.data.messeage) {
+        case 'unauthorized':
+          alert('Bạn Không Có Quyền Đối Với Sản Phẩm Này')
+          break;
+      
+        default:
+          alert('Có Lỗi Xảy Ra')
+          break;
+      }
+    })
+
+
+  }
+
 
   return (
     <>
@@ -304,13 +407,13 @@ const ProductDetails = (props) => {
                 </div>
 
                 <p className="gia-dat">
-                  Giá Hiện Tại: {product.gia_hien_tai} $
+                  Giá Hiện Tại: {giaHienTai} $
                 </p>
                 <p className="gia-goc">
                   Giá Mua Ngay: {product.gia_mua_ngay} $
                 </p>
                 <p>
-                  Giá Đặt Thấp Nhất: {product.gia_hien_tai + product.buoc_gia} $
+                  Giá Đặt Thấp Nhất: {giaHienTai + product.buoc_gia} $
                 </p>
                 <Divider />
 
@@ -386,11 +489,12 @@ const ProductDetails = (props) => {
                               <input
                                 type="text"
                                 name=""
-                                id=""
+                                value={giaDat}
+                                onChange={e => setGiaDat(e.target.value)}
                                 class="form-control"
                                 placeholder="Giá Đặt (tính bằng USD)"
                               />
-                              <button class="btn btn-primary mt-2">
+                              <button class="btn btn-primary mt-2" onClick={e => handleDauGia(e)}>
                                 Đấu Giá
                               </button>
                             </div>
@@ -503,8 +607,7 @@ const ProductDetails = (props) => {
 
                       {role !== null && role === 2 ? (
                         <div className="col-6">
-                          <a
-                            href="/tra-gop/dtdd/samsung-galaxy-z-fold3-5g-512gb?code=0131491002612"
+                          <a onClick={e => handleTuChoiRaGia(e)}
                             className="btn btn-ins pay-taichinh bg-danger "
                           >
                             TỪ CHỐI RA GIÁ
