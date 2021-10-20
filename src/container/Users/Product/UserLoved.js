@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { List } from "antd";
 import {  Button } from 'react-bootstrap'
 import "antd/dist/antd.css";
-import "./user.css";
-import { API_URL } from '../../config';
+import "../user.css";
+import { API_URL } from '../../../config';
 import axios from 'axios';
-import { CLOUDINARY_URL } from "../../config/index";
+import { CLOUDINARY_URL } from "../../../config/index";
 
 const UserLoved = (props) => {
   

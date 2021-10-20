@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+﻿# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -69,9 +69,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-api thiết kế lại phần nhận xét => thêm id người dùng
-api thiết kế lại phần lịch sử đấu giá => thêm path sp
-api phần từ chối ra giá => kiểm tra bảng đấu giá có rỗng không
+
 
 CHỦ CỬA HÀNG: roxekep817@proxiesblog.com
 Password: 12345

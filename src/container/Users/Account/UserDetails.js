@@ -1,9 +1,9 @@
-import "./user.css";
+import "../user.css";
 import React, { useState, useEffect } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import axios from "axios";
-import { selectRole } from "../../selector/roleSelector";
-import { API_URL } from "../../config";
+import { selectRole } from "../../../selector/roleSelector";
+import { API_URL } from "../../../config";
 import { Form } from "react-bootstrap";
 import "react-datetime/css/react-datetime.css";
 import Datetime from "react-datetime";
@@ -36,7 +36,7 @@ const UserDetails = (props) => {
 
   const [isDuong, setIsDuong] = useState(true);
   const [nhanXet, setNhanXet] = useState("");
-
+  let [tobeSeller , setToBeSeller] = useState(false)
   useEffect(() => {
     let userLocal = null;
     if (localStorage.user) {
@@ -44,7 +44,19 @@ const UserDetails = (props) => {
       setToken(userLocal.token);
       if (parseInt(userLocal.user.id_nguoi_dung) === parseInt(idNguoiDung))
         setIsUserLogin(true);
-    }
+    } 
+
+    axios.get(`${API_URL}/api/tai-khoan/yeu-cau-nang-cap/tim-kiem?quyen_han=2`,{
+      headers: {
+        "x-access-token": userLocal.token
+      }
+    }).then(res => {
+      if(res.data.isUpRole){
+        setToBeSeller(true)
+      }else{
+        setToBeSeller(false)
+      }
+    })
 
     axios
       .get(`${API_URL}/api/tai-khoan/details?id=${idNguoiDung}`)
@@ -58,30 +70,20 @@ const UserDetails = (props) => {
       .catch((err) => alert("Người Dùng Không Tồn Tại"));
   }, [idNguoiDung]);
 
-  // const handleRateUpper = (e) => {
-  //   e.preventDefault();
-  //   if (isRateUpper === `gray`) {
-  //     diemDuong += 1
-  //     setDiemDuong(diemDuong)
-  //     setIsRateUpper(`blue`);
-  //   } else {
-  //     diemDuong -= 1
-  //     setDiemDuong(diemDuong)
-  //     setIsRateUpper(`gray`);
-  //   }
-  // };
+  const handleToBeSeller = e => {
+    e.preventDefault()
 
-  // const handleRateDowner = (e) => {
-  //   if (isRateDowner === `gray`) {
-  //       diemAm += 1
-  //       setDiemAm(diemAm)
-  //     setIsRateDowner(`blue`);
-  //   } else {
-  //       diemAm -= 1
-  //       setDiemAm(diemAm)
-  //     setIsRateDowner(`gray`);
-  //   }
-  // };
+    axios.get(`${API_URL}/api/tai-khoan/yeu-cau-nang-cap/yeu-cau?quyen_han=2`, {
+      headers: {
+        "x-access-token": token
+      }
+    }).then(res => {
+      alert('Thành Công, Bạn Có Thể Đơi Tới 7 Ngày Để Trở thành Seller')
+      setToBeSeller(true)
+    }).catch(err => {
+      alert('Có Lỗi Xảy Ra Vui Lòng Thử Lại')
+    })
+  }
 
   const handleChangeInfo = (e) => {
     e.preventDefault();
@@ -106,8 +108,6 @@ const UserDetails = (props) => {
     const dataSend = {
       nhan_xet: nhanXet
     };
-
-    console.log(token);
 
     if (isDuong) {
       axios
@@ -143,8 +143,8 @@ const UserDetails = (props) => {
           alert("Nhận Xét Thành Công, Đã Hạ Điểm Người Dùng");
         })
         .catch((err) => {
-          console.log(err.response.data)
-          alert("Có Lỗi Xảy Ra, Vui Lòng Thử Lại")
+          console.log(err.response.data);
+          alert("Có Lỗi Xảy Ra, Vui Lòng Thử Lại");
         });
     }
   };
@@ -210,8 +210,13 @@ const UserDetails = (props) => {
                           user.id_quyen_han === 3 ||
                           isUserLogin === false ? (
                             ""
+                          ) : tobeSeller === true ? (
+                            <button className="btn btn-success mr-1">
+                              <i class="fa fa-check" aria-hidden="true"></i> Đã
+                              Gởi Yêu Cầu
+                            </button>
                           ) : (
-                            <button className="btn btn-danger mr-1">
+                            <button onClick={e => handleToBeSeller(e)} className="btn btn-danger mr-1">
                               Trở Thành Seller
                             </button>
                           )}
@@ -332,8 +337,12 @@ const UserDetails = (props) => {
                       ) : (
                         <>
                           <div className="d-inline ">
-                            <button type="button" className="btn btn-success" data-toggle="modal"
-                            data-target="#modalSuaThongTin">
+                            <button
+                              type="button"
+                              className="btn btn-success"
+                              data-toggle="modal"
+                              data-target="#modalSuaThongTin"
+                            >
                               Sửa Thông Tin Cá Nhân
                             </button>
 

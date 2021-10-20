@@ -173,7 +173,7 @@ const Menu = (props) => {
                                                 Nhận Xét Của Tôi
                                             </Link>
 
-                                            {userLogin.user.id_quyen_han === 1 ? <>
+                                            {userLogin.user.id_quyen_han === 2 ? <>
                                                 <Link class="dropdown-item" to="/nguoi-ban/danh-sach-chap-thuan">
                                                     <i className="fa fa-list" aria-hidden="true"></i> Danh Sách Chấp Thuận
                                                 </Link>

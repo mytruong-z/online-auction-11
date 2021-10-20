@@ -6,15 +6,15 @@ import ProductList from './container/Products/ProductList'
 import ProductDetails from './container/Products/ProductDetails'
 ///// User
 
-import UserDetails from './container/Users/UserDetails'
+import UserDetails from './container/Users/Account/UserDetails'
 import UserAuctionHistory from './container/Users/UserAuctionHistory'
-import UserLoved from './container/Users/UserLoved'
-import UserChangePassword from './container/Users/UserChangePassword'
+import UserLoved from './container/Users/Product/UserLoved'
+import UserChangePassword from './container/Users/Account/UserChangePassword'
 import ForgotPassword from './container/Auth/forgotPassword';
-import UserUpdateInfo from './container/Users/UserUpdateInfo'
+import UserUpdateInfo from './container/Users/Account/UserUpdateInfo'
 
-import UserRate from './container/Users/UserRate'
-import RateToUser from './container/Users/RateToUser'
+import UserRate from './container/Users/Rate/UserRate'
+import RateToUser from './container/Users/Rate/RateToUser'
 
 
 ///// Seller
@@ -25,6 +25,7 @@ import Users from './components/Admin/Users'
 import User from './components/Admin/User/UserDetail'
 import Products from './components/Admin/Products'
 import Categories from './components/Admin/Categories'
+import Product from "./components/Admin/Product/ProductDetail"
 
 import Order from './container/Seller/Order';
 import ProductControl from './container/Seller/Products';
@@ -47,6 +48,11 @@ const routes = [
         path : '/admin/products',
         exact : false,
         main : ({location}) => <Products location={location} />
+    },
+    {
+        path : '/admin/product',
+        exact : false,
+        main : ({ match, location }) => <Product match={match} location={location} />
     },
     {
         path : '/admin/categories',

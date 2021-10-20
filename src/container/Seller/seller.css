@@ -1,7 +1,10 @@
 .text-danger {
     color: rgba(var(--bs-danger-rgb),var(--bs-text-opacity)) !important;
 }
-
+.btn-action{
+    font-size: 12px;
+    margin-right: 10px;
+}
 .MuiDataGrid-columnHeaderTitle {
     font-weight: bold !important;
 }

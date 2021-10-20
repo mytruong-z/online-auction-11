@@ -4,6 +4,7 @@ import Header from './partials/header';
 import ProductTable from "./Product/ProductTable";
 import axios from "axios";
 import {API_URL, CLOUDINARY_URL} from "../../config";
+import NumberFormat from "react-number-format";
 
 function Users () {
     const [data, setData] = useState([]);
@@ -33,13 +34,13 @@ function Users () {
                                 "Id": val.id_sp,
                                 "image": <img src={imgLink} width="160"/>,
                                 "name": val.ten_sp,
-                                "price": val.gia_hien_tai,
+                                "price": <span><NumberFormat value={val.gia_hien_tai} displayType={'text'} thousandSeparator={true} /></span>,
                                 "saler": val.ho_ten,
                                 "category": val.ten_danh_muc,
                                 "start_date": createDate ? createDate : '',
                                 "end_date": endDate ? endDate : '',
                                 "actions": <div>
-                                    <a href={`/${val.id_sp}`} className="btn btn-sm btn-dark mt-1">Chi tiết</a>
+                                    <a href={`/admin/product/${val.id_sp}`} className="btn btn-sm btn-dark mt-1">Chi tiết</a>
                                     <button onClick={() => deleteProduct(val.id_sp)} className="btn btn-sm btn-danger mx-1 mt-1">Delete</button>
                                 </div>
                             }
