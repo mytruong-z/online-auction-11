@@ -5,9 +5,68 @@ import { API_URL } from "../../config";
 import { Link } from "react-router-dom";
 
 const UserAcceptList = (props) => {
-  const [data, setData] = useState([]);
+  let [data, setData] = useState([]);
   const [token, setToken] = useState(null);
   let [topDat, setTopDat] = useState(null);
+
+  
+  const removeUserFromList = id => {
+    data = data.filter(dg => dg.id_dau_gia !== id)
+    setData(data)
+  }
+
+  const handleChapNhanNguoiDung = (e, id) => {
+    e.preventDefault()
+    
+    axios.get(`${API_URL}/api/dau-gia/chap-thuan?yeu_cau=${id}`,{
+      headers: {
+        "x-access-token": token
+      }
+    }).then(res => {
+      alert('Yêu Cầu Đã Được Chấp Thuận')
+      removeUserFromList(id)
+    }).catch(err => {
+      let mess = err.response.data.messeage
+      switch (mess) {
+        case "request not found or invalid":
+          alert('Yêu Cầu Không Hợp Lệ')
+          break;
+        case "User Not Authorized":
+          alert('không Có Quyền Thực Hiện Thao Tác Này')
+          break
+        default:
+          alert('Lỗi Xảy Ra')
+          break;
+      }
+    })
+  }
+
+  const handleTuChoiNguoiDung = (e, id) => {
+    e.preventDefault()
+
+    axios.get(`${API_URL}/api/dau-gia/huy-bo?yeu_cau=${id}`,{
+      headers: {
+        "x-access-token": token
+      }
+    }).then(res => {
+      alert('Yêu Cầu Đã Bị Từ Chối')
+      removeUserFromList(id)
+    }).catch(err => {
+      let mess = err.response.data.messeage
+      switch (mess) {
+        case "request not found or invalid":
+          alert('Yêu Cầu Không Hợp Lệ')
+          break;
+        case "User Not Authorized":
+          alert('không Có Quyền Thực Hiện Thao Tác Này')
+          break
+        default:
+          alert('Lỗi Xảy Ra')
+          break;
+      }
+    })
+  }
+
   useEffect(() => {
     let userLocal = null;
     if (localStorage.user) {
@@ -22,20 +81,8 @@ const UserAcceptList = (props) => {
       })
       .then((res) => {
         setData(res.data);
-      
       });
   }, []);
-  const renderTrangThai = (status, ten) => {
-    let style = "text-secondary";
-    if (status === 2) {
-      style = "text-success";
-    }
-    if (status === 3) {
-      style = "text-danger";
-    }
-    return <span class={`fw-bold ${style}`}>{ten}</span>;
-  };
-
 
 
   return (
@@ -57,7 +104,7 @@ const UserAcceptList = (props) => {
           </tr>
         </thead>
         <tbody>
-          {data.length !== 0 &&
+          {data.length !== 0 ?
             data.map((dau_gia) => {
               return (
                 <tr>
@@ -67,25 +114,29 @@ const UserAcceptList = (props) => {
                     </Link>
                   </td>
                   <td>
-                    <Link to={`/nguoi-dung/thong-tin/${dau_gia.id_nguoi_dau_gia}`}>
+                    <Link
+                      to={`/nguoi-dung/thong-tin/${dau_gia.id_nguoi_dau_gia}`}
+                    >
                       {dau_gia.ho_ten}
                     </Link>
                   </td>
                   <td>{dau_gia.gia_mua} $</td>
                   <td>{new Date(dau_gia.ngay_dat).toLocaleString("en-US")}</td>
-                  
+
                   <td>
                     <span class="fw-bold text-warning">Đang Chờ</span>
                   </td>
                   <td>
-                  <>
-          <button class="btn btn-success btn-action">Chấp Nhận</button>
-          <button class="btn btn-danger btn-action">Hủy</button>
-        </>
+                    <>
+                      <button class="btn btn-success btn-action" onClick={e => handleChapNhanNguoiDung(e, dau_gia.id_dau_gia)}>
+                        Chấp Thuận
+                      </button>
+                      <button class="btn btn-danger btn-action" onClick={e => handleTuChoiNguoiDung(e , dau_gia.id_dau_gia )} >Hủy</button>
+                    </>
                   </td>
                 </tr>
               );
-            })}
+            }) : 'Trống'}
         </tbody>
       </table>
     </div>

@@ -5,6 +5,7 @@ import "antd/dist/antd.css";
 import "./user.css";
 import axios from "axios";
 import { API_URL } from '../../config';
+import { CLOUDINARY_URL } from "../../config/index";
 
 const UserHistory = (props) => {
   /*
@@ -25,15 +26,15 @@ const UserHistory = (props) => {
   const [token, setToken] = useState("");
 
   useEffect(() => {
-    let user = null;
+    let userLocal = null;
     if (localStorage.user) {
-      user = JSON.parse(localStorage.user);
-      setToken(user.token);
+      userLocal = JSON.parse(localStorage.user);
+      setToken(userLocal.token);
     }
 
     axios.get(`${API_URL}/api/tai-khoan/lich-su-dau-gia`,{
         headers: {
-            "x-access-token": user.token
+            "x-access-token": userLocal.token
           }
     }).then(res => {
         setData(res.data)
@@ -55,7 +56,7 @@ const UserHistory = (props) => {
               avatar={
                 <img
                   style={{ width: "5rem" }}
-                  src={`https://res.cloudinary.com/onlineauction/image/upload/product/iphone-12-xanh-duongcb770ee9-0034-4f6a-bb66-c1c04b13d9b0.jpg`}
+                  src={`${CLOUDINARY_URL}/product/${item.anh}`}
                   alt=""
                 />
               }
