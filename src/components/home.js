@@ -12,6 +12,10 @@ function Home() {
   const [SPSapKetThuc, setSPSapKetThuc] = useState([]);
   const [searchName, setSearchName] = useState("");
   const [searchFor, setSearchFor] = useState(1);
+
+  const [idLogin, setIdLogin] = useState(null);
+  const [token, setToken] =  useState(null)
+
   const settingSlide = {
     arrows: true,
     dots: false,
@@ -21,6 +25,13 @@ function Home() {
     slidesToScroll: 1
   };
   useEffect(() => {
+    let userLocal = null;
+    if (localStorage.user) {
+      userLocal = JSON.parse(localStorage.user);
+      setIdLogin(userLocal.user.id_nguoi_dung);
+      setToken(userLocal.token);
+    }
+
     axios
       .get(`${API_URL}/api/san-pham/5-san-pham-gia-cao-nhat`)
       .then((res) => setSPCaoDenThap(res.data));
@@ -61,7 +72,7 @@ function Home() {
                   img = item.anh;
                 }
               }
-              return <ProductItem i={i} item={item} img={img} />;
+              return <ProductItem tokenLogin={token} idLogin={idLogin} i={i} item={item} img={img} />
             })}
           </Slider>
         </div>

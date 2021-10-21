@@ -13,7 +13,16 @@ const ProductList = (props) => {
   const [sortDate, setSortDate] = useState(false);
   const [totalPage, setTotalPage] = useState(0);
 
+  const [idLogin, setIdLogin] = useState(null);
+  const [token, setToken] =  useState(null)
   useEffect(() => {
+
+    let userLocal = null;
+    if (localStorage.user) {
+      userLocal = JSON.parse(localStorage.user);
+      setIdLogin(userLocal.user.id_nguoi_dung);
+      setToken(userLocal.token);
+    }
 
     if(id != null){
       axios
@@ -207,7 +216,7 @@ const ProductList = (props) => {
                   img = item.anh;
                 }
               }
-              return <ProductItem i={i} item={item} img={img} />;
+              return <ProductItem tokenLogin={token} idLogin={idLogin} i={i} item={item} img={img} />;
             })}
         </div>
       </div>
