@@ -1,22 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
-import { Badge } from 'react-bootstrap';
+import React, {useState, useEffect} from 'react';
+import {useHistory} from 'react-router';
+import {Badge} from 'react-bootstrap';
 import Header from './partials/header';
 import UserTable from './User/UserTable';
 import axios from "axios";
 import {API_URL} from "../../config";
-import NumberFormat from "react-number-format";
+import {confirmAlert} from "react-confirm-alert";
 
-function Users () {
+function Users() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [token, setToken] = useState('');
     const history = useHistory();
 
-    const DATE_OPTIONS = {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'};
+    const DATE_OPTIONS = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    };
 
     useEffect(async () => {
-        if(!loading) {
+        if (!loading) {
             if (localStorage.user) {
                 let user = JSON.parse(localStorage.user);
                 setToken(user.token);
@@ -28,7 +35,7 @@ function Users () {
                     })
                     .then((res) => {
                         let listUsers = res.data.listUser.filter(val => val.id_quyen_han != 3).map((val) => {
-                            const point = Number((val.diem_danhgia_duong /(val.diem_danhgia_duong + val.diem_danhgia_am) * 100).toFixed(2));
+                            const point = Number((val.diem_danhgia_duong / (val.diem_danhgia_duong + val.diem_danhgia_am) * 100).toFixed(2));
                             const createDate = (new Date(val.expired)).toLocaleDateString('en-US', DATE_OPTIONS);
                             return {
                                 "Id": val.id_nguoi_dung,
@@ -37,8 +44,11 @@ function Users () {
                                 "point": point ? point : <Badge bg="secondary">Không khả dụng</Badge>,
                                 "expired": createDate ? createDate : <Badge bg="secondary">Không khả dụng</Badge>,
                                 "actions": <div>
-                                    <a href={`/admin/user/${val.id_nguoi_dung}`} className="btn btn-sm btn-dark">Chi tiết</a>
-                                    <button onClick={() => deleteUser(val.id_nguoi_dung)} className="btn btn-sm btn-danger mx-1">Delete</button>
+                                    <a href={`/admin/user/${val.id_nguoi_dung}`} className="btn btn-sm btn-dark">Chi
+                                        tiết</a>
+                                    <button onClick={() => deleteUser(val.id_nguoi_dung)}
+                                            className="btn btn-sm btn-danger mx-1">Delete
+                                    </button>
                                 </div>
                             }
                         });
@@ -60,7 +70,37 @@ function Users () {
     }, [data]);
 
     const deleteUser = (userId) => {
-        console.log('delete:' + userId);
+        confirmAlert({
+            title: "Bạn chắc chưa?",
+            message: 'Bạn sẽ không hoàn tác lại được thao tác này',
+            buttons: [
+                {
+                    label: "Vâng, Chắc rồi",
+                    onClick: () => {
+                        let user = JSON.parse(localStorage.user);
+                        axios
+                            .delete(`${API_URL}/api/admin/quan-ly-danh-muc/delete-category/?id=` + userId,{
+                                headers: {
+                                    "x-access-token": user.token
+                                }
+                            })
+                            .then((res) => {
+                                alert(
+                                    "Tài khoản đã được xoá"
+                                );
+                                window.location.reload();
+                            })
+                            .catch((err) => {
+                                alert("Có Lỗi Xảy Ra");
+                                console.log(err);
+                            });
+                    }
+                },
+                {
+                    label: "Không, thoát!",
+                }
+            ]
+        });
     }
 
     return (

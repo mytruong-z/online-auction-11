@@ -4,6 +4,7 @@ import Header from './partials/header';
 import CategoryTable from "./Category/CategoryTable";
 import axios from "axios";
 import {API_URL} from "../../config";
+import {FaPlus} from "react-icons/fa";
 
 function Users () {
     const [data, setData] = useState([]);
@@ -29,7 +30,7 @@ function Users () {
                                 "name": val.ten,
                                 "level": val.cap_danh_muc,
                                 "actions": <div>
-                                    <a href={`/${val.id_sp}`} className="btn btn-sm btn-dark mt-1">Chi tiết</a>
+                                    <button onClick={() => updateCategory(val.id_danh_muc)} className="btn btn-sm btn-info text-white mt-1">Cập nhật</button>
                                     <button onClick={() => deleteCategory(val.id_danh_muc)} className="btn btn-sm btn-danger mx-1 mt-1">Delete</button>
                                 </div>
                             }
@@ -55,10 +56,17 @@ function Users () {
         console.log('delete:' + categoryId);
     }
 
+    const updateCategory = (categoryId) => {
+        console.log('update:' + categoryId);
+    }
+
     return (
         <>
             <Header title={'Quản lý danh mục'} hideSearch={true}/>
             <div className="container py-4 px-0">
+                <div className="px-3">
+                    <button className="btn btn-sm btn-outline-danger"><FaPlus /> Thêm mới</button>
+                </div>
                 {loading ?
                     <CategoryTable userData={data}/>
                     :

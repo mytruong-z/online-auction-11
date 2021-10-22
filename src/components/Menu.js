@@ -36,7 +36,7 @@ const Menu = (props) => {
             setAdminPage(true);
         }
     }, [userLogin, location.state]);
-    console.log(userLogin)
+    // console.log(userLogin)
     return (
         <div className="bg-light shadow">
             <Nav
