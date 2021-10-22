@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, Modal, Card, Form, Row, Col } from 'react-bootstrap';
 import './seller.css';
+import { useHistory } from 'react-router';
 import { API_URL, CLOUDINARY_URL } from '../../config';
 import { DataGrid } from '@material-ui/data-grid';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import Tooltip from '@material-ui/core/Tooltip';
 import CloseIcon from '@material-ui/icons/Close';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 function Product () {
     const [data, setData] = useState([]);
@@ -17,6 +22,10 @@ function Product () {
     const [showNew, setShowNew] = useState(false);
     const [showUpdateProduct, setShowUpdateProduct] = useState(false);
     const [showDeleteProductConfirm, setShowDeleteProductConfirm] = useState(false);
+    const [endDate, setEndDate] = useState(new Date());
+    const [categories, setCategories] = useState([]);
+    const [chooseCategory, setChooseCategory] = useState('');
+    const history = useHistory();
 
     const [details, setDetails] = useState(null);
     const [postDetails, setPostDetails] = useState({
@@ -28,57 +37,77 @@ function Product () {
     const [images, setImages] = useState(null);
     const [imagesFormData, setImagesFormData] = useState(null);
     const [hostId, setHostId] = useState(0);
+    const [hostToken, setHostToken] = useState('');
     const [deletingProductID, setDeletingProductID] = useState(null);
 
+    const dateObj = new Date();
+    const day = String(dateObj.getDate()).padStart(2, '0');
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const sDataDef = `${dateObj.getFullYear()}-${month}-${day}`;
+
     const [formData, setFormData] = useState({
-        ten_san_pham: '',
+        ten: '',
         gia_dat: 0,
         gia_mua_ngay: 0,
         buoc_gia: 0,
-        addition_infor: '',
-        city: '',
+        mo_ta: '',
+        id_danh_muc: 1,
+        end_date: sDataDef,
+        images: '',
         hostID: 0
     });
 
     const [showFormErrorMessage, setFormErrorMessage] = useState({
-        ten_san_pham: false,
+        ten: false,
         gia_dat: false,
         gia_mua_ngay: false,
         buoc_gia: false,
-        addition_infor: false,
-        city: false
+        mo_ta: false,
+        id_danh_muc: false,
+        end_date: false,
+        images: false
     });
 
     const [formUpdateProductData, setFormUpdateProductData] = useState({
         id: 0,
-        ten_san_pham: '',
+        ten: '',
         gia_dat: 0,
         gia_mua_ngay: 0,
         buoc_gia: 0,
-        addition_infor: '',
-        city: ''
+        mo_ta: '',
+        id_danh_muc: '',
+        end_date: '',
+        images: ''
     });
 
     const [showFormUpdateProductErrorMessage, setFormUpdateProductErrorMessage] = useState({
-        ten_san_pham: false,
+        ten: false,
         gia_dat: false,
         gia_mua_ngay: false,
         buoc_gia: false,
-        addition_infor: false
+        end_date: false,
+        id_danh_muc: false,
+        mo_ta: false
     });
     const imageBaseUrl = `${CLOUDINARY_URL}/product/`;
 
     useEffect(() => {
         // get host id
-        setHostId(JSON.parse(localStorage.getItem('user')).id);
+        const userId = JSON.parse(localStorage.getItem('user')).user.id_nguoi_dung;
+        const userToken = JSON.parse(localStorage.getItem('user')).token;
+        if (userId >= 0 && userToken !== '') {
+            setHostId(userId);
+            setHostToken(userToken);
+        } else {
+            history.push('/');
+        }
     }, []);
 
     const getProducts = (hostId) => {
         axios(
-            `${API_URL}product/search/${hostId}`, //tìm sản phẩm theo host
+            `${API_URL}/product/search/${hostId}`, //tìm sản phẩm theo host
         ).then((res) => {
             if (Array.isArray(res.data)) {
-                console.log(res);
                 setData(res.data);
             } else {
                 setData([]);
@@ -86,9 +115,20 @@ function Product () {
         });
     };
 
+    const getCategories = () => {
+        axios(
+            `${API_URL}/api/danh-muc/danh-sach-danh-muc`, //tìm sản phẩm theo host
+        ).then((res) => {
+            if (Array.isArray(res.data)) {
+                setCategories(res.data);
+            }
+        });
+    };
+
     useEffect(() => {
-        if (hostId != 0) {
+        if (hostId !== 0) {
             getProducts(hostId);
+            getCategories();
             // update hostid in form data
             setFormData({
                 ...formData,
@@ -99,16 +139,9 @@ function Product () {
 
     const handleImageSelectorOnChange = (e) => {
         var files = e.target.files;
-        var formData = imagesFormData;
-        if (!formData) {
-            formData = new FormData();
-        }
-        formData.delete('productID');
-        formData.append('productID', images.productID);
-        for (var i = 0; i < files.length; i++) {
-            formData.append(`images`, files[i]);
-        }
-        setImagesFormData(formData);
+        //console.log(files);
+        setImagesFormData(files);
+        setFormData({...formData, images: files});
     };
 
     const onDeleteImages = (index) => {
@@ -153,14 +186,16 @@ function Product () {
         setImagesFormData(null);
     };
 
-    const submitProduct = async () => {
-        await setFormErrorMessage({
-            ten_san_pham: (formData.ten_san_pham == '') ? true : false,
+    const submitProduct = () => {
+        setFormErrorMessage({
+            ten: (formData.ten == '') ? true : false,
             gia_dat: (formData.gia_dat == '') ? true : false,
             gia_mua_ngay: (formData.gia_mua_ngay == '') ? true : false,
             buoc_gia: (formData.buoc_gia == '') ? true : false,
-            addition_infor: (formData.addition_infor == '') ? true : false,
-            city: (formData.city == '') ? true : false,
+            mo_ta: (formData.mo_ta == '') ? true : false,
+            id_danh_muc: (formData.id_danh_muc == '') ? true : false,
+            end_date: (formData.end_date == '') ? true : false,
+            images: (formData.images == '') ? true : false,
         });
 
         for (var i in formData) {
@@ -171,7 +206,7 @@ function Product () {
 
         axios.post(`${API_URL}/api/nguoi-ban/them-san-pham`, formData, {
             headers: {
-                'Content-Type': 'application/json'
+                'x-access-token': hostToken
             }
         })
             .then(function (response) {
@@ -187,11 +222,12 @@ function Product () {
 
     const submitUpdateProduct = async () => {
         await setFormUpdateProductErrorMessage({
-            ten_san_pham: (formUpdateProductData.ten_san_pham == '') ? true : false,
+            ten: (formUpdateProductData.ten == '') ? true : false,
             gia_dat: (formUpdateProductData.gia_dat == '') ? true : false,
             gia_mua_ngay: (formUpdateProductData.gia_mua_ngay == '') ? true : false,
             buoc_gia: (formUpdateProductData.buoc_gia == '') ? true : false,
-            addition_infor: (formUpdateProductData.addition_infor == '') ? true : false,
+            mo_ta: (formUpdateProductData.mo_ta == '') ? true : false,
+            id_danh_muc: (formUpdateProductData.id_danh_muc == '') ? true : false
         });
 
         console.log(formUpdateProductData);
@@ -226,22 +262,26 @@ function Product () {
 
     const setFormErrorMessageToFalse = () => {
         setFormUpdateProductErrorMessage({
-            ten_san_pham: false,
+            ten: false,
             gia_dat: false,
             gia_mua_ngay: false,
             buoc_gia: false,
-            addition_infor: false,
-            city: false
+            mo_ta: false,
+            id_danh_muc: false,
+            end_date: false,
+            images: false
         });
     };
 
     const setFormUpdateProductErrorMessageToFalse = () => {
         setFormUpdateProductErrorMessage({
-            ten_san_pham: false,
+            ten: false,
             gia_dat: false,
             gia_mua_ngay: false,
             buoc_gia: false,
-            addition_infor: false
+            end_date: false,
+            mo_ta: false,
+            id_danh_muc: false
         });
     };
 
@@ -253,13 +293,15 @@ function Product () {
     const onShowUpdateProduct = (item) => {
         var dataCopied = {
             ...formUpdateProductData,
-            'ten_san_pham': item.ten_san_pham,
+            'ten': item.ten,
             'id': item.id,
             'gia_dat': item.gia_dat,
             'gia_mua_ngay': item.gia_mua_ngay,
             'buoc_gia': item.buoc_gia,
-            'addition_infor': item.addition_infor,
-            'city': item.city
+            'mo_ta': item.mo_ta,
+            'id_danh_muc': item.id_danh_muc,
+            'end_date': item.end_date,
+            'images': item.images
         };
 
         console.log('update product data: ', dataCopied);
@@ -428,7 +470,7 @@ function Product () {
             },
         },
         {
-            field: 'ten_san_pham',
+            field: 'ten',
             headerName: 'Tên Sản Phẩm',
             editable: false,
             width: 200
@@ -452,8 +494,20 @@ function Product () {
             width: 200
         },
         {
-            field: 'addition_infor',
-            headerName: 'Khác',
+            field: 'mo_ta',
+            headerName: 'Mô Tả',
+            editable: false,
+            width: 200
+        },
+        {
+            field: 'id_danh_muc',
+            headerName: 'Danh Mục',
+            editable: false,
+            width: 200
+        },
+        {
+            field: 'end_date',
+            headerName: 'Ngày Kết Thúc',
             editable: false,
             width: 200
         },
@@ -485,11 +539,13 @@ function Product () {
             data.map((item, index) => {
                 renderRows.push({
                     id: index + 1,
-                    ten_san_pham: item?.ten_san_pham,
+                    ten: item?.ten,
                     gia_dat: item?.gia_dat,
                     gia_mua_ngay: item?.gia_mua_ngay,
                     buoc_gia: item?.buoc_gia,
-                    addition_infor: item?.addition_infor,
+                    mo_ta: item?.mo_ta,
+                    id_danh_muc: item?.id_danh_muc,
+                    end_date: item?.end_date,
                     action: item,
                     post: item,
                     post_status: item?.post[0],
@@ -533,7 +589,7 @@ function Product () {
                     <Form>
                         <Form.Group className="mb-3">
                             <Form.Label>Địa chỉ</Form.Label>
-                            <Form.Control disabled type="text" value={details?.ten_san_pham}/>
+                            <Form.Control disabled type="text" value={details?.ten}/>
                         </Form.Group>
                         <Row>
                             <Col className="mb-3">
@@ -561,7 +617,7 @@ function Product () {
                         </Row>
                         <Form.Group className="mb-3">
                             <Form.Label>Chi tiết</Form.Label>
-                            <Form.Control disabled as="textarea" rows={8} value={details?.addition_infor}/>
+                            <Form.Control disabled as="textarea" rows={8} value={details?.mo_ta}/>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -682,11 +738,11 @@ function Product () {
                     <Form.Group className="mb-3" controlid="">
                         <Form.Label>Tên Sản Phẩm</Form.Label>
                         <Form.Control type="text" placeholder="Nhập Tên Sản Phẩm" onChange={(e) => {
-                            setFormData({...formData, ten_san_pham: e.target.value});
+                            setFormData({...formData, ten: e.target.value});
                             setFormErrorMessageToFalse();
                         }}/>
                         <Form.Text className="text-muted text-danger"
-                                   style={{display: showFormErrorMessage.ten_san_pham ? 'block' : 'none'}}>
+                                   style={{display: showFormErrorMessage.ten ? 'block' : 'none'}}>
                             Vui lòng nhập thông tin
                         </Form.Text>
                     </Form.Group>
@@ -729,16 +785,65 @@ function Product () {
                             </Form.Text>
                         </Col>
                     </Row>
-                    <Form.Group className="mb-3" controlid="">
+
+                    <Col className="mb-3" controlid="">
+                        <Form.Label>Danh mục</Form.Label>
+                        <select className="form-control search-slt" id="cat" onChange={e => {
+                            setChooseCategory(e.target.value);
+                            setFormData({...formData, id_danh_muc: Number(e.target.value)});
+                        }}>
+                            {
+                                categories.map((item, index) => {
+                                    return (<option value={item.id_danh_muc}
+                                                    selected={chooseCategory === item.id_danh_muc}>{item.ten}</option>);
+                                })
+                            }
+                        </select>
+                    </Col>
+
+                    <Col className="mb-3" controlid="">
+                        <Form.Label>Ngày Kết Thúc</Form.Label>
+                        <DatePicker selected={endDate} onChange={(date) => {
+                            const day = String(date.getDate()).padStart(2, '0');
+                            const month = String(date.getMonth() + 1).padStart(2, '0');
+                            const sData = `${date.getFullYear()}-${month}-${day}`;
+                            setEndDate(date);
+                            setFormData({...formData, end_date: sData});
+                        }}/>
+                    </Col>
+
+                    {/* <Form.Group className="mb-3">
+                        <div className="images-container">
+                            {images?.image?.map((item, index) => {
+                                return <div key={index} className="image-container">
+                                    <CloseIcon onClick={(e) => onDeleteImages(index)} className="delete_image_icon"
+                                               style={{fill: 'white'}}/>
+                                    <img key={index} className="room-image-detail"
+                                         src={`${imageBaseUrl}${item?.name}`} alt=""/>
+                                </div>;
+                            })}
+                        </div>
+                    </Form.Group>*/}
+                    <Form.Group controlId="formFileMultiple" className="mb-3">
+                        <Form.Label>Chọn hình ảnh (3 ảnh)</Form.Label>
+                        <Form.Control type="file" multiple onChange={(e) => handleImageSelectorOnChange(e)}/>
                     </Form.Group>
+
+
                     <Form.Group>
                         <Form.Label>Mô tả</Form.Label>
-                        <Form.Control as="textarea" rows={5} placeholder="Nhập mô tả" onChange={(e) => {
-                            setFormData({...formData, addition_infor: e.target.value});
-                            setFormErrorMessageToFalse();
-                        }}/>
+                        <Editor
+                            editorState={formData.mo_ta}
+                            toolbarClassName="toolbarClassName"
+                            wrapperClassName="wrapperClassName"
+                            editorClassName="editorClassName"
+                            onEditorStateChange={(e) => {
+                                setFormData({...formData, mo_ta: e});
+                                setFormErrorMessageToFalse();
+                            }}
+                        />
                         <Form.Text className="text-muted text-danger"
-                                   style={{display: showFormErrorMessage.addition_infor ? 'block' : 'none'}}>
+                                   style={{display: showFormErrorMessage.mo_ta ? 'block' : 'none'}}>
                             Vui lòng nhập thông tin
                         </Form.Text>
                     </Form.Group>
@@ -747,7 +852,7 @@ function Product () {
                     <Button variant="secondary" onClick={hideNewModal}>
                         Đóng
                     </Button>
-                    <Button type="submit" variant="primary" onClick={submitProduct}>
+                    <Button type="submit" variant="primary" onClick={() => submitProduct()}>
                         Thêm
                     </Button>
                 </Modal.Footer>
@@ -766,16 +871,16 @@ function Product () {
                 <Modal.Body>
                     <Form.Group className="mb-3" controlid="">
                         <Form.Label>Địa chỉ</Form.Label>
-                        <Form.Control type="text" placeholder="Nhập địa chỉ" value={formUpdateProductData?.ten_san_pham}
+                        <Form.Control type="text" placeholder="Nhập địa chỉ" value={formUpdateProductData?.ten}
                                       onChange={(e) => {
                                           setFormUpdateProductData({
                                               ...formUpdateProductData,
-                                              ten_san_pham: e.target.value
+                                              ten: e.target.value
                                           });
                                           setFormErrorMessageToFalse();
                                       }}/>
                         <Form.Text className="text-muted text-danger"
-                                   style={{display: showFormUpdateProductErrorMessage.ten_san_pham ? 'block' : 'none'}}>
+                                   style={{display: showFormUpdateProductErrorMessage.ten ? 'block' : 'none'}}>
                             Vui lòng nhập thông tin
                         </Form.Text>
                     </Form.Group>
@@ -829,16 +934,22 @@ function Product () {
                                 Vui lòng nhập thông tin
                             </Form.Text>
                         </Col>
+                        <Row>
+                            <Col className="mb-3" controlid="">
+                                <Form.Label>Ngày Kết Thúc</Form.Label>
+                                <DatePicker selected={endDate} onChange={(date) => setEndDate(date)}/>
+                            </Col>
+                        </Row>
                     </Row>
                     <Form.Group>
                         <Form.Label>Thông tin khác</Form.Label>
                         <Form.Control as="textarea" rows={5} placeholder="Nhập thông tin khác"
-                                      value={formUpdateProductData?.addition_infor} onChange={(e) => {
-                            setFormUpdateProductData({...formUpdateProductData, addition_infor: e.target.value});
+                                      value={formUpdateProductData?.mo_ta} onChange={(e) => {
+                            setFormUpdateProductData({...formUpdateProductData, mo_ta: e.target.value});
                             setFormUpdateProductErrorMessageToFalse();
                         }}/>
                         <Form.Text className="text-muted text-danger"
-                                   style={{display: showFormUpdateProductErrorMessage.addition_infor ? 'block' : 'none'}}>
+                                   style={{display: showFormUpdateProductErrorMessage.mo_ta ? 'block' : 'none'}}>
                             Vui lòng nhập thông tin
                         </Form.Text>
                     </Form.Group>

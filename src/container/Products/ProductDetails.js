@@ -8,7 +8,6 @@ import {useParams, Link} from "react-router-dom";
 import {useHistory} from "react-router";
 import {API_URL} from "../../config";
 import ProductItem from "../../components/ProductItem";
-import Slider from "react-slick";
 import {Divider} from "antd";
 import ShowMoreText from "react-show-more-text";
 import {List} from "antd";
@@ -22,8 +21,7 @@ import {confirmAlert} from "react-confirm-alert"; // Import
 import {Editor} from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
-import htmlToDraft from "html-to-draftjs";
-import {EditorState, convertToRaw, ContentState} from "draft-js";
+import {convertToRaw} from "draft-js";
 import lodash from "lodash";
 
 const ProductDetails = (props) => {
@@ -351,12 +349,12 @@ const ProductDetails = (props) => {
                         <span className="caption d-block small">Thông Tin Sản Phẩm</span>
                         <h2 style={{textTransform: "uppercase"}}>{product.ten_sp}</h2>
                         <span className="caption d-block small"></span>
-                        <div class="row w-75">
-                            <div class="col w-25">
+                        <div className="row w-75">
+                            <div className="col w-25">
                                 <p>+{product.nguoi_ban.diem_duong}</p>
                                 <p>-{product.nguoi_ban.diem_am}</p>
                             </div>
-                            <div class="col">
+                            <div className="col">
                                 <img
                                     src={process.env.PUBLIC_URL + "/user.png"}
                                     className="rounded-circle img-fluid img-reponsive"
@@ -365,7 +363,7 @@ const ProductDetails = (props) => {
                                 />
                             </div>
 
-                            <div class="col-10">
+                            <div className="col-10">
                 <span className="caption d-block small">
                   Tên Người Bán:
                   <Link to={`/nguoi-dung/thong-tin/${product.nguoi_ban.id}`}>
@@ -391,7 +389,7 @@ const ProductDetails = (props) => {
                             </div>
                             <div className="col-6 mt-5">
                                 <div>
-                  <span class="mt-2" style={{marginRight: 10}}>
+                  <span className="mt-2" style={{marginRight: 10}}>
                     chỉ còn lại:{" "}
                   </span>
                                     <p>
@@ -475,7 +473,7 @@ const ProductDetails = (props) => {
                                 <p>Giá Đặt Thấp Nhất: {giaHienTai + product.buoc_gia} $</p>
 
                                 <p>
-                                    <i class="fa fa-user" aria-hidden="true"></i> Người Đặt Cao
+                                    <i className="fa fa-user" aria-hidden="true"></i> Người Đặt Cao
                                     Nhất:{" "}
                                     {caoNhat === null ||
                                     caoNhat === undefined ||
@@ -555,20 +553,20 @@ const ProductDetails = (props) => {
                                                 >
                                                     ĐÂÚ GIÁ NGAY
                                                 </a>
-                                                <div class="collapse" id="collapseExample">
-                                                    <div class="card card-body">
-                                                        <div class="form-group">
+                                                <div className="collapse" id="collapseExample">
+                                                    <div className="card card-body">
+                                                        <div className="form-group">
                                                             <label for="">Nhập Giá Đặt:</label>
                                                             <input
                                                                 type="text"
                                                                 name=""
                                                                 value={giaDat}
                                                                 onChange={(e) => setGiaDat(e.target.value)}
-                                                                class="form-control"
+                                                                className="form-control"
                                                                 placeholder="Giá Đặt (tính bằng USD)"
                                                             />
                                                             <button
-                                                                class="btn btn-primary mt-2"
+                                                                className="btn btn-primary mt-2"
                                                                 onClick={(e) => handleDauGia(e)}
                                                             >
                                                                 Đấu Giá

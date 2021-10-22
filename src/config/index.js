@@ -3,7 +3,7 @@ export const CLOUDINARY_URL = "https://res.cloudinary.com/onlineauction/image/up
 export const CAPTCHA_SITE_KEY="6Le0xeAcAAAAAFEfB96WLmnSbrl2yN1MBl2XlbnW";
 export const CAPTCHA_SECRET_KEY="6Le0xeAcAAAAAKOFrohPPW4bzn0kFiZzIGNp49Pg";
 
-export const USER = { id: 1, name : "Người Đấu Giá" }
-export const SELLER = { id: 2, name : "Người Bán" }
-export const ADMIN = { id: 3, name : "Quản Trị Trang Web" }
+export const USER = { id: 1, name : "Người Đấu Giá" };
+export const SELLER = { id: 2, name : "Người Bán" };
+export const ADMIN = { id: 3, name : "Quản Trị Trang Web" };
 

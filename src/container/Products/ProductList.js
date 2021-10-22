@@ -142,7 +142,7 @@ const ProductList = (props) => {
           let active = '';
           if(i === page) active = 'active'
           indents.push(<li className={`page-item ${active}`}>
-          <Link class="page-link" onClick={e => {e.preventDefault(); setPage(i) }}>
+          <Link className="page-link" onClick={e => {e.preventDefault(); setPage(i) }}>
             {i}
           </Link>
         </li>);
@@ -184,7 +184,7 @@ const ProductList = (props) => {
     <>
       <section className="search-sec" onChange={e => handleSelectChange(e)}>
         <div className="container">
-          <select class="form-select" >
+          <select className="form-select" >
             <option selected>Sắp Xếp Theo</option>
             <option value="1">Ngày Kết Thúc Giảm Dần</option>
             <option value="2">Giá Tăng Dần</option>
@@ -193,9 +193,9 @@ const ProductList = (props) => {
       </section>
 
       <div className="container w-75">
-        <div class="d-flex p-2">
+        <div className="d-flex p-2">
           <svg
-            class="bd-placeholder-img rounded mr-5"
+              className="bd-placeholder-img rounded mr-5"
             width="20"
             height="20"
             xmlns="http://www.w3.org/2000/svg"
@@ -224,21 +224,21 @@ const ProductList = (props) => {
         aria-label="Page navigation"
         className="d-flex justify-content-center">
 
-        <ul class="pagination">
-          {(page === 1) ? '' : <li class="page-item disabled">
-            <Link class="page-link" onClick={e => handlePreviousPage(e)} aria-label="Previous">
+        <ul className="pagination">
+          {(page === 1) ? '' : <li className="page-item disabled">
+            <Link className="page-link" onClick={e => handlePreviousPage(e)} aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
-              <span class="sr-only">Previous</span>
+              <span className="sr-only">Previous</span>
             </Link>
           </li>}
          
           {mapPage(totalPage)}
 
          
-          { (page === totalPage || totalPage === 0) ? '' :   <li class="page-item">
-            <Link class="page-link" onClick={e => handleNextPage(e)} href="#" aria-label="Next">
+          { (page === totalPage || totalPage === 0) ? '' :   <li className="page-item">
+            <Link className="page-link" onClick={e => handleNextPage(e)} href="#" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only">Next</span>
+              <span className="sr-only">Next</span>
             </Link>
           </li> }
 

@@ -205,14 +205,14 @@ const UserDetails = (props) => {
                         <h6 className="text-muted f-w-400">
                           {selectRole(user.id_quyen_han).name}
                         </h6>
-                        <div class="d-inline p-2">
+                        <div className="d-inline p-2">
                           {user.id_quyen_han === 2 ||
                           user.id_quyen_han === 3 ||
                           isUserLogin === false ? (
                             ""
                           ) : tobeSeller === true ? (
                             <button className="btn btn-success mr-1">
-                              <i class="fa fa-check" aria-hidden="true"></i> Đã
+                              <i className="fa fa-check" aria-hidden="true"></i> Đã
                               Gởi Yêu Cầu
                             </button>
                           ) : (
@@ -229,7 +229,7 @@ const UserDetails = (props) => {
                         <>
                           <button
                             type="button"
-                            class="btn btn-primary"
+                            className="btn btn-primary"
                             data-toggle="modal"
                             data-target="#modalNhanXet"
                           >
@@ -237,29 +237,29 @@ const UserDetails = (props) => {
                           </button>
 
                           <div
-                            class="modal fade"
+                              className="modal fade"
                             id="modalNhanXet"
                             tabindex="-1"
                             role="dialog"
                             aria-labelledby="modelTitleId"
                             aria-hidden="true"
                           >
-                            <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title">Thêm Nhận Xét</h5>
+                            <div className="modal-dialog" role="document">
+                              <div className="modal-content">
+                                <div className="modal-header">
+                                  <h5 className="modal-title">Thêm Nhận Xét</h5>
                                   <button
                                     type="button"
-                                    class="close"
+                                    className="close"
                                     data-dismiss="modal"
                                     aria-label="Close"
                                   >
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
-                                <div class="modal-body">
-                                  <div class="form-group">
-                                    <div class="mb-3">
+                                <div className="modal-body">
+                                  <div className="form-group">
+                                    <div className="mb-3">
                                       <label
                                         for="exampleInputPassword1"
                                         class="form-label"

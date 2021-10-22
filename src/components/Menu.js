@@ -148,46 +148,47 @@ const Menu = (props) => {
                                             <img
                                                 src="/user.png"
                                                 alt="accountIMG"
-                                                class="rounded-circle"
+                                                className="rounded-circle"
                                                 width="40"/>
                                         </div>
                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                             <Link className="dropdown-item" to={`/nguoi-dung/thong-tin/${userLogin.user.id_nguoi_dung}`}>
-                                                <i className="fa fa-user"></i> T.T Bản Thân
+                                                <i className="fa fa-user"/> T.T Bản Thân
                                             </Link>
                                             <Link className="dropdown-item" to="/nguoi-dung/yeu-thich">
-                                                <i className="fa fa-heart"></i> Danh Mục Yêu Thích
+                                                <i className="fa fa-heart"/> Danh Mục Yêu Thích
                                             </Link>
+
                                             <Link className="dropdown-item" to="/nguoi-dung/lich-su-dau-gia">
-                                                <i className="fa fa-paper-plane" aria-hidden="true"></i> Lịch Sử
+                                                <i className="fa fa-paper-plane" aria-hidden="true"/> Lịch Sử
                                                 đấu giá
                                             </Link>
 
                                             <Link className="dropdown-item" to="/nguoi-dung/danh-gia-ve-toi">
-                                                 <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                                 <i className="fa fa-bar-chart" aria-hidden="true"/>
                                                 Đánh Giá Về Tôi
                                             </Link>
 
                                             <Link className="dropdown-item" to="/nguoi-dung/nhan-xet-cua-toi">
-                                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                                <i className="fa fa-asterisk" aria-hidden="true"/>
                                                 Nhận Xét Của Tôi
                                             </Link>
 
                                             {userLogin.user.id_quyen_han === 2 ? <>
-                                                <Link class="dropdown-item" to="/nguoi-ban/danh-sach-chap-thuan">
-                                                    <i className="fa fa-list" aria-hidden="true"></i> Danh Sách Chấp Thuận
+                                                <Link className="dropdown-item" to="/nguoi-ban/danh-sach-chap-thuan">
+                                                    <i className="fa fa-list" aria-hidden="true"/> Danh Sách Chấp Thuận
                                                 </Link>
                                                 <Link className="dropdown-item" to="/nguoi-ban/san-pham">
-                                                    <i className="fa fa-paragraph" aria-hidden="true"></i> Quản Lí Sản Phẩm
+                                                    <i className="fa fa-paragraph" aria-hidden="true"/> Quản Lí Sản Phẩm
                                                 </Link>
                                                 <Link className="dropdown-item" to="/nguoi-ban/don-hang">
-                                                    <i className="fa fa-paragraph" aria-hidden="true"></i> Quản Lí Đơn Hàng
+                                                    <i className="fa fa-paragraph" aria-hidden="true"/> Quản Lí Đơn Hàng
                                                 </Link>
                                             </> : ''}
                                             <Link className="dropdown-item" to="/nguoi-dung/doi-mat-khau">
-                                                <i class="fa fa-unlock" aria-hidden="true"></i> Đổi Mật Khẩu
+                                                <i className="fa fa-unlock" aria-hidden="true"/> Đổi Mật Khẩu
                                             </Link>
-                                            <div className="dropdown-divider"></div>
+                                            <div className="dropdown-divider"/>
                                             <Link to="/" className="dropdown-item text-danger" onClick={e => {
                                                 e.preventDefault();
                                                 setUserLogin(null);
@@ -237,8 +238,7 @@ const Menu = (props) => {
                                     localStorage.removeItem('user');
                                     history.push('/');
                                 }}>
-                                    <i className="fa fa-sign-out" aria-hidden="true">
-                                    </i>
+                                    <i className="fa fa-sign-out" aria-hidden="true"/>
                                     Đăng Xuất
                                 </Link>
                             </li>
