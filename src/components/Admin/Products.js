@@ -5,6 +5,7 @@ import ProductTable from "./Product/ProductTable";
 import axios from "axios";
 import {API_URL, CLOUDINARY_URL} from "../../config";
 import NumberFormat from "react-number-format";
+import { confirmAlert } from "react-confirm-alert";
 
 function Users () {
     const [data, setData] = useState([]);
@@ -40,8 +41,8 @@ function Users () {
                                 "start_date": createDate ? createDate : '',
                                 "end_date": endDate ? endDate : '',
                                 "actions": <div>
-                                    <a href={`/admin/product/${val.id_sp}`} className="btn btn-sm btn-dark mt-1">Chi tiết</a>
-                                    <button onClick={() => deleteProduct(val.id_sp)} className="btn btn-sm btn-danger mx-1 mt-1">Delete</button>
+                                    <a href={`/admin/product/${val.id_sp}`} className="btn btn-sm btn-dark mt-1 mw-70px">Chi tiết</a>
+                                    <button onClick={() => deleteProduct(val.id_sp)} className="btn btn-sm btn-danger mt-1 mw-70px">Delete</button>
                                 </div>
                             }
                         });
@@ -63,7 +64,35 @@ function Users () {
     }, [data]);
 
     const deleteProduct = (productId) => {
-        console.log('delete:' + productId);
+        confirmAlert({
+            title: "Bạn chắc chưa?",
+            message: 'Bạn sẽ không hoàn tác lại được thao tác này',
+            buttons: [
+                {
+                    label: "Vâng, Chắc rồi",
+                    onClick: () => {
+                        let user = JSON.parse(localStorage.user);
+                        axios
+                            .delete(`${API_URL}/api/admin/quan-ly-san-pham/delete-product/?id_sp=` + productId,{
+                                headers: {
+                                    "x-access-token": user.token
+                                }
+                            })
+                            .then((res) => {
+                                alert(res.data.message);
+                                window.location.reload();
+                            })
+                            .catch((err) => {
+                                alert("Có Lỗi Xảy Ra");
+                                console.log(err);
+                            });
+                    }
+                },
+                {
+                    label: "Không, thoát!",
+                }
+            ]
+        });
     }
 
     return (

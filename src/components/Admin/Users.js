@@ -85,9 +85,7 @@ function Users() {
                                 }
                             })
                             .then((res) => {
-                                alert(
-                                    "Tài khoản đã được xoá"
-                                );
+                                alert(res.data.message);
                                 window.location.reload();
                             })
                             .catch((err) => {

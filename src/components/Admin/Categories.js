@@ -5,6 +5,7 @@ import CategoryTable from "./Category/CategoryTable";
 import axios from "axios";
 import {API_URL} from "../../config";
 import {FaPlus} from "react-icons/fa";
+import { confirmAlert } from "react-confirm-alert";
 
 function Users () {
     const [data, setData] = useState([]);
@@ -53,7 +54,35 @@ function Users () {
     }, [data]);
 
     const deleteCategory = (categoryId) => {
-        console.log('delete:' + categoryId);
+        confirmAlert({
+            title: "Bạn chắc chưa?",
+            message: 'Bạn sẽ không hoàn tác lại được thao tác này',
+            buttons: [
+                {
+                    label: "Vâng, Chắc rồi",
+                    onClick: () => {
+                        let user = JSON.parse(localStorage.user);
+                        axios
+                            .delete(`${API_URL}/api/admin/quan-ly-danh-muc/delete-category/?id=` + categoryId,{
+                                headers: {
+                                    "x-access-token": user.token
+                                }
+                            })
+                            .then((res) => {
+                                alert(res.data.message);
+                                window.location.reload();
+                            })
+                            .catch((err) => {
+                                alert("Có Lỗi Xảy Ra");
+                                console.log(err);
+                            });
+                    }
+                },
+                {
+                    label: "Không, thoát!",
+                }
+            ]
+        });
     }
 
     const updateCategory = (categoryId) => {

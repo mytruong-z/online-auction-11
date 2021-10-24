@@ -215,9 +215,6 @@ a{  text-decoration: none !important;
   padding-left: 6px;
   cursor: pointer;
 }
-
-
-/*pagination*/
-
-/*User Details*/
-
+.mw-70px {
+  min-width: 70px;
+}
