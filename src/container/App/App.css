@@ -113,6 +113,10 @@ a{  text-decoration: none !important;
     text-align: left;
 }
 
+.admin-content {
+  min-height: 400px;
+}
+
 @media (min-width: 992px){
   .search-sec{
     position: relative;

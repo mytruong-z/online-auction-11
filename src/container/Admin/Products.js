@@ -98,7 +98,7 @@ function Users () {
     return (
         <>
             <Header title={'Quản lý sản phẩm'} hideSearch={true}/>
-            <div className="container py-4 px-0">
+            <div className="container py-4 px-0 admin-content">
                 {loading ?
                     <ProductTable userData={data}/>
                     :

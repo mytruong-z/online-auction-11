@@ -91,7 +91,7 @@ function Users () {
     return (
         <>
             <Header title={'Quản lý danh mục'} hideSearch={true}/>
-            <div className="container py-4 px-0">
+            <div className="container py-4 px-0 admin-content">
                 <ShowModal/>
                 {loading ?
                     <CategoryTable userData={data}/>

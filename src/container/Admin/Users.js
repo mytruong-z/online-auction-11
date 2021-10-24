@@ -104,7 +104,7 @@ function Users() {
     return (
         <>
             <Header title={'Quản lý người dùng'} hideSearch={true}/>
-            <div className="container py-4 px-0">
+            <div className="container py-4 px-0 admin-content">
                 {loading ?
                     <UserTable userData={data}/>
                     :
