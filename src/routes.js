@@ -21,11 +21,11 @@ import RateToUser from './container/Users/Rate/RateToUser'
 import UserAcceptList from './container/Seller/UserAcceptList'
 
 //Admin
-import Users from './components/Admin/Users'
-import User from './components/Admin/User/UserDetail'
-import Products from './components/Admin/Products'
-import Categories from './components/Admin/Categories'
-import Product from "./components/Admin/Product/ProductDetail"
+import Users from './container/Admin/Users'
+import User from './container/Admin/User/UserDetail'
+import Products from './container/Admin/Products'
+import Categories from './container/Admin/Categories'
+import Product from "./container/Admin/Product/ProductDetail"
 
 import Order from './container/Seller/Order';
 import ProductControl from './container/Seller/Products';
