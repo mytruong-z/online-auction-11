@@ -14,7 +14,6 @@ export function ShowModal() {
     const [message, setMessage] = useState('');
     const [validated, setValidated] = useState(false);
     const [show, setShow] = useState(false);
-    const [isChange, setChange] = useState(true);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -37,7 +36,7 @@ export function ShowModal() {
                     setStyle({color: 'green', display: 'inline'});
                     setMessage(res.data.message);
                     setDataDetail({...dataDetail, ...res.data.user});
-                    window.location.reload();
+                    document.getElementById("add-category").reset();
                 }
                 else{
                     setStyle({color: 'red', display: 'inline'});
@@ -72,7 +71,7 @@ export function ShowModal() {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form validated={validated}>
+                    <Form validated={validated} id='add-category'>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Tên danh mục</Form.Label>
                             <Form.Control type="text" name="ten" placeholder="Tên danh mục" defaultValue={dataDetail.ten} onChange={(ev) => setDataDetail({ ...dataDetail, ten: ev.target.value })} required />
@@ -83,8 +82,8 @@ export function ShowModal() {
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
                             <Form.Label>Cấp danh mục</Form.Label>
                             <Form.Select type="text" name="cap_danh_muc" placeholder="Cấp danh mục" defaultValue={dataDetail.cap_danh_muc} onChange={(ev) => setDataDetail({ ...dataDetail, cap_danh_muc: ev.target.value })} required >
-                                <option value="0">0</option>
-                                <option value="1">1</option>
+                                <option value="0">Điện thoại</option>
+                                <option value="1">Máy tính</option>
                             </Form.Select>
                             <Form.Control.Feedback type="invalid">
                                 Vui lòng nhập cấp danh mục

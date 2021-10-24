@@ -28,7 +28,7 @@ function Users () {
                             return {
                                 "Id": val.id_danh_muc,
                                 "name": val.ten,
-                                "level": val.cap_danh_muc,
+                                "level": val.cap_danh_muc === 0 ? 'Điện thoại': 'Máy tính',
                                 "actions": <div>
                                     {/*<button onClick={() => updateCategory(val.id_danh_muc)} className="btn btn-sm btn-info text-white mt-1">Cập nhật</button>*/}
                                     <button onClick={() => deleteCategory(val.id_danh_muc)} className="btn btn-sm btn-danger mx-1 mt-1">Delete</button>

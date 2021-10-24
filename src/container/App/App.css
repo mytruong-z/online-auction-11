@@ -102,6 +102,12 @@ a{  text-decoration: none !important;
   display: none!important;
 }
 
+.Login {
+  background-image: url(https://news.artnet.com/app/news-upload/2017/11/GettyImages-50947488-1024x687.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .Login .form-label {
     display: block;
     text-align: left;

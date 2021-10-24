@@ -79,7 +79,7 @@ function Users() {
                     onClick: () => {
                         let user = JSON.parse(localStorage.user);
                         axios
-                            .delete(`${API_URL}/api/admin/quan-ly-danh-muc/delete-category/?id=` + userId,{
+                            .delete(`${API_URL}/api/admin/quan-ly-nguoi-dung/delete-user/?id_nguoi_dung=` + userId,{
                                 headers: {
                                     "x-access-token": user.token
                                 }
