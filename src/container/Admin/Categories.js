@@ -7,6 +7,7 @@ import {API_URL} from "../../config";
 import {FaPlus} from "react-icons/fa";
 import { confirmAlert } from "react-confirm-alert";
 import { ShowModal } from "../Admin/Category/CategoryAdd";
+import { BsPencilSquare, BsFillTrashFill } from "react-icons/bs";
 
 function Users () {
     const [data, setData] = useState([]);
@@ -30,8 +31,8 @@ function Users () {
                                 "name": val.ten,
                                 "level": val.cap_danh_muc === 0 ? 'Điện thoại': 'Máy tính',
                                 "actions": <div>
-                                    {/*<button onClick={() => updateCategory(val.id_danh_muc)} className="btn btn-sm btn-info text-white mt-1">Cập nhật</button>*/}
-                                    <button onClick={() => deleteCategory(val.id_danh_muc)} className="btn btn-sm btn-danger mx-1 mt-1">Delete</button>
+                                    {/*<button onClick={() => updateCategory(val.id_danh_muc)} className="btn btn-sm btn-info text-white mt-1"><BsPencilSquare/> Cập nhật</button>*/}
+                                    <button onClick={() => deleteCategory(val.id_danh_muc)} className="btn btn-sm btn-danger mx-1 mt-1"><BsFillTrashFill/> Delete</button>
                                 </div>
                             }
                         });

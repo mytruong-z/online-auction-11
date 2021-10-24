@@ -6,6 +6,7 @@ import UserTable from './User/UserTable';
 import axios from "axios";
 import {API_URL} from "../../config";
 import {confirmAlert} from "react-confirm-alert";
+import { BsFillEyeFill, BsFillTrashFill } from "react-icons/bs";
 
 function Users() {
     const [data, setData] = useState([]);
@@ -43,11 +44,13 @@ function Users() {
                                 "email": val.email,
                                 "point": point ? point : <Badge bg="secondary">Không khả dụng</Badge>,
                                 "expired": createDate ? createDate : <Badge bg="secondary">Không khả dụng</Badge>,
+                                "quyen_han": val.id_quyen_han === 1 ? <Badge bg="secondary">Level 1</Badge> : <Badge bg="warning">Level 2</Badge>,
                                 "actions": <div>
-                                    <a href={`/admin/user/${val.id_nguoi_dung}`} className="btn btn-sm btn-dark">Chi
-                                        tiết</a>
-                                    <button onClick={() => deleteUser(val.id_nguoi_dung)}
-                                            className="btn btn-sm btn-danger mx-1">Delete
+                                    <a href={`/admin/user/${val.id_nguoi_dung}`} className="btn btn-sm btn-outline-dark">
+                                        <BsFillEyeFill/> Chi tiết
+                                    </a>
+                                    <button onClick={() => deleteUser(val.id_nguoi_dung)} className="btn btn-sm btn-danger mx-1">
+                                        <BsFillTrashFill/> Delete
                                     </button>
                                 </div>
                             }

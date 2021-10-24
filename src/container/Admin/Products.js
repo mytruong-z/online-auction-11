@@ -6,6 +6,7 @@ import axios from "axios";
 import {API_URL, CLOUDINARY_URL} from "../../config";
 import NumberFormat from "react-number-format";
 import { confirmAlert } from "react-confirm-alert";
+import { BsFillEyeFill, BsFillTrashFill } from "react-icons/bs";
 
 function Users () {
     const [data, setData] = useState([]);
@@ -41,8 +42,8 @@ function Users () {
                                 "start_date": createDate ? createDate : '',
                                 "end_date": endDate ? endDate : '',
                                 "actions": <div>
-                                    <a href={`/admin/product/${val.id_sp}`} className="btn btn-sm btn-dark mt-1 mw-70px">Chi tiết</a>
-                                    <button onClick={() => deleteProduct(val.id_sp)} className="btn btn-sm btn-danger mt-1 mw-70px">Delete</button>
+                                    <a href={`/admin/product/${val.id_sp}`} className="btn btn-sm btn-outline-dark mt-1 mw-70px"><BsFillEyeFill/> Chi tiết</a>
+                                    <button onClick={() => deleteProduct(val.id_sp)} className="btn btn-sm btn-danger mt-1 mw-70px"><BsFillTrashFill/> Delete</button>
                                 </div>
                             }
                         });
