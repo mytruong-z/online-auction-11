@@ -160,6 +160,10 @@ function UserTable({userData}) {
                 accessor: 'expired',
             },
             {
+                Header: 'Bậc',
+                accessor: 'quyen_han',
+            },
+            {
                 Header: 'Thao tác',
                 accessor: 'actions',
             },

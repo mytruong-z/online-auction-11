@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import axios from "axios";
 import { API_URL } from "../../../config";
+import { BsPencilSquare } from "react-icons/bs";
 
 export function ShowModal({ data, onUpdatedInfo }) {
     const [dataDetail, setDataDetail] = useState(data);
@@ -71,9 +72,7 @@ export function ShowModal({ data, onUpdatedInfo }) {
 
     return (
         <>
-            <Button variant="primary" className="mt-3" onClick={handleShow}>
-                Chỉnh sửa
-            </Button>
+            <button onClick={handleShow} className="btn btn-sm btn-info text-white mt-1"><BsPencilSquare/> Cập nhật</button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header>
                     <Modal.Title className="col-12">

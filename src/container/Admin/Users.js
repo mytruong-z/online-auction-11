@@ -6,6 +6,7 @@ import UserTable from './User/UserTable';
 import axios from "axios";
 import {API_URL} from "../../config";
 import {confirmAlert} from "react-confirm-alert";
+import { BsFillEyeFill, BsFillTrashFill } from "react-icons/bs";
 
 function Users() {
     const [data, setData] = useState([]);
@@ -43,11 +44,13 @@ function Users() {
                                 "email": val.email,
                                 "point": point ? point : <Badge bg="secondary">Không khả dụng</Badge>,
                                 "expired": createDate ? createDate : <Badge bg="secondary">Không khả dụng</Badge>,
+                                "quyen_han": val.id_quyen_han === 1 ? <Badge bg="secondary">Level 1</Badge> : <Badge bg="warning">Level 2</Badge>,
                                 "actions": <div>
-                                    <a href={`/admin/user/${val.id_nguoi_dung}`} className="btn btn-sm btn-dark">Chi
-                                        tiết</a>
-                                    <button onClick={() => deleteUser(val.id_nguoi_dung)}
-                                            className="btn btn-sm btn-danger mx-1">Delete
+                                    <a href={`/admin/user/${val.id_nguoi_dung}`} className="btn btn-sm btn-outline-dark">
+                                        <BsFillEyeFill/> Chi tiết
+                                    </a>
+                                    <button onClick={() => deleteUser(val.id_nguoi_dung)} className="btn btn-sm btn-danger mx-1">
+                                        <BsFillTrashFill/> Delete
                                     </button>
                                 </div>
                             }
@@ -79,15 +82,13 @@ function Users() {
                     onClick: () => {
                         let user = JSON.parse(localStorage.user);
                         axios
-                            .delete(`${API_URL}/api/admin/quan-ly-danh-muc/delete-category/?id=` + userId,{
+                            .delete(`${API_URL}/api/admin/quan-ly-nguoi-dung/delete-user/?id_nguoi_dung=` + userId,{
                                 headers: {
                                     "x-access-token": user.token
                                 }
                             })
                             .then((res) => {
-                                alert(
-                                    "Tài khoản đã được xoá"
-                                );
+                                alert(res.data.message);
                                 window.location.reload();
                             })
                             .catch((err) => {
@@ -106,7 +107,7 @@ function Users() {
     return (
         <>
             <Header title={'Quản lý người dùng'} hideSearch={true}/>
-            <div className="container py-4 px-0">
+            <div className="container py-4 px-0 admin-content">
                 {loading ?
                     <UserTable userData={data}/>
                     :

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
-import { useParams } from "react-router-dom";
 import { Card } from 'react-bootstrap';
 import { Badge } from 'react-bootstrap';
 import Header from "../partials/header";
@@ -55,27 +54,35 @@ const User = (props) => {
     return (
         <>
             <Header title={'Chi tiết người dùng'} hideSearch={true} />
-            <div className="mt-4 mx-5">
+            <div className="mt-4 mx-5 admin-content">
                 <div className="text-end pb-2">
                     <a href="/admin/users" className="btn btn-sm btn-outline-dark"><FaArrowLeft /> Trở về</a>
                 </div>
                 {loading ?
                     <Card>
                         <Card.Header as="h5">
-                            {data.id_quyen_han === 1 ? <Badge bg="secondary">Level 1</Badge> : <Badge bg="dark">Level 2</Badge>} <strong>{data.ho_ten}</strong>
+                            {data.id_quyen_han === 1 ? <Badge bg="secondary">Level 1</Badge> : <Badge bg="warning">Level 2</Badge>} <strong className="px-2">{data.ho_ten}</strong>
                         </Card.Header>
                         <Card.Body>
-                            <Card.Title>ID: {data.id_nguoi_dung}</Card.Title>
+                            <Card.Title>
+                                <div className="row">
+                                    <div className="col-8 text-black">
+                                        ID: {data.id_nguoi_dung}
+                                    </div>
+                                    <div className="col-4 text-right">
+                                        <ShowModal data={data} onUpdatedInfo={handleUpdate} />
+                                    </div>
+                                </div>
+                            </Card.Title>
                             <Card.Text>
-                                <span className="bold w-150px d-block d-sm-inline-block">Họ tên:</span> {data.ho_ten} <br />
-                                <span className="bold w-150px d-block d-sm-inline-block">Email:</span> {data.email} <br />
-                                <span className="bold w-150px d-block d-sm-inline-block">Ngày sinh:</span> {data.ngay_sinh ? (new Date(data.ngay_sinh)).toLocaleDateString('en-US', DATE_OPTIONS) : ''} <br />
-                                <span className="bold w-150px d-block d-sm-inline-block">Địa chỉ:</span> {data.dia_chi} <br />
-                                <span className="bold w-150px d-block d-sm-inline-block">Ngày hết hạn:</span> {data.expired ? (new Date(data.expired)).toLocaleDateString('en-US', DATE_OPTIONS) : ''} <br />
-                                <span className="bold w-150px d-block d-sm-inline-block">Điểm đánh giá dương:</span> {data.diem_danhgia_duong} <br />
-                                <span className="bold w-150px d-block d-sm-inline-block">Điểm đánh giá âm:</span> {data.diem_danhgia_am} <br />
-                                <span className="bold w-150px d-block d-sm-inline-block">Điểm đánh giá:</span> {(data.diem_danhgia_duong && data.diem_danhgia_am) ? Number((data.diem_danhgia_duong / (data.diem_danhgia_duong + data.diem_danhgia_am) * 100).toFixed(2)) : ''} <br />
-                                <ShowModal data={data} onUpdatedInfo={handleUpdate} />
+                                <span className="bold w-150px d-block d-sm-inline-block detail-title">Họ tên:</span> {data.ho_ten} <br />
+                                <span className="bold w-150px d-block d-sm-inline-block detail-title">Email:</span> {data.email} <br />
+                                <span className="bold w-150px d-block d-sm-inline-block detail-title">Ngày sinh:</span> {data.ngay_sinh ? (new Date(data.ngay_sinh)).toLocaleDateString('en-US', DATE_OPTIONS) : ''} <br />
+                                <span className="bold w-150px d-block d-sm-inline-block detail-title">Địa chỉ:</span> {data.dia_chi} <br />
+                                <span className="bold w-150px d-block d-sm-inline-block detail-title">Ngày hết hạn:</span> {data.expired ? (new Date(data.expired)).toLocaleDateString('en-US', DATE_OPTIONS) : ''} <br />
+                                <span className="bold w-150px d-block d-sm-inline-block detail-title">Điểm đánh giá dương:</span> {data.diem_danhgia_duong} <br />
+                                <span className="bold w-150px d-block d-sm-inline-block detail-title">Điểm đánh giá âm:</span> {data.diem_danhgia_am} <br />
+                                <span className="bold w-150px d-block d-sm-inline-block detail-title">Điểm đánh giá:</span> <span className="text-danger">{(data.diem_danhgia_duong && data.diem_danhgia_am) ? Number((data.diem_danhgia_duong / (data.diem_danhgia_duong + data.diem_danhgia_am) * 100).toFixed(2)) : ''}</span> <br />
                             </Card.Text>
                         </Card.Body>
                     </Card>
