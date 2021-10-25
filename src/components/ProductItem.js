@@ -9,11 +9,19 @@ import moment from "moment";
 import "moment/locale/vi";
 import lodash from 'lodash'
 const ProductItem = (props) => {
-  const { i, item, img, tokenLogin, idLogin } = props;
+  const { i, item, img, tokenLogin } = props;
+  
   const [loveStyle, setLoveStyle] = useState(`gray`);
   const [soLuong, setSoLuong] = useState(0);
   const [caoNhat, setCaoNhat] = useState(null);
+  const [idLogin, setIdLogin] = useState(null);
+
   useEffect(() => {
+    let userLocal = null;
+    if (localStorage.user) {
+      userLocal = JSON.parse(localStorage.user);
+      setIdLogin(userLocal.user.id_nguoi_dung);
+    }
     axios
       .get(`${API_URL}/api/san-pham/dau-gia/so-luong?id_sp=${item.id_sp}`)
       .then((res) => {
@@ -25,7 +33,7 @@ const ProductItem = (props) => {
       .then((res) => {
         if(res.data !== null || res.data !== "") setCaoNhat(res.data);
       });
-    if (tokenLogin !== undefined) {
+    if (tokenLogin !== null && idLogin !== null) {
       axios
         .get(
           `${API_URL}/api/tai-khoan/yeu-thich/kiem-tra-san-pham?san_pham=${item.id_sp}`,
@@ -41,7 +49,7 @@ const ProductItem = (props) => {
           }
         });
     }
-  }, [item.id_sp, tokenLogin]);
+  }, [idLogin, item.id_sp, tokenLogin]);
 
   const handleTimeLeft = (end) => {
     moment.locale("vi");
