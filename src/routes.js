@@ -28,7 +28,7 @@ import Categories from './container/Admin/Categories'
 import Product from "./container/Admin/Product/ProductDetail"
 
 import Order from './container/Seller/Order';
-import ProductControl from './container/Seller/Products';
+import ProductControl from './container/Seller/ProductList';
 
 
 

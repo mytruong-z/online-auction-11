@@ -154,8 +154,6 @@ const ProductList = (props) => {
     e.preventDefault();
     let curr = page + 1;
     setPage(curr);
-
-    
   }
 
   const handlePreviousPage = e => {
@@ -231,10 +229,7 @@ const ProductList = (props) => {
               <span className="sr-only">Previous</span>
             </Link>
           </li>}
-         
           {mapPage(totalPage)}
-
-         
           { (page === totalPage || totalPage === 0) ? '' :   <li className="page-item">
             <Link className="page-link" onClick={e => handleNextPage(e)} href="#" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>

@@ -130,7 +130,7 @@ const ProductItem = (props) => {
               <br />
               {item.isMoi ? (
                 <>
-                  <img src={process.env.PUBLIC_URL + "/new.gif"} alt="new" />{" "}
+                  <img src={process.env.PUBLIC_URL + "/new.gif"} style={{ width: 40 }} alt="new" />{" "}
                   <span>{item.relative_publish_date}</span>
                 </>
               ) : (

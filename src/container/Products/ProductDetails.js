@@ -189,7 +189,7 @@ const ProductDetails = (props) => {
     axios
       .patch(`${API_URL}/api/nguoi-ban/sua-san-pham`, sendData, {
         headers: {
-          "x-access-token": token
+          "x-access-token": token,
         }
       })
       .then((res) => {
