@@ -11,7 +11,6 @@ import UserAuctionHistory from './container/Users/UserAuctionHistory'
 import UserLoved from './container/Users/Product/UserLoved'
 import UserChangePassword from './container/Users/Account/UserChangePassword'
 import ForgotPassword from './container/Auth/forgotPassword';
-import UserUpdateInfo from './container/Users/Account/UserUpdateInfo'
 
 import UserRate from './container/Users/Rate/UserRate'
 import RateToUser from './container/Users/Rate/RateToUser'
@@ -125,11 +124,6 @@ const routes = [
         path: '/nguoi-dung/doi-mat-khau',
         exact: false,
         main: ({location}) => <UserChangePassword location={location} />
-    },
-    {
-        path: '/nguoi-dung/cap-nhat-thong-tin',
-        exact: false,
-        main: ({location}) => <UserUpdateInfo location={location} />
     },
     {
         path: '/nguoi-ban/danh-sach-chap-thuan',

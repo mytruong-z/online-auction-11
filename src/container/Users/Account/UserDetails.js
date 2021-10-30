@@ -27,7 +27,7 @@ const UserDetails = (props) => {
 
   const [user, setUser] = useState(null);
   const [fullName, setFullName] = useState(null);
-  const [birthDay, setBirthDay] = useState(null);
+  const [birthDay, setBirthDay] = useState(new Date());
   let [diemDuong, setDiemDuong] = useState(0);
   let [diemAm, setDiemAm] = useState(0);
 

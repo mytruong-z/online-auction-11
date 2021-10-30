@@ -11,6 +11,8 @@ import { Button, Modal, Card, Form, Row, Col } from "react-bootstrap";
 import draftToHtml from "draftjs-to-html";
 import { convertToRaw } from "draft-js";
 import axios from "axios";
+import DateTimePicker from 'react-datetime-picker';
+
 var FormData = require("form-data");
 const ProductList = (props) => {
   /// state init
@@ -19,7 +21,7 @@ const ProductList = (props) => {
   const [hostToken, setHostToken] = useState("");
   const history = useHistory();
   const [danhMucs, setDanhMucs] = useState([]);
-
+  const [dateValue, setDateValue] = useState(new Date())
 
   const handleAdd = (e) => {
     e.preventDefault();
@@ -64,6 +66,11 @@ const ProductList = (props) => {
   const [images, setImages] = useState(null);
   const [moTa, setMoTa] = useState(null);
   const [chooseCategory, setChooseCategory] = useState(0);
+
+  const toTimestamp = (strDate) => {
+    var datum = Date.parse(strDate);
+    return datum/1000;
+ }
 
   const handleSaveProduct = (e) => {
     e.preventDefault();
@@ -320,13 +327,18 @@ const ProductList = (props) => {
 
               <Col className="mb-3" controlid="">
                 <Form.Label>Ngày Kết Thúc</Form.Label>
-                <DatePicker
+                <DateTimePicker
                   onChange={(date) => {
-                    const day = String(date.getDate()).padStart(2, "0");
-                    const month = String(date.getMonth() + 1).padStart(2, "0");
-                    const sData = `${date.getFullYear()}-${month}-${day}`;
-                    setEndDate(sData);
+                    // const day = String(date.getDate()).padStart(2, "0");
+                    // const month = String(date.getMonth() + 1).padStart(2, "0");
+                    // const sData = `${date.getFullYear()}-${month}-${day}`;
+                    let arr = date.toISOString().split("T")
+                    let endDate = arr[0] + " " + arr[1].slice(0,-5)
+                    console.log(endDate)
+                    setDateValue(date)
+                    setEndDate(endDate);
                   }}
+                  value={dateValue}
                 />
               </Col>
               <Form.Group controlId="formFileMultiple" className="mb-3">
@@ -413,7 +425,7 @@ const ProductList = (props) => {
                 <td>
                   <strong>
                     <button className="btn btn-sm btn-primary m-1" onClick={e => {
-                      history.push()
+                      history.push(`/san-pham/${product.path}`)
                     }}>
                       Chi tiết
                     </button>

@@ -24,6 +24,9 @@ const ProductList = (props) => {
             setToken(userLocal.token);
         }
 
+
+        console.log(searchName + " " + searchFor)
+
         if (id != null) {
             axios
                 .get(`${API_URL}/api/danh-muc/tim-danh-muc?danh_muc=${id}`)
@@ -51,7 +54,7 @@ const ProductList = (props) => {
                     });
             }
         } else if (searchName != null && searchFor != null) {
-            if (searchFor === 1) {
+            if (parseInt(searchFor) === 1) {
                 setTitle("Tìm Kiếm Với Tên Sản Phẩm :" + searchName)
 
 
