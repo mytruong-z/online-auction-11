@@ -7,6 +7,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import axios from "axios";
 import { API_URL } from "../../../config";
 import { ShowModal } from "../User/UserUpdateInfo";
+import { UpdateLevel } from "../User/UpdateLevel";
 
 const User = (props) => {
     const { location } = props;
@@ -27,6 +28,7 @@ const User = (props) => {
             if (localStorage.user) {
                 let user = JSON.parse(localStorage.user);
                 setToken(user.token);
+                console.log(user.token);
                 axios
                     .get(`${API_URL}/api/admin/quan-ly-nguoi-dung/detail-user?id_nguoi_dung=` + id, {
                         headers: {
@@ -71,6 +73,7 @@ const User = (props) => {
                                     </div>
                                     <div className="col-4 text-right">
                                         <ShowModal data={data} onUpdatedInfo={handleUpdate} />
+                                        <UpdateLevel data={data} onUpdatedInfo={handleUpdate} />
                                     </div>
                                 </div>
                             </Card.Title>

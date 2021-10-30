@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Route, Switch, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import axios from "axios";
 import { pathSplitting } from "../utils/pathSplit";
