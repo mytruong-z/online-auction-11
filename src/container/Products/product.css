@@ -71,3 +71,7 @@
 .block-button .btn-ins {
     width: 49%;
 }
+.modal-body img{
+	 max-width: 100%;
+  	height: auto;
+}

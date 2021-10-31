@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import DatePicker from "react-datepicker";
@@ -12,7 +12,8 @@ import draftToHtml from "draftjs-to-html";
 import { convertToRaw } from "draft-js";
 import axios from "axios";
 import DateTimePicker from 'react-datetime-picker';
-
+import ShowMoreText from "react-show-more-text";
+import ReactHtmlParser from 'react-html-parser'; 
 var FormData = require("form-data");
 const ProductList = (props) => {
   /// state init
@@ -419,7 +420,18 @@ const ProductList = (props) => {
                 <td>{product.gia_dat}</td>
                 <td>{product.buoc_gia}</td>
                 <td>{product.gia_mua_ngay}</td>
-                <td>{product.mo_ta}</td>
+                <td><ShowMoreText
+                          /* Default options */
+                          lines={3}
+                          more="Show more"
+                          less="Show less"
+                          className="content-css"
+                          anchorClass="my-anchor-css-class"
+                          expanded={false}
+                          truncatedEndingComponent={"... "}
+                        >
+                          {product.mo_ta}
+                        </ShowMoreText></td>
                 <td>{product.danh_muc.ten}</td>
                 <td>{product.end_date}</td>
                 <td>

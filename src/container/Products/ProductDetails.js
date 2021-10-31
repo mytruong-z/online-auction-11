@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+﻿/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-no-comment-textnodes */
 import { useState, useEffect } from "react";
 import ImageSlider from "./ImageSlider";
@@ -23,6 +23,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
 import { convertToRaw } from "draft-js";
 import lodash from "lodash";
+import ReactHtmlParser from 'react-html-parser'; 
 
 const ProductDetails = (props) => {
   const [loveStyle, setLoveStyle] = useState(`gray`);
@@ -743,13 +744,13 @@ const ProductDetails = (props) => {
             </h5>
 
             <div
+	      
               className="modal fade"
               id="modelId"
               tabindex="-1"
               role="dialog"
               aria-labelledby="modelTitleId"
-              aria-hidden="true"
-            >
+              aria-hidden="true">
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
                   <div className="modal-header">
@@ -782,7 +783,7 @@ const ProductDetails = (props) => {
                           expanded={false}
                           truncatedEndingComponent={"... "}
                         >
-                          {mota}
+                          {ReactHtmlParser (mota)}
                         </ShowMoreText>
                       </div>
                       <Editor
@@ -828,7 +829,7 @@ const ProductDetails = (props) => {
             expanded={false}
             truncatedEndingComponent={"... "}
           >
-            {mota}
+            {ReactHtmlParser (mota)}
           </ShowMoreText>
         </div>
       )}
