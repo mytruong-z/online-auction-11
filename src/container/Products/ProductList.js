@@ -15,6 +15,9 @@ const ProductList = (props) => {
 
     const [idLogin, setIdLogin] = useState(null);
     const [token, setToken] = useState(null)
+
+
+    const [yeuthichs, setYeuThichs] = useState([])
     useEffect(() => {
 
         let userLocal = null;
@@ -22,10 +25,19 @@ const ProductList = (props) => {
             userLocal = JSON.parse(localStorage.user);
             setIdLogin(userLocal.user.id_nguoi_dung);
             setToken(userLocal.token);
+
+            axios.get(`${API_URL}/api/tai-khoan/yeu-thich/xem-danh-sach/thu-gon`,{
+                headers: {
+                  "x-access-token": userLocal.token
+                }
+              }).then(res => {
+                let rs = res.data.map(yt => yt.id_san_pham)
+                setYeuThichs(rs)
+              }).catch(err => {
+        
+              })
+
         }
-
-
-        console.log(searchName + " " + searchFor)
 
         if (id != null) {
             axios
@@ -218,7 +230,7 @@ const ProductList = (props) => {
                                 img = item.anh;
                             }
                         }
-                        return <ProductItem tokenLogin={token} idLogin={idLogin} i={i} item={item} img={img}/>;
+                        return <ProductItem isLoved={yeuthichs.indexOf(item.id_sp)} tokenLogin={token} idLogin={idLogin} i={i} item={item} img={img}/>;
                     })}
                 </div>
             </div>

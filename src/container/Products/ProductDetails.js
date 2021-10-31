@@ -23,7 +23,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
 import { convertToRaw } from "draft-js";
 import lodash from "lodash";
-import ReactHtmlParser from 'react-html-parser'; 
+import ReactHtmlParser from "react-html-parser";
 
 const ProductDetails = (props) => {
   const [loveStyle, setLoveStyle] = useState(`gray`);
@@ -43,6 +43,7 @@ const ProductDetails = (props) => {
   let [giaHienTai, setGiaHienTai] = useState(0);
   let [giaDat, setGiaDat] = useState(0);
   const [caoNhat, setCaoNhat] = useState(null);
+  const [yeuthichs, setYeuThichs] = useState([]);
 
   const history = useHistory();
 
@@ -61,6 +62,18 @@ const ProductDetails = (props) => {
       setToken(userLocal.token);
       setRole(userLocal.user.id_quyen_han);
       setIdLogin(userLocal.user.id_nguoi_dung);
+
+      axios
+        .get(`${API_URL}/api/tai-khoan/yeu-thich/xem-danh-sach/thu-gon`, {
+          headers: {
+            "x-access-token": userLocal.token
+          }
+        })
+        .then((res) => {
+          let rs = res.data.map((yt) => yt.id_san_pham);
+          setYeuThichs(rs);
+        })
+        .catch((err) => {});
     }
 
     axios
@@ -190,7 +203,7 @@ const ProductDetails = (props) => {
     axios
       .patch(`${API_URL}/api/nguoi-ban/sua-san-pham`, sendData, {
         headers: {
-          "x-access-token": token,
+          "x-access-token": token
         }
       })
       .then((res) => {
@@ -680,7 +693,9 @@ const ProductDetails = (props) => {
                         </div>
                       </div>
 
-                      {role === null || role !== 2 || product.nguoi_ban.id !== idLogin ? (
+                      {role === null ||
+                      role !== 2 ||
+                      product.nguoi_ban.id !== idLogin ? (
                         ""
                       ) : (
                         <div className="col-6">
@@ -744,13 +759,13 @@ const ProductDetails = (props) => {
             </h5>
 
             <div
-	      
               className="modal fade"
               id="modelId"
               tabindex="-1"
               role="dialog"
               aria-labelledby="modelTitleId"
-              aria-hidden="true">
+              aria-hidden="true"
+            >
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
                   <div className="modal-header">
@@ -783,7 +798,7 @@ const ProductDetails = (props) => {
                           expanded={false}
                           truncatedEndingComponent={"... "}
                         >
-                          {ReactHtmlParser (mota)}
+                          {ReactHtmlParser(mota)}
                         </ShowMoreText>
                       </div>
                       <Editor
@@ -829,7 +844,7 @@ const ProductDetails = (props) => {
             expanded={false}
             truncatedEndingComponent={"... "}
           >
-            {ReactHtmlParser (mota)}
+            {ReactHtmlParser(mota)}
           </ShowMoreText>
         </div>
       )}
@@ -854,21 +869,26 @@ const ProductDetails = (props) => {
       <div className="container w-75">
         <div className="row room-items">
           {namSPCungLoai.map((item, i) => {
-            let img = "no-img.png";
-            if (typeof item.anh !== "undefined" && item.anh.length) {
-              if (typeof item.anh !== "undefined") {
-                img = item.anh;
+            if (item.id_sp !== idSP) {
+              let img = "no-img.png";
+              if (typeof item.anh !== "undefined" && item.anh.length) {
+                if (typeof item.anh !== "undefined") {
+                  img = item.anh;
+                }
               }
+              return (
+                <ProductItem
+                  isLoved={yeuthichs.indexOf(item.id_sp)}
+                  tokenLogin={token}
+                  idLogin={idLogin}
+                  i={i}
+                  item={item}
+                  img={img}
+                />
+              );
+            } else{
+              return ('')
             }
-            return (
-              <ProductItem
-                tokenLogin={token}
-                idLogin={idLogin}
-                i={i}
-                item={item}
-                img={img}
-              />
-            );
           })}
         </div>
       </div>

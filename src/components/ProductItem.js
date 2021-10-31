@@ -9,13 +9,12 @@ import moment from "moment";
 import "moment/locale/vi";
 import lodash from 'lodash'
 const ProductItem = (props) => {
-  const { i, item, img, tokenLogin } = props;
+  const { i, item, img, tokenLogin, isLoved } = props;
   
   const [loveStyle, setLoveStyle] = useState(`gray`);
   const [caoNhat, setCaoNhat] = useState(null);
   const [idLogin, setIdLogin] = useState(null);
 
-  console.log(item)
 
   useEffect(() => {
     let userLocal = null;
@@ -31,22 +30,27 @@ const ProductItem = (props) => {
         if(res.data !== null || res.data !== "") setCaoNhat(res.data);
       });
     if (tokenLogin !== null && idLogin !== null) {
-      axios
-        .get(
-          `${API_URL}/api/tai-khoan/yeu-thich/kiem-tra-san-pham?san_pham=${item.id_sp}`,
-          {
-            headers: {
-              "x-access-token": tokenLogin
-            }
-          }
-        )
-        .then((rs) => {
-          if (rs.data.isLiked === true) {
-            setLoveStyle(`red`);
-          }
-        });
+      // axios
+      //   .get(
+      //     `${API_URL}/api/tai-khoan/yeu-thich/kiem-tra-san-pham?san_pham=${item.id_sp}`,
+      //     {
+      //       headers: {
+      //         "x-access-token": tokenLogin
+      //       }
+      //     }
+      //   )
+      //   .then((rs) => {
+      //     if (rs.data.isLiked === true) {
+      //       setLoveStyle(`red`);
+      //     }
+      //   });
+
+      if(isLoved !== -1){
+        setLoveStyle(`red`)
+      }
+
     }
-  }, [idLogin, item.id_sp, tokenLogin]);
+  }, [idLogin, isLoved, item.id_sp, tokenLogin]);
 
   const handleTimeLeft = (end) => {
     moment.locale("vi");
