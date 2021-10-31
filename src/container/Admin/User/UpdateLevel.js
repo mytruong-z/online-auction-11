@@ -66,7 +66,11 @@ export function UpdateLevel({ data, onUpdatedInfo }) {
 
     return (
         <>
-            <button onClick={handleShow} className="btn btn-sm btn-warning text-white mt-1 mx-1"><BsChevronDoubleUp/> Nâng cấp</button>
+            { dataDetail.id_quyen_han === 2 ?
+                <button className="btn btn-sm btn-secondary text-white mt-1 mx-1"><BsChevronDoubleUp/> Nâng cấp</button>
+                :
+                <button onClick={handleShow} className="btn btn-sm btn-warning text-white mt-1 mx-1"><BsChevronDoubleUp/> Nâng cấp</button>
+            }
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header>
                     <Modal.Title className="col-12">
