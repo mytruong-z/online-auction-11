@@ -7,12 +7,10 @@ import { API_URL } from "../config";
 import axios from "axios";
 import moment from "moment";
 import "moment/locale/vi";
-import lodash from 'lodash'
 const ProductItem = (props) => {
   const { i, item, img, tokenLogin, isLoved } = props;
   
   const [loveStyle, setLoveStyle] = useState(`gray`);
-  const [caoNhat, setCaoNhat] = useState(null);
   const [idLogin, setIdLogin] = useState(null);
 
 
@@ -23,28 +21,7 @@ const ProductItem = (props) => {
       setIdLogin(userLocal.user.id_nguoi_dung);
     }
     
-
-    axios
-      .get(`${API_URL}/api/san-pham/dau-gia/cao-nhat?id_sp=${item.id_sp}`)
-      .then((res) => {
-        if(res.data !== null || res.data !== "") setCaoNhat(res.data);
-      });
     if (tokenLogin !== null && idLogin !== null) {
-      // axios
-      //   .get(
-      //     `${API_URL}/api/tai-khoan/yeu-thich/kiem-tra-san-pham?san_pham=${item.id_sp}`,
-      //     {
-      //       headers: {
-      //         "x-access-token": tokenLogin
-      //       }
-      //     }
-      //   )
-      //   .then((rs) => {
-      //     if (rs.data.isLiked === true) {
-      //       setLoveStyle(`red`);
-      //     }
-      //   });
-
       if(isLoved !== -1){
         setLoveStyle(`red`)
       }
@@ -166,16 +143,6 @@ const ProductItem = (props) => {
             )}
 
             <p>
-              Người ra giá cao nhất:{" "}
-              {(caoNhat === null || caoNhat === undefined || lodash.isEmpty(caoNhat)) ? (
-                "Chưa Có Người Đấu Giá"
-              ) : (
-                <Link to={`/nguoi-dung/thong-tin/${caoNhat.id_nguoi_dung}`}>
-                  {caoNhat.ho_ten} (+{caoNhat.diem_danhgia_duong}|-
-                  {caoNhat.diem_danhgia_am})
-                </Link>
-              )}
-              <br />
               Số Lượt Đấu Giá: {item.luot_daugia}
             </p>
           </Card.Footer>
