@@ -12,9 +12,10 @@ const ProductItem = (props) => {
   const { i, item, img, tokenLogin } = props;
   
   const [loveStyle, setLoveStyle] = useState(`gray`);
-  const [soLuong, setSoLuong] = useState(0);
   const [caoNhat, setCaoNhat] = useState(null);
   const [idLogin, setIdLogin] = useState(null);
+
+  console.log(item)
 
   useEffect(() => {
     let userLocal = null;
@@ -22,11 +23,7 @@ const ProductItem = (props) => {
       userLocal = JSON.parse(localStorage.user);
       setIdLogin(userLocal.user.id_nguoi_dung);
     }
-    axios
-      .get(`${API_URL}/api/san-pham/dau-gia/so-luong?id_sp=${item.id_sp}`)
-      .then((res) => {
-        setSoLuong(res.data.count);
-      });
+    
 
     axios
       .get(`${API_URL}/api/san-pham/dau-gia/cao-nhat?id_sp=${item.id_sp}`)
@@ -175,7 +172,7 @@ const ProductItem = (props) => {
                 </Link>
               )}
               <br />
-              Số Lượt Đấu Giá: {soLuong}
+              Số Lượt Đấu Giá: {item.luot_daugia}
             </p>
           </Card.Footer>
         </Card>
