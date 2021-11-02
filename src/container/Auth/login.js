@@ -4,6 +4,8 @@ import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { API_URL } from '../../config/index';
 
+
+
 function Login () {
     const [email, setEmail] = useState('');
     const [mat_khau, setPassword] = useState('');
@@ -37,6 +39,8 @@ function Login () {
             }
             else {
                 localStorage.setItem('user', JSON.stringify(result));
+                
+
                 history.push({
                     pathname: '/',
                     search: '',

@@ -25,6 +25,10 @@ import { convertToRaw } from "draft-js";
 import lodash from "lodash";
 import ReactHtmlParser from "react-html-parser";
 
+import { addNotificationData } from "../../model/notificationModel";
+import { getDatabase, ref, onValue, get, child } from "firebase/database";
+
+
 const ProductDetails = (props) => {
   const [loveStyle, setLoveStyle] = useState(`gray`);
   const { name } = useParams();
@@ -244,6 +248,10 @@ const ProductDetails = (props) => {
                 }
               })
               .then((res) => {
+
+                // @realtime nguoi-ban
+                addNotificationData(product.nguoi_ban.id, `Chúc Mừng Bạn SP #<a href="/san-pham/${name}">${idSP}</a> được Mua Đứt với giá: ${product.gia_mua_ngay}`,1)
+
                 alert(
                   "Xin Cảm Ơn Bạn Đã Mua Sản Phẩm, Sản Phẩm Sẽ Bị Khóa Lại Và Người Bán Sẽ Xử Lí Đơn Hàng Của Bạn"
                 );
@@ -281,6 +289,16 @@ const ProductDetails = (props) => {
         if (isWin) {
           let gia_ht = res.data.gia_hien_tai;
           setGiaHienTai(gia_ht);
+
+          ///  @realtime  /// send to nguoi ban, nguoi ra gia, nguoi giu gia
+           // nguoi-ban
+          addNotificationData(product.nguoi_ban.id, `Chúc Mừng Bạn Với SP #<a href="/san-pham/${name}">${idSP}</a> được đặt với giá: ${giaDat}`,1)
+          // nguoi-giu gia - neu co 
+          if(caoNhat !== null &&
+            caoNhat !== undefined &&
+            lodash.isEmpty(caoNhat) === false){ 
+            if(idLogin !== caoNhat.id_nguoi_dung) addNotificationData(caoNhat.id_nguoi_dung, `Sản Phẩm Có Mã #<a href="/san-pham/${name}">${idSP}</a> đã được đấu giá cao hơn`,2)
+          }
           alert("Chúc Mừng Bạn Đã Dành Vị Trí Quán Quân");
         } else {
           if (messeage === "lose. need higher price") {
@@ -288,6 +306,8 @@ const ProductDetails = (props) => {
           }
 
           if (messeage === "you need waiting for auction") {
+            ///  @realtime  /// send to nguoi ban
+            addNotificationData(product.nguoi_ban.id, `Có Một Người Dùng Yêu Cầu Sự Chấp Thuận Với SP #<a href="/san-pham/${name}">${idSP}</a>`,3)
             alert(
               "Để Lượt Đấu Giá Này Có Hiệu Lực Bạn Cần Có Sự Chấp Thuận Của Người Bán"
             );
@@ -337,7 +357,10 @@ const ProductDetails = (props) => {
         else if (mess === "top not found")
           alert("Không Tìm Thấy Người Cao Nhất");
         else if (mess === "product not found") alert("Không Tìm Thấy Sản Phẩm");
-        else alert("Từ Chối Thành Công, Đã Khóa Người Đứng đầu");
+        else {
+          addNotificationData(caoNhat.id_nguoi_dung, `Do Phát Hiện Gian Lận, Lượt đấu giá cho SP #<a href="/san-pham/${name}">${idSP}</a> đã bị khóa`,2)
+          alert("Từ Chối Thành Công, Đã Khóa Người Đứng đầu");
+        }
       })
       .catch((err) => {
         console.log(err.response.data);

@@ -7,6 +7,8 @@ import { API_URL } from "../../../config";
 import { Form } from "react-bootstrap";
 import "react-datetime/css/react-datetime.css";
 import Datetime from "react-datetime";
+import { addNotificationData } from "../../../model/notificationModel";
+import ShowMoreText from "react-show-more-text";
 
 /*
     {
@@ -123,6 +125,9 @@ const UserDetails = (props) => {
         .then((res) => {
           diemDuong += 1;
           setDiemDuong(diemDuong);
+          // send to 
+          addNotificationData(idNguoiDung, `Người Dùng # ${user.id_nguoi_dung} Đã Nhận Xét Bạn Rằng ${nhanXet}` ,1)
+
           alert("Nhận Xét Thành Công, Đã Nâng Điểm Người Dùng");
         })
         .catch((err) => alert("Có Lỗi Xảy Ra, Vui Lòng Thử Lại"));
@@ -140,6 +145,7 @@ const UserDetails = (props) => {
         .then((res) => {
           diemAm -= 1;
           setDiemAm(diemAm);
+          addNotificationData(idNguoiDung, `Người Dùng # ${user.id_nguoi_dung} Đã Nhận Xét Bạn Rằng ${nhanXet}` ,2)
           alert("Nhận Xét Thành Công, Đã Hạ Điểm Người Dùng");
         })
         .catch((err) => {

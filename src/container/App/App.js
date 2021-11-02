@@ -5,7 +5,18 @@ import Menu from '../../components/Menu';
 import Footer from '../../components/footer';
 import routes from '../../routes';
 
+//// firebase
+
+import { firebaseApp } from "../../config/firebase-config";
+
 class App extends Component {
+
+    constructor(props){
+        super(props);
+        // this.refDB = realtimeDB.ref();
+        // this.refItem = realtimeDB.ref().child("developers").child("1");
+    }
+
     render() {
         return (
             <Router>

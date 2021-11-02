@@ -3,6 +3,7 @@ import axios from "axios";
 import "./seller.css";
 import { API_URL } from "../../config";
 import { Link } from "react-router-dom";
+import { addNotificationData } from "../../model/notificationModel";
 
 const Order = (props) => {
   const [data, setData] = useState([]);
@@ -50,6 +51,10 @@ const Order = (props) => {
         }
       })
       .then((res) => {
+
+        // @realtime // giao hàng
+        addNotificationData(id_nguoi_mua, `SP #<a href="/san-pham/${id}">${id}</a> Sẽ được giao tới tay bạn trong 48h`,1)
+
         alert('Giao Thành Công')
         let idx = data.findIndex((dh) => dh.id_sp === id);
         data[idx].status = 2;
@@ -72,6 +77,8 @@ const Order = (props) => {
         }
       })
       .then((res) => {
+        addNotificationData(id_nguoi_mua, `SP #<a href="/san-pham/${id}">${id}</a> Đã Được Người Bán Hủy Vì Một Số Lý Do, Xin Thông Cảm`,2)
+
         alert('Hủy Đơn Hàng')
         let idx = data.findIndex((dh) => dh.id_sp === id);
         data[idx].status = 3;

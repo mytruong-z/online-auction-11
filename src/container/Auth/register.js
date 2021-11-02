@@ -4,7 +4,8 @@ import { useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { API_URL, CAPTCHA_SITE_KEY } from '../../config/index';
 import ReCAPTCHA from 'react-google-recaptcha';
-
+import { addNotificationData } from "../../model/notificationModel";
+import { getDatabase, ref, onValue, get, child } from "firebase/database";
 function Register () {
     const [ho_ten, setHoTen] = useState('');
     const [dia_chi, setDiaChi] = useState('');
@@ -61,6 +62,17 @@ function Register () {
                 return response;
             }).then(async function (response) {
                 alert('Đăng kí thành công');
+
+                const dbRef = ref(getDatabase());
+                
+                get(child(dbRef, `notification/${response.user.id_nguoi_dung}`)).then((snapshot) => {
+                  if (!snapshot.exists()) {
+                    addNotificationData(response.user.id_nguoi_dung,  "Chào Mừng Bạn Đã Đến Với Online Auction", 1)
+                  } 
+                }).catch((error) => {
+                  console.error(error);
+                });
+
                 history.push('/login');
             }).catch(function (error) {
                 alert('Sai mã OTP');

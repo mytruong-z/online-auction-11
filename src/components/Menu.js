@@ -3,8 +3,18 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import axios from "axios";
 import { pathSplitting } from "../utils/pathSplit";
-import { API_URL } from "../config";
+import { API_URL, SUCCESS, DANGER, PENDING } from "../config";
+
 //@LoanNgo, You can rely on this variable to check the login status: localStorage;
+//// firebase
+
+import { addNotificationData } from "../model/notificationModel";
+import { getDatabase, ref, onValue, get, child } from "firebase/database";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ReactHtmlParser from "react-html-parser";
+import ShowMoreText from "react-show-more-text";
 
 const Menu = (props) => {
   const [listDMPC, setListDMPC] = useState([]);
@@ -13,14 +23,19 @@ const Menu = (props) => {
   const [adminPage, setAdminPage] = useState(false);
   const history = useHistory();
   const location = useLocation();
+
+  //// firebase realtime
+  const [noiDungTB, setNoiDungTB] = useState([]);
+
   const handleLogOut = (e) => {
     e.preventDefault();
     setUserLogin(null);
     localStorage.removeItem("user");
-    history.push('/')
+    history.push("/");
     window.location.reload();
   };
   useEffect(() => {
+    let userLocal = null;
     axios
       .get(`${API_URL}/api/danh-muc/danh-sach-danh-muc-theo-cap?cap=0`)
       .then((res) => setListDMDT(res.data));
@@ -35,16 +50,59 @@ const Menu = (props) => {
 
     if (userLogin == null) {
       if (localStorage.getItem("user") != null) {
-        setUserLogin(JSON.parse(localStorage.getItem("user")));
+        userLocal = JSON.parse(localStorage.getItem("user"));
+        setUserLogin(userLocal);
+
+        //// query
+        const db = getDatabase();
+
+
+        const starCountRef = ref(db, "notification/" + userLocal.user.id_nguoi_dung);
+        onValue(starCountRef, (snapshot) => {
+          toast("Bạn Có Thông Báo Mới");
+          const val = snapshot.val();
+          // Object.keys(val).map((key, index) => {
+          //   console.log(val[key].content)
+          // });
+          setNoiDungTB(val);
+        });
       }
     }
     if (userLogin && userLogin.user.id_quyen_han === 3) {
       setAdminPage(true);
     }
   }, [userLogin, location.state]);
-  // console.log(userLogin)
+
+  const handleAddDataToFirebase = (e) => {
+    e.preventDefault();
+    console.log("Send Firebase");
+    addNotificationData(0, "Good Bye Ya", 1);
+  };
+
+  // import { getDatabase, ref, child, get } from "firebase/database";
+  // const dbRef = ref(getDatabase());
+  // get(child(dbRef, `users/${userId}`)).then((snapshot) => {
+  //   if (snapshot.exists()) {
+  //     console.log(snapshot.val());
+  //   } else {
+  //     console.log("No data available");
+  //   }
+  // }).catch((error) => {
+  //   console.error(error);
+  // });
+
+  // const handleGetDataToFirebase = e => {
+  //   e.preventDefault()
+  //   const db = getDatabase();
+  //   const starCountRef = ref(db, 'notification/' + 0 );
+  //   onValue(starCountRef, (snapshot) => {
+  //     const data = snapshot.val();
+  //   });
+  // }
+
   return (
     <div className="bg-light shadow">
+      <ToastContainer />
       <Nav
         defaultActiveKey="/home"
         as="ul"
@@ -56,10 +114,18 @@ const Menu = (props) => {
               src="/aution_logo.png"
               width="100"
               className="p-2"
+              ooo
               alt="logo"
             />
           </a>
+          <i class="fa fa-odnoklassnikio" aria-hidden="true"></i>
         </div>
+
+        {/* test button write */}
+        {/* <button onClick={(e) => handleAddDataToFirebase(e)}>Thêm Firebase</button> */}
+        {/* test button read */}
+        {/* <button onClick={e => handleGetDataToFirebase(e)}>đọc Firebase</button> */}
+
         <div className="d-flex">
           {!adminPage ? (
             <>
@@ -145,7 +211,110 @@ const Menu = (props) => {
                     key={0}
                     className="my-li align-items-center d-grid nav-item px-2"
                   >
-                    <i className="fa fa-bell-o" aria-hidden="true" />
+                    <button
+                      className="btn"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i
+                        className="fa fa-bell-o"
+                        style={{ fontSize: 22 }}
+                        aria-hidden="true"
+                      />
+                    </button>
+
+                    {/*  Notification */}
+
+                    <div
+                      class="dropdown-menu noti-menu"
+                      aria-labelledby="notificationBtn"
+                    >
+                      <div>Thông Báo</div>
+
+                      { noiDungTB !== null && Object.keys(noiDungTB).map((key, index) => {
+                        return (
+                          <>
+                            <a className="row dropdown-item noti-item">
+                              <div class="col-3">
+                                <img className="img-fluid" src="/user.png" />
+                              </div>
+                              <div class="col-9">
+                                {noiDungTB[key].type === SUCCESS.id ? (
+                                  <>
+                                    <span className="text-success">
+                                      {SUCCESS.name}
+                                    </span>
+                                    <p class="noti-content">
+                                    <ShowMoreText
+                          /* Default options */
+                          lines={3}
+                          more="Show more"
+                          less="Show less"
+                          className="content-css"
+                          anchorClass="my-anchor-css-class"
+                          expanded={false}
+                          truncatedEndingComponent={"... "}
+                        >
+                          {ReactHtmlParser(noiDungTB[key].content)}
+                        </ShowMoreText>
+                                    </p>
+                                  </>
+                                ) : (
+                                  ""
+                                )}
+                                {noiDungTB[key].type === DANGER.id ? (
+                                  <>
+                                    <span className="text-danger">
+                                      {DANGER.name}
+                                    </span>
+                                    <p class="noti-content">
+                                    <ShowMoreText
+                          /* Default options */
+                          lines={3}
+                          more="Show more"
+                          less="Show less"
+                          className="content-css"
+                          anchorClass="my-anchor-css-class"
+                          expanded={false}
+                          truncatedEndingComponent={"... "}
+                        >
+                          {ReactHtmlParser(noiDungTB[key].content)}
+                        </ShowMoreText>
+                                    </p>
+                                  </>
+                                ) : (
+                                  ""
+                                )}
+                                {noiDungTB[key].type === PENDING.id ? (
+                                  <>
+                                    <span className="text-warning">
+                                      {PENDING.name}
+                                    </span>
+                                    <p class="noti-content">
+                                    <ShowMoreText
+                          /* Default options */
+                          lines={3}
+                          more="Show more"
+                          less="Show less"
+                          className="content-css"
+                          anchorClass="my-anchor-css-class"
+                          expanded={false}
+                          truncatedEndingComponent={"... "}
+                        >
+                          {ReactHtmlParser(noiDungTB[key].content)}
+                        </ShowMoreText>
+                                    </p>
+                                  </>
+                                ) : (
+                                  ""
+                                )}
+                              </div>
+                            </a>
+                          </>
+                        );
+                      })}
+                    </div>
                   </li>
                   <li key={1}>
                     <div className="dropdown show">

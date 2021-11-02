@@ -29,7 +29,6 @@ a {
 }
 
 .nav .nav-item:hover a {
-    color: #f37164 !important;
     text-decoration: none;
 }
 
@@ -273,3 +272,44 @@ a {
 .mw-70px {
     min-width: 90px;
 }
+
+.noti-menu{
+    left: unset;
+    width: 260px;
+    padding: 0;
+  }
+  
+  .num-noti{
+    background: red;
+      border: none;
+      border-radius: 50%;
+      font-size: 11px;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 0;
+      margin-left: 10px;
+      margin-top: 10px;
+      color: #fff;
+  }
+  .noti-item{
+    background-color: rgb(217, 230, 253);
+    word-wrap: break-word;
+    white-space: initial;
+    font-size: 12px;
+    display: flex !important;
+    padding: 0;
+    margin-right: 0; 
+    margin-left: 0;
+  }
+  .noti-item:not(:first-child){
+    border-top: 1px solid black;
+  }
+  .row{
+      margin-left: 0 !important;
+  }
+  .noti-content{
+      word-wrap: break-word;
+      white-space: pre-line;
+      font-size: 10px;
+  }
