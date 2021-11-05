@@ -11,3 +11,7 @@ Bider 02
 
 1. Firebase
 2. Checkbug
+
+/list-user-upgrade
+/accept-upgrade
+/decline-upgrade

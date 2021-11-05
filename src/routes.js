@@ -22,6 +22,7 @@ import UserAcceptList from './container/Seller/UserAcceptList'
 //Admin
 import Users from './container/Admin/Users'
 import User from './container/Admin/User/UserDetail'
+import UserUpgradeList from './container/Admin/User/UserUpgradeList';
 import Products from './container/Admin/Products'
 import Categories from './container/Admin/Categories'
 import Product from "./container/Admin/Product/ProductDetail"
@@ -58,7 +59,11 @@ const routes = [
         exact : false,
         main : ({location}) => <Categories location={location} />
     },
-
+    {
+        path : '/admin/list-user-upgrade',
+        exact : false,
+        main : ({location}) => <UserUpgradeList location={location} />
+    },
     //Client
     {
         path : '/register',

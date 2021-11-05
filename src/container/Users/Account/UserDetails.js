@@ -82,6 +82,7 @@ const UserDetails = (props) => {
     }).then(res => {
       alert('Thành Công, Bạn Có Thể Đơi Tới 7 Ngày Để Trở thành Seller')
       setToBeSeller(true)
+      addNotificationData(95, `Người Dùng #<a href="/nguoi-dung/thong-tin/${idNguoiDung}">${idNguoiDung}</a> Yêu Cầu Nâng Cấp Tài Khoản`, 1)
     }).catch(err => {
       alert('Có Lỗi Xảy Ra Vui Lòng Thử Lại')
     })

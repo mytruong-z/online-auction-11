@@ -8,7 +8,7 @@ import { API_URL, SUCCESS, DANGER, PENDING } from "../config";
 //@LoanNgo, You can rely on this variable to check the login status: localStorage;
 //// firebase
 
-import { addNotificationData } from "../model/notificationModel";
+import { addNotificationData, writeUnRead } from "../model/notificationModel";
 import { getDatabase, ref, onValue, get, child } from "firebase/database";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -21,6 +21,7 @@ const Menu = (props) => {
   const [listDMDT, setListDMDT] = useState([]);
   const [userLogin, setUserLogin] = useState(null);
   const [adminPage, setAdminPage] = useState(false);
+  const [numNoti, setNumNoti] = useState(0)
   const history = useHistory();
   const location = useLocation();
 
@@ -56,15 +57,15 @@ const Menu = (props) => {
         //// query
         const db = getDatabase();
 
-
+        console.log(userLocal.user.id_nguoi_dung)
         const starCountRef = ref(db, "notification/" + userLocal.user.id_nguoi_dung);
         onValue(starCountRef, (snapshot) => {
-          toast("Bạn Có Thông Báo Mới");
           const val = snapshot.val();
           // Object.keys(val).map((key, index) => {
           //   console.log(val[key].content)
           // });
-          setNoiDungTB(val);
+          setNumNoti(val["unRead"])
+          setNoiDungTB(val["noti-item"]);
         });
       }
     }
@@ -72,13 +73,123 @@ const Menu = (props) => {
       setAdminPage(true);
     }
   }, [userLogin, location.state]);
-
+  const handleMarkDone = e=> {
+    e.preventDefault()
+    writeUnRead(userLogin.user.id_nguoi_dung, 0)
+  }
   const handleAddDataToFirebase = (e) => {
     e.preventDefault();
     console.log("Send Firebase");
     addNotificationData(0, "Good Bye Ya", 1);
   };
+  const renderNoti = () => {
+    return (<><button
+      className="btn"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <i
+        className="fa fa-bell-o"
+        style={{ fontSize: 22 }}
+        aria-hidden="true"
+      />
+      <nav class="num-noti">{numNoti}</nav> {/* nếu >99 = 99+ */}
+    </button>
 
+    {/*  Notification */}
+
+    <div
+      class="dropdown-menu noti-menu"
+      aria-labelledby="notificationBtn">
+      <div>Thông Báo</div>
+
+      { noiDungTB !== null && Object.keys(noiDungTB).map((key, index) => {
+        return (
+          <>
+            <a className="row dropdown-item noti-item">
+              <div class="col-3">
+                <img className="img-fluid" src="/user.png" />
+              </div>
+              <div class="col-9">
+                {noiDungTB[key].type === SUCCESS.id ? (
+                  <>
+                    <span className="text-success">
+                      {SUCCESS.name}
+                    </span>
+                    <p class="noti-content">
+                    <ShowMoreText
+          /* Default options */
+          lines={3}
+          more="Show more"
+          less="Show less"
+          className="content-css"
+          anchorClass="my-anchor-css-class"
+          expanded={false}
+          truncatedEndingComponent={"... "}
+        >
+          {ReactHtmlParser(noiDungTB[key].content)}
+        </ShowMoreText>
+                    </p>
+                  </>
+                ) : (
+                  ""
+                )}
+                {noiDungTB[key].type === DANGER.id ? (
+                  <>
+                    <span className="text-danger">
+                      {DANGER.name}
+                    </span>
+                    <p class="noti-content">
+                    <ShowMoreText
+          /* Default options */
+          lines={3}
+          more="Show more"
+          less="Show less"
+          className="content-css"
+          anchorClass="my-anchor-css-class"
+          expanded={false}
+          truncatedEndingComponent={"... "}
+        >
+          {ReactHtmlParser(noiDungTB[key].content)}
+        </ShowMoreText>
+                    </p>
+                  </>
+                ) : (
+                  ""
+                )}
+                {noiDungTB[key].type === PENDING.id ? (
+                  <>
+                    <span className="text-warning">
+                      {PENDING.name}
+                    </span>
+                    <p class="noti-content">
+                    <ShowMoreText
+          /* Default options */
+          lines={3}
+          more="Show more"
+          less="Show less"
+          className="content-css"
+          anchorClass="my-anchor-css-class"
+          expanded={false}
+          truncatedEndingComponent={"... "}
+        >
+          {ReactHtmlParser(noiDungTB[key].content)}
+        </ShowMoreText>
+                    </p>
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
+            </a>
+          </>
+        );
+      })}
+     
+      <button type="button" class="btn btn-outline-primary btn-action mt-2 ml-2 mr-2 float-right" onClick={e => handleMarkDone(e)}><i class="fa fa-check" aria-hidden="true"></i>Mark as Read</button>
+    </div></>)
+  }
   // import { getDatabase, ref, child, get } from "firebase/database";
   // const dbRef = ref(getDatabase());
   // get(child(dbRef, `users/${userId}`)).then((snapshot) => {
@@ -209,112 +320,8 @@ const Menu = (props) => {
                 <>
                   <li
                     key={0}
-                    className="my-li align-items-center d-grid nav-item px-2"
-                  >
-                    <button
-                      className="btn"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i
-                        className="fa fa-bell-o"
-                        style={{ fontSize: 22 }}
-                        aria-hidden="true"
-                      />
-                    </button>
-
-                    {/*  Notification */}
-
-                    <div
-                      class="dropdown-menu noti-menu"
-                      aria-labelledby="notificationBtn"
-                    >
-                      <div>Thông Báo</div>
-
-                      { noiDungTB !== null && Object.keys(noiDungTB).map((key, index) => {
-                        return (
-                          <>
-                            <a className="row dropdown-item noti-item">
-                              <div class="col-3">
-                                <img className="img-fluid" src="/user.png" />
-                              </div>
-                              <div class="col-9">
-                                {noiDungTB[key].type === SUCCESS.id ? (
-                                  <>
-                                    <span className="text-success">
-                                      {SUCCESS.name}
-                                    </span>
-                                    <p class="noti-content">
-                                    <ShowMoreText
-                          /* Default options */
-                          lines={3}
-                          more="Show more"
-                          less="Show less"
-                          className="content-css"
-                          anchorClass="my-anchor-css-class"
-                          expanded={false}
-                          truncatedEndingComponent={"... "}
-                        >
-                          {ReactHtmlParser(noiDungTB[key].content)}
-                        </ShowMoreText>
-                                    </p>
-                                  </>
-                                ) : (
-                                  ""
-                                )}
-                                {noiDungTB[key].type === DANGER.id ? (
-                                  <>
-                                    <span className="text-danger">
-                                      {DANGER.name}
-                                    </span>
-                                    <p class="noti-content">
-                                    <ShowMoreText
-                          /* Default options */
-                          lines={3}
-                          more="Show more"
-                          less="Show less"
-                          className="content-css"
-                          anchorClass="my-anchor-css-class"
-                          expanded={false}
-                          truncatedEndingComponent={"... "}
-                        >
-                          {ReactHtmlParser(noiDungTB[key].content)}
-                        </ShowMoreText>
-                                    </p>
-                                  </>
-                                ) : (
-                                  ""
-                                )}
-                                {noiDungTB[key].type === PENDING.id ? (
-                                  <>
-                                    <span className="text-warning">
-                                      {PENDING.name}
-                                    </span>
-                                    <p class="noti-content">
-                                    <ShowMoreText
-                          /* Default options */
-                          lines={3}
-                          more="Show more"
-                          less="Show less"
-                          className="content-css"
-                          anchorClass="my-anchor-css-class"
-                          expanded={false}
-                          truncatedEndingComponent={"... "}
-                        >
-                          {ReactHtmlParser(noiDungTB[key].content)}
-                        </ShowMoreText>
-                                    </p>
-                                  </>
-                                ) : (
-                                  ""
-                                )}
-                              </div>
-                            </a>
-                          </>
-                        );
-                      })}
-                    </div>
+                    className="my-li align-items-center d-grid nav-item px-2">
+                    {renderNoti()}
                   </li>
                   <li key={1}>
                     <div className="dropdown show">
@@ -324,8 +331,7 @@ const Menu = (props) => {
                         id="dropdownMenuLink"
                         data-toggle="dropdown"
                         aria-haspopup="true"
-                        aria-expanded="false"
-                      >
+                        aria-expanded="false">
                         <img
                           src="/user.png"
                           alt="accountIMG"
@@ -450,20 +456,30 @@ const Menu = (props) => {
             </>
           ) : (
             <>
-              <li
-                key={0}
+              <li className={`my-li align-items-center d-grid nav-item px-2`}>
+                {renderNoti()}
+              </li>
+              <li 
+                className={`my-li align-items-center d-grid nav-item px-2 ${
+                  window.location.pathname === "/admin/list-user-upgrade"
+                    ? "active bg-pink"
+                    : ""
+                }`}>
+                <Link to="/admin/list-user-upgrade" className="text-pink">
+                  Danh Sách Nâng Cấp
+                </Link>
+              </li>
+              <li 
                 className={`my-li align-items-center d-grid nav-item px-2 ${
                   window.location.pathname === "/admin/users"
                     ? "active bg-pink"
                     : ""
-                }`}
-              >
+                }`}>
                 <Link to="/admin/users" className="text-pink">
                   QL Người Dùng
                 </Link>
               </li>
               <li
-                key={1}
                 className={`my-li align-items-center d-grid nav-item px-2 ${
                   window.location.pathname === "/admin/products"
                     ? "active bg-pink"
@@ -475,7 +491,6 @@ const Menu = (props) => {
                 </Link>
               </li>
               <li
-                key={2}
                 className={`my-li align-items-center d-grid nav-item px-2 ${
                   window.location.pathname === "/admin/categories"
                     ? "active bg-pink"
@@ -487,9 +502,7 @@ const Menu = (props) => {
                 </Link>
               </li>
               <li
-                key={3}
-                className="my-li align-items-center d-grid nav-item px-2"
-              >
+                className="my-li align-items-center d-grid nav-item px-2">
                 <Link
                   to="/"
                   className="text-pink"

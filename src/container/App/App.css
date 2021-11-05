@@ -301,10 +301,10 @@ a {
     padding: 0;
     margin-right: 0; 
     margin-left: 0;
+    border-top: 1px solid black !important;
+    border-bottom: 1px solid black !important;
   }
-  .noti-item:not(:first-child){
-    border-top: 1px solid black;
-  }
+ 
   .row{
       margin-left: 0 !important;
   }
