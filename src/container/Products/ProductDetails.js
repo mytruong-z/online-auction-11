@@ -287,19 +287,32 @@ const ProductDetails = (props) => {
         let isWin = res.data.isWin;
         let messeage = res.data.messeage;
         if (isWin) {
-          let gia_ht = res.data.gia_hien_tai;
-          setGiaHienTai(gia_ht);
+          if(messeage === "get product"){
 
-          ///  @realtime  /// send to nguoi ban, nguoi ra gia, nguoi giu gia
-           // nguoi-ban
-          addNotificationData(product.nguoi_ban.id, `Chúc Mừng Bạn Với SP #<a href="/san-pham/${name}">${idSP}</a> được đặt với giá: ${giaDat}`,1)
-          // nguoi-giu gia - neu co 
-          if(caoNhat !== null &&
-            caoNhat !== undefined &&
-            lodash.isEmpty(caoNhat) === false){ 
-            if(idLogin !== caoNhat.id_nguoi_dung) addNotificationData(caoNhat.id_nguoi_dung, `Sản Phẩm Có Mã #<a href="/san-pham/${name}">${idSP}</a> đã được đấu giá cao hơn`,2)
+                // @realtime nguoi-ban
+                addNotificationData(product.nguoi_ban.id, `Chúc Mừng Bạn SP #<a href="/san-pham/${name}">${idSP}</a> được Mua Đứt với giá: ${product.gia_mua_ngay}`,1)
+
+                alert(
+                  "Xin Cảm Ơn Bạn Đã Mua Sản Phẩm, Sản Phẩm Sẽ Bị Khóa Lại Và Người Bán Sẽ Xử Lí Đơn Hàng Của Bạn"
+                );
+                history.push("/");
+          }else{
+            let gia_ht = res.data.gia_hien_tai;
+            setGiaHienTai(gia_ht);
+  
+            ///  @realtime  /// send to nguoi ban, nguoi ra gia, nguoi giu gia
+             // nguoi-ban
+            addNotificationData(product.nguoi_ban.id, `Chúc Mừng Bạn Với SP #<a href="/san-pham/${name}">${idSP}</a> được đặt với giá: ${giaDat}`,1)
+            // nguoi-giu gia - neu co 
+            if(caoNhat !== null &&
+              caoNhat !== undefined &&
+              lodash.isEmpty(caoNhat) === false){ 
+              if(idLogin !== caoNhat.id_nguoi_dung) addNotificationData(caoNhat.id_nguoi_dung, `Sản Phẩm Có Mã #<a href="/san-pham/${name}">${idSP}</a> đã được đấu giá cao hơn`,2)
+            }
+            alert("Chúc Mừng Bạn Đã Dành Vị Trí Quán Quân");
           }
-          alert("Chúc Mừng Bạn Đã Dành Vị Trí Quán Quân");
+
+          
         } else {
           if (messeage === "lose. need higher price") {
             alert("Để Đấu Giá Được Sản Phẩm Này, Bạn Cần Một Mức Giá Cao Hơn");
