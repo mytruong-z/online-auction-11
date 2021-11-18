@@ -1,4 +1,4 @@
-import "../user.css";
+﻿import "../user.css";
 import React, { useState, useEffect } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import axios from "axios";
@@ -34,7 +34,7 @@ const UserDetails = (props) => {
   let [diemAm, setDiemAm] = useState(0);
 
   const [token, setToken] = useState(null);
-  const [isUserLogin, setIsUserLogin] = useState(false);
+  const [isUserLogin, setIsUserLogin] = useState(null);
 
   const [isDuong, setIsDuong] = useState(true);
   const [nhanXet, setNhanXet] = useState("");
@@ -43,10 +43,12 @@ const UserDetails = (props) => {
     let userLocal = null;
     if (localStorage.user) {
       userLocal = JSON.parse(localStorage.user);
+      if(userLocal != undefined){
       setToken(userLocal.token);
       if (parseInt(userLocal.user.id_nguoi_dung) === parseInt(idNguoiDung))
         setIsUserLogin(true);
-    } 
+      else
+        setIsUserLogin(false);
 
     axios.get(`${API_URL}/api/tai-khoan/yeu-cau-nang-cap/tim-kiem?quyen_han=2`,{
       headers: {
@@ -59,7 +61,8 @@ const UserDetails = (props) => {
         setToBeSeller(false)
       }
     })
-
+	}
+    }
     axios
       .get(`${API_URL}/api/tai-khoan/details?id=${idNguoiDung}`)
       .then((res) => {
@@ -101,7 +104,9 @@ const UserDetails = (props) => {
           "x-access-token": token
         }
       })
-      .then((res) => {})
+      .then((res) => {
+        alert("Update Successful")
+      })
       .catch((err) => alert("Có Gì Đó Lỗi Xảy Ra"));
   };
 
@@ -232,8 +237,9 @@ const UserDetails = (props) => {
                       <h5 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">
                         Chức Năng
                       </h5>
-                      {isUserLogin === false ? (
+                      { isUserLogin === null ?  <div><span style={{ fontWeight: 700, color: "red" }}> ⚠ Để Nhận Xét Người dùng này vui lòng đăng nhập</span><div><a class="btn btn-primary m-2" href="/login">Đăng Nhập</a><a class="btn btn-success" href="/register">Đăng Kí</a></div></div>  :  isUserLogin === false ? (
                         <>
+			  
                           <button
                             type="button"
                             className="btn btn-primary"
@@ -242,7 +248,7 @@ const UserDetails = (props) => {
                           >
                             Ghi Nhận Xét
                           </button>
-
+			  
                           <div
                               className="modal fade"
                             id="modalNhanXet"
@@ -406,7 +412,7 @@ const UserDetails = (props) => {
                                             <Datetime
                                               value={birthDay}
                                               onChange={(date) => {
-                                                setBirthDay(date);
+                                                setBirthDay(date.toISOString().split("T")[0]);
                                               }}
                                             />
                                           </Form.Group>
