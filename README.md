@@ -15,3 +15,7 @@ Bider 02
 /list-user-upgrade
 /accept-upgrade
 /decline-upgrade
+
+localhost:5000/api/dau-gia/san-pham/dang-tham-gia
+localhost:5000/api/tai-khoan/san-pham/da-thang
+localhost:5000/api/nguoi-ban/san-pham/con-ton-tai

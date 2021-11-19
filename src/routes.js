@@ -29,7 +29,8 @@ import Product from "./container/Admin/Product/ProductDetail"
 
 import Order from './container/Seller/Order';
 import ProductControl from './container/Seller/ProductList';
-
+import UserProductAuction from './container/Users/UserProductAuction'
+import UserProductWon from './container/Users/UserProductWon'
 
 
 const routes = [
@@ -114,6 +115,16 @@ const routes = [
         path: '/nguoi-dung/lich-su-dau-gia',
         exact: false,
         main: ({location}) => <UserAuctionHistory location={location} />
+    },
+    {
+        path: '/nguoi-dung/danh-sach-sp-dang-dau-gia',
+        exact: false,
+        main: ({location}) => <UserProductAuction location={location} />
+    },
+    {
+        path: '/nguoi-dung/danh-sach-sp-da-thang',
+        exact: false,
+        main: ({location}) => <UserProductWon location={location} />
     },
     {
         path: '/nguoi-dung/nhan-xet-cua-toi',

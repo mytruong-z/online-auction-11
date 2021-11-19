@@ -366,10 +366,23 @@ const Menu = (props) => {
 
                         <Link
                           className="dropdown-item"
-                          to="/nguoi-dung/danh-gia-ve-toi"
-                        >
+                          to="/nguoi-dung/danh-gia-ve-toi">
                           <i className="fa fa-bar-chart" aria-hidden="true" />
                           Đánh Giá Về Tôi
+                        </Link>
+
+                        <Link
+                          className="dropdown-item"
+                          to="/nguoi-dung/danh-sach-sp-dang-dau-gia">
+                          <i className="fa fa-bar-chart" aria-hidden="true" />
+                          Danh Sách SP Đang Đấu Giá
+                        </Link>
+
+                        <Link
+                          className="dropdown-item"
+                          to="/nguoi-dung/danh-sach-sp-da-thang">
+                          <i className="fa fa-bar-chart" aria-hidden="true" />
+                          Danh Sách SP Đã Thắng
                         </Link>
 
                         <Link

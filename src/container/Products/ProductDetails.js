@@ -83,10 +83,16 @@ const ProductDetails = (props) => {
     axios
       .get(`${API_URL}/api/san-pham/details/${name}`)
       .then((res) => {
+        let end_date = new Date(res.data.end_date);
+        let now = new Date()
+        if(end_date < now){
+            alert("Sản Phẩm Hiện Tại Đã Có Người Mua Hoặc Đã Kết Thúc");
+            history.push("/");
+        }
         if (userLocal !== null) {
           if (
             res.data.isLocked === 1 &&
-            userLocal.user.id_nguoi_dung !== res.data.nguoi_ban.id
+            userLocal.user.id_nguoi_dung !== res.data.nguoi_ban.id 
           ) {
             alert("Sản Phẩm Hiện Tại Đã Có Người Mua Hoặc Đã Kết Thúc");
             history.push("/");
@@ -286,6 +292,9 @@ const ProductDetails = (props) => {
       .then((res) => {
         let isWin = res.data.isWin;
         let messeage = res.data.messeage;
+        let gia_ht = res.data.gia_hien_tai;
+        console.log(gia_ht)
+        setGiaHienTai(gia_ht);
         if (isWin) {
           if(messeage === "get product"){
 
@@ -297,8 +306,7 @@ const ProductDetails = (props) => {
                 );
                 history.push("/");
           }else{
-            let gia_ht = res.data.gia_hien_tai;
-            setGiaHienTai(gia_ht);
+            
   
             ///  @realtime  /// send to nguoi ban, nguoi ra gia, nguoi giu gia
              // nguoi-ban
@@ -520,7 +528,7 @@ const ProductDetails = (props) => {
                 <p className="gia-goc">
                   Giá Mua Ngay: {product.gia_mua_ngay} $
                 </p>
-                <p>Giá Đặt Thấp Nhất: {giaHienTai + product.buoc_gia} $</p>
+                <p>Giá Đặt Thấp Nhất: {parseFloat(parseFloat(giaHienTai) + parseFloat(product.buoc_gia))} $</p>
 
                 <p>
                   <i className="fa fa-user" aria-hidden="true"></i> Người Đặt
